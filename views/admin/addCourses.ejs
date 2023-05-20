@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin/courses.css" />
+
+    <title>Add courses</title>
+</head>
+<body>
+    <%= include("./nav.ejs") %>
+<main>
+    <div class="container">
+        <div class="inner">
+          <h2 id="bigTitle">Add Course</h2>
+          <input type="text" class="field" placeholder="Course's Name" />
+          <input type="number" class="field" placeholder="Number of students" /> 
+          <select class="field" name="cars" placeholder="Instructor's Name">
+            <option disabled selected>Instructor's name</option>
+            <option> Essam</option>
+            <option >Ashraf</option>
+            <option >Walaa</option>
+            <option >Fatma</option>
+            <option >No Instructor</option>
+
+          </select>
+          <textarea placeholder="Course's Description" class="field"></textarea>
+          <button class="btn">Add</button>
+        </div>
+      </div>
+    </main>
+</body>
+</html>
+
+<!-- radio butoon fall , summer , spring bel tarteeb  -->
