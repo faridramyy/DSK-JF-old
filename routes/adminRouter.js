@@ -53,4 +53,37 @@ router.get("/courses", (req, res) => {
   res.render("admin/courses");
 });
 
+router.post("/courses", async (req, res) => {
+  const {
+    Name,
+      NumofStudents,
+      Instructor,
+      Description ,
+      role = "course",
+  } = req.body;
+  try {
+    if (await CourseModel.findOne({ Name })) {
+     res.send({ err: "Course Already exists " });
+} else {
+      
+       const newCourse = new CourseModel({
+        role,
+        Name,
+      NumofStudents,
+      Instructor,
+      Description ,
+      
+      });
+      newCourse.save();
+
+      res.send({ msg: "done" });
+    }
+  } catch (err) {
+    res.send({ err: "Database error" });
+    console.log(err);
+  }
+
+});
+
+
 export default router;
