@@ -4,15 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/admin/nav.css">
-    <link rel="stylesheet" href="/css/admin/users.css">
+    <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/admin/users.css" />
     <title>Document</title>
   </head>
   <body>
     <%- include("./nav.ejs") %>
     <main>
-      <button>+ New User</button>
-      <section>
+      <header>
+        <h1>Users</h1>
+        <button class="new-user" id="newUserBtn">+ New User</button>
+      </header>
+      <section class="add-new-student" id="addNewStudent">
         <p style="color: red" id="error">error</p>
         <form method="post" id="form" action="/signup/post">
           <div>
@@ -55,12 +58,53 @@
               name="password"
             />
           </div>
+          <div class="role">
+            <div>
+              <input type="radio" id="student" name="role" value="Student" />
+              <label for="student">Student</label>
+            </div>
+            <div>
+              <input
+                checked
+                type="radio"
+                id="instructor"
+                name="role"
+                value="Instructor"
+              />
+              <label for="instructor">Instructor</label><br />
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="teachingAssistant"
+                name="role"
+                value="Teaching Assistant"
+              />
+              <label for="teachingAssistant">Teaching Assistant</label>
+            </div>
+          </div>
           <div>
-            <button type="submit">Submit</button>
+            <button type="submit" id="submit">Submit</button>
           </div>
         </form>
       </section>
-
     </main>
+    <script>
+      const menu = document.getElementById("addNewStudent");
+      const newUserBtn = document.getElementById("newUserBtn");
+
+      newUserBtn.addEventListener("click", () => {
+        menu.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (e) {
+        if (
+          menu.classList.contains("active") &&
+          !menu.contains(e.target) &&
+          !newUserBtn.contains(e.target)
+        )
+          menu.classList.remove("active");
+      });
+    </script>
   </body>
 </html>
