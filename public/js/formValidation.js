@@ -40,6 +40,7 @@ function passwordValidation(input) {
 }
 
 export function validateForm(form) {
+  return false; //turn off validation
   let errorMessage;
   let pwd;
   for (let input of Array.from(form.elements)) {
