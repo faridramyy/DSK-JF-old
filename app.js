@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import session from "express-session";
 import resgisterRouter from "./routes/registerRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 import { isAuthenticated } from "./middlewares/userAuth.js";
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(express.json()); // parse request body to JSON
 app.use(express.urlencoded({ extended: true })); // to read data from re.body
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "I Love U",
     resave: false,
     saveUninitialized: true,
   })
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(resgisterRouter);
+app.use("/admin", isAuthenticated, adminRouter);
 
 app.get("/home", isAuthenticated, function (req, res) {
   res.send("home");
@@ -42,7 +44,6 @@ app.get("/logout", function (req, res, next) {
     });
   });
 });
-
 
 mongoose
   .connect(process.env.mongooDbUrl)
