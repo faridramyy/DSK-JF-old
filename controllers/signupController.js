@@ -6,7 +6,14 @@ const signup_get = (req, res) => {
 };
 
 const signup_post = async (req, res) => {
-  const { firstName, lastName, username, email, password } = req.body;
+  const {
+    firstName,
+    lastName,
+    username,
+    email,
+    password,
+    role = "student",
+  } = req.body;
   try {
     if (await UserModel.findOne({ email })) {
       res.send({ err: "Email is Taken" });
@@ -17,7 +24,7 @@ const signup_post = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       const newUser = new UserModel({
-        role: "student",
+        role,
         firstName,
         lastName,
         username,
