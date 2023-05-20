@@ -13,11 +13,13 @@
     <main>
       <header>
         <h1>Users</h1>
-        <button class="new-user" id="newUserBtn">+ New User</button>
+        <button class="new-user" id="newUserBtn" type="button">
+          + New User
+        </button>
       </header>
       <section class="add-new-student" id="addNewStudent">
-        <p style="color: red" id="error">error</p>
-        <form method="post" id="form" action="/signup/post">
+        <p style="color: red" id="error"></p>
+        <form method="post" id="form" action="/admin/users">
           <div>
             <label for="firstName">First Name : </label>
             <input
@@ -89,7 +91,7 @@
         </form>
       </section>
     </main>
-    <script>
+    <script type="module">
       const menu = document.getElementById("addNewStudent");
       const newUserBtn = document.getElementById("newUserBtn");
 
@@ -97,14 +99,30 @@
         menu.classList.toggle("active");
       });
 
-      document.addEventListener("click", function (e) {
+      document.addEventListener("dblclick", function (e) {
         if (
           menu.classList.contains("active") &&
           !menu.contains(e.target) &&
           !newUserBtn.contains(e.target)
-        )
+        ) {
           menu.classList.remove("active");
+          document.getElementById("form").reset();
+        }
       });
+
+      // << Start >> form Validation
+      import { validateForm } from "../js/formValidation.js";
+      const form = document.getElementById("form");
+      const error = document.getElementById("error");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (validateForm(form)) error.innerHTML = validateForm(form);
+        else {
+          error.innerHTML = "";
+          e.target.submit();
+        }
+      });
+      // << End >> form Validation
     </script>
   </body>
 </html>

@@ -5,6 +5,7 @@ import session from "express-session";
 import resgisterRouter from "./routes/registerRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import { isAuthenticated } from "./middlewares/userAuth.js";
+import { adminIsAuthenticated } from "./middlewares/adminAuth.js";
 dotenv.config();
 
 const app = express();
@@ -17,7 +18,7 @@ app.use(
   session({
     secret: "I Love U",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true,  
   })
 );
 
@@ -28,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(resgisterRouter);
-app.use("/admin", isAuthenticated, adminRouter);
+app.use("/admin", adminIsAuthenticated, adminRouter);
 
 app.get("/home", isAuthenticated, function (req, res) {
   res.send("home");
