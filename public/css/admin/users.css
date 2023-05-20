@@ -137,3 +137,137 @@ header {
   background-color: rgb(16, 150, 21);
   box-shadow: none;
 }
+
+/* User dashboard */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+.table-head {
+  display: flex;
+  justify-content: space-between;
+}
+.table{
+  position: relative;
+  justify-content: left;
+}
+.tableBorder {
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 0;
+}
+table {
+  font-family: arial, sans-serif;
+  border-radius: 20px;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px;
+  margin-left: 0;
+}
+td,
+th {
+  border-bottom: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+ .user input{
+  border: none;
+  font-size: 16px;
+}
+.search-bar {
+  border: 1.5px solid #898686;
+  border-radius: 5px;
+  width: 240px;
+  height: 40px;
+  position: relative;
+}
+.search-bar input {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 80%;
+  outline: none;
+  border: none;
+}
+.search-bar i {
+  padding: 11px;
+}
+button {
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+}
+button i {
+  color: #4b4a4a;
+  font-size: 30px;
+}
+
+button:hover {
+  background: #b9b8b843;
+  border-radius: 60px;
+  transition: 3ms ease-in;
+}
+.status {
+  width: 70px;
+  height: 20px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.active {
+  color: rgb(5, 163, 5);
+  background-color: rgba(26, 139, 26, 0.29);
+}
+.banned {
+  color: rgb(162, 4, 4);
+  background-color: rgba(248, 118, 118, 0.542);
+}
+
+.menu {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu .icon {
+  cursor: pointer;
+}
+.menu-link {
+  position: absolute;
+  top: calc(100%+10px);
+  right: 0;
+  width: 100px;
+  background: rgb(245, 243, 243);
+  border-radius: 10px;
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all.3s ease;
+}
+.menu-link.show {
+  top: 100%;
+  opacity: 1;
+  pointer-events: visible;
+}
+.menu-link a,
+.menu-link li {
+  display: block;
+  padding: 6px;
+  font-size: 14px;
+  color: rgb(55, 54, 54);
+  transition: all.3s ease;
+  text-decoration: none;
+  list-style: none;
+  color: rgb(74, 74, 245);
+  font-size: 14px;
+}
+.menu-link a:hover {
+  color: #4b4a4a;
+}
+
