@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- koki-->
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- koki-->
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/users.css" />
     <title>Document</title>
@@ -90,9 +101,73 @@
           </div>
         </form>
       </section>
+
       <section class="table">
-        <!-- koki -->
-        
+        <!-- ----------------------koki ----------------------->
+        <section>
+          <div class="tableBorder">
+            <table>
+              <tr>
+                <th colspan="6">
+                  <div class="table-head">
+                    <div class="search-bar">
+                      <i class="fas fa-search"></i>
+                      <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search users..."
+                      />
+                    </div>
+                    <button><i class="bx bx-filter"></i></button>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <input type="checkbox" id="checkboxAll" />
+                </th>
+                <th>Name <i class="fa-solid fa-arrow-up-long"></i></th>
+                <th>Role</th>
+                <th>Email</th>
+                <th colspan="2">Status</th>
+              </tr>
+
+              <% users.forEach(item => { %>
+              <tr class="user">
+                <td>
+                  <input type="checkbox" class="chkboxName" id="checkbox1" />
+                </td>
+                <td>
+                  <img src="" alt="" />
+                  <input type="text" value="<%=item.firstName%>" readonly />
+                </td>
+                <td>
+                  <input type="text" value="<%= item.role %>" readonly />
+                </td>
+                <td>
+                  <input type="text" value="<%= item.email %>" readonly />
+                </td>
+                <td><div class="status banned">Banned</div></td>
+                <td>
+                  <div class="menu">
+                    <i class="fa-solid fa-ellipsis-vertical icon"></i>
+                    <ul class="menu-link">
+                      <li class="edit">
+                        <a href=""><i class="fa-solid fa-pencil"></i> Edit</a>
+                      </li>
+                      <li class="delete">
+                        <a href=""><i class="fa-solid fa-trash"></i>Remove</a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <% }); %>
+              <!-- ----------------------------- -->
+            </table>
+          </div>
+        </section>
       </section>
     </main>
     <script type="module">
@@ -127,6 +202,44 @@
         }
       });
       // << End >> form Validation
+
+      //show-menu
+      //MENU(edit-delete)
+      const allMenu = document.querySelectorAll(".menu");
+
+      allMenu.forEach((item) => {
+        const icon = item.querySelector(".icon");
+        const menuLink = item.querySelector(".menu-link");
+
+        icon.addEventListener("click", function () {
+          menuLink.classList.toggle("show");
+        });
+      });
+
+      window.addEventListener("click", function (e) {
+        allMenu.forEach((item) => {
+          const icon = item.querySelector(".icon");
+          const menuLink = item.querySelector(".menu-link");
+          if (e.target !== icon) {
+            if (e.target !== menuLink) {
+              if (menuLink.classList.contains("show")) {
+                menuLink.classList.remove("show");
+              }
+            }
+          }
+        });
+      });
+
+      // Checkbox All
+      const chkbxAll = document.querySelector("#checkboxAll");
+      const chkbxOptions = document.querySelectorAll(".chkboxName");
+
+      chkbxAll.addEventListener("click", () => {
+        const isChecked = chkbxAll.checked;
+        for (let i = 0; i < chkbxOptions.length; i++) {
+          chkbxOptions[i].checked = isChecked;
+        }
+      });
     </script>
   </body>
 </html>

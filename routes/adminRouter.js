@@ -8,8 +8,10 @@ router.get("/", (req, res) => {
   res.render("admin/admin");
 });
 
-router.get("/users", (req, res) => {
-  res.render("admin/users");
+router.get("/users", async (req, res) => {
+  const users = await UserModel.find();
+  console.log(users);
+  res.render("admin/users",{users});
 });
 
 router.post("/users", async (req, res) => {
@@ -56,23 +58,21 @@ router.get("/courses", (req, res) => {
 router.post("/courses", async (req, res) => {
   const {
     Name,
-      NumofStudents,
-      Instructor,
-      Description ,
-      role = "course",
+    NumofStudents,
+    Instructor,
+    Description,
+    role = "course",
   } = req.body;
   try {
     if (await CourseModel.findOne({ Name })) {
-     res.send({ err: "Course Already exists " });
-} else {
-      
-       const newCourse = new CourseModel({
+      res.send({ err: "Course Already exists " });
+    } else {
+      const newCourse = new CourseModel({
         role,
         Name,
-      NumofStudents,
-      Instructor,
-      Description ,
-      
+        NumofStudents,
+        Instructor,
+        Description,
       });
       newCourse.save();
 
@@ -82,8 +82,6 @@ router.post("/courses", async (req, res) => {
     res.send({ err: "Database error" });
     console.log(err);
   }
-
 });
-
 
 export default router;
