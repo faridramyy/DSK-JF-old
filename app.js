@@ -5,12 +5,10 @@ import session from "express-session";
 import resgisterRouter from "./routes/registerRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import { isAuthenticated } from "./middlewares/userAuth.js";
-import { adminIsAuthenticated } from "./middlewares/adminAuth.js";
 import { Configuration, OpenAIApi } from "openai";
-
-//dalia
+import cors from "cors";
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "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",
 });
 
 dotenv.config();
@@ -28,48 +26,30 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+app.use(cors());
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//dalia
-app.post("/chat", async (req, res) => {
-  const openai = new OpenAIApi(configuration);
-  const message = req.body.message;
+app.get("/chat", (req, res) => {
+  res.render("chat.ejs");
+});
 
+app.post("/chat/response", async (req, res) => {
+  const openai = new OpenAIApi(configuration);
+  const message = req.body.msg;
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: message,
   });
-  res.redirect(`/chat?message=${completion.data.choices[0].text}`);
+  let result = completion.data.choices[0].text;
+  res.send({ data: result });
 });
-//dalia
-app.get("/chat", (req, res) => {
-  res.render("chat.ejs", { message: req.query.message });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.use(resgisterRouter);
-app.use("/admin", adminIsAuthenticated, adminRouter);
+app.use("/admin", isAuthenticated, adminRouter);
 
 app.get("/home", isAuthenticated, function (req, res) {
   res.send("home");
@@ -86,13 +66,17 @@ app.get("/logout", function (req, res, next) {
   });
 });
 
-mongoose
-  .connect(process.env.mongooDbUrl)
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Example app listening on port ${port}`);
-    });
-  })
-  .catch(() => {
-    console.log("Couldn't connect to Database");
-  });
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+// mongoose
+//   .connect(process.env.mongooDbUrl)
+//   .then(() => {
+//     app.listen(port, () => {
+//       console.log(`Example app listening on port ${port}`);
+//     });
+//   })
+//   .catch(() => {
+//     console.log("Couldn't connect to Database");
+//   });
