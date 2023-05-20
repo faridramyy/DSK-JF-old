@@ -47,7 +47,6 @@ app.get("/chat", (req, res) => {
   res.render("chat.ejs", { message: req.query.message });
 });
 
-
 app.use(resgisterRouter);
 app.use("/admin", isAuthenticated, adminRouter);
 
