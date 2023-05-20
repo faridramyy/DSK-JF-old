@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/admin/nav.css">
+    <link rel="stylesheet" href="/css/admin/users.css">
     <title>Document</title>
-</head>
-<body>
-    <%= include("./nav.ejs") %>
-    users
-</body>
+  </head>
+  <body>
+    <%- include("./nav.ejs") %>
+    <main>
+      <button>+ New User</button>
+      <section>
+        <p style="color: red" id="error">error</p>
+        <form method="post" id="form" action="/signup/post">
+          <div>
+            <label for="firstName">First Name : </label>
+            <input
+              type="text"
+              placeholder="First Name"
+              id="firstName"
+              name="firstName"
+            />
+          </div>
+          <div>
+            <label for="lastName">Last Name : </label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              id="lastName"
+              name="lastName"
+            />
+          </div>
+          <div>
+            <label for="username">Username : </label>
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div>
+            <label for="email">Email : </label>
+            <input type="text" placeholder="Email" id="email" name="email" />
+          </div>
+          <div>
+            <label for="password">Password : </label>
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </body>
 </html>
