@@ -13,8 +13,5 @@ router.get("/courses", (req, res) => {
   res.render("admin/courses");
 });
 
-router.get("/addCourses", (req, res) => {
-  res.render("admin/addCourses");
-});
 
 export default router;
