@@ -2,23 +2,78 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/chat.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
     <title>Chat</title>
 </head>
 
 <body>
-    <div class="container">
-        <form action="/chat" method="post">
-            <label for="message">Enter Your message</label>
-            <input type="text" name="message" id="message">
-            <button type="submit">Send</button>
-        </form>
-        <p class="response">
-            <%= message%>
-        </p>
-    </div>
+    <section class="chat">
+        <button class="chat-btn">
+            <i class="material-icons"> comment </i>
+        </button>
+        <div class="chat-popup">
+            <div class="chat-area"></div>
+            <div class="input-area">
+                <input type="text" />
+                <button class="submit"><i class="material-icons"> send</i></button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        //start chat
+        const popup = document.querySelector(".chat-popup");
+        const chatBtn = document.querySelector(".chat-btn");
+        const submitBtn = document.querySelector(".submit");
+        const chatArea = document.querySelector(".chat-area");
+        const inputElm = document.querySelector(".input-area input");
+
+        chatBtn.addEventListener("click", () => {
+            popup.classList.toggle("show");
+        });
+        submitBtn.addEventListener("click", () => {
+            console.log("Here");
+            let userInput = inputElm.value;
+
+            let myMessage = `<div class="out-msg">
+                      <span class="my-msg">${userInput}</span>
+                      <img src="/images/profile.png" class="avatar">
+                      </div>`;
+            chatArea.insertAdjacentHTML("beforeend", myMessage);
+
+            fetch("/chat/response", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ msg: userInput })
+            })
+                .then((res) => {
+                    return res.json();
+                    console.log(res.body)
+                })
+
+                .then((data) => {
+
+                    let resMessage = `<div class="income-msg">
+                    <img src="/images/profile.png" class="avatar">
+                    <span class="msg">${data}</span>
+                    </div>`;
+                    chatArea.insertAdjacentHTML("beforeend", resMessage);
+                    inputElm.value = "";
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+
+        });
+      //end chat
+    </script>
 </body>
 
 </html>
