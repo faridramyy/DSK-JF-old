@@ -59,13 +59,14 @@ header {
   transform: translateY(-100px);
   transition: 0.3s;
   text-align: center;
+  z-index: 999;
 }
 
 #error {
   margin: 10px;
 }
 
-.add-new-student.active {
+.add-new-student.activee {
   pointer-events: all;
   opacity: 1;
   user-select: all;
@@ -139,22 +140,11 @@ header {
 }
 
 /* User dashboard */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans KR", sans-serif;
-}
 .table-head {
   display: flex;
   justify-content: space-between;
 }
-.table{
-  position: relative;
-  justify-content: left;
-}
 .tableBorder {
-  border-radius: 5px;
   padding: 10px;
   padding-left: 0;
 }
@@ -172,7 +162,7 @@ th {
   text-align: left;
   padding: 8px;
 }
- .user input{
+.user input {
   border: none;
   font-size: 16px;
 }
@@ -204,12 +194,6 @@ button i {
   color: #4b4a4a;
   font-size: 30px;
 }
-
-button:hover {
-  background: #b9b8b843;
-  border-radius: 60px;
-  transition: 3ms ease-in;
-}
 .status {
   width: 70px;
   height: 20px;
@@ -218,6 +202,7 @@ button:hover {
   align-items: center;
   justify-content: center;
 }
+
 .active {
   color: rgb(5, 163, 5);
   background-color: rgba(26, 139, 26, 0.29);
@@ -239,7 +224,7 @@ button:hover {
 }
 .menu-link {
   position: absolute;
-  top: calc(100%+10px);
+  top: 100%;
   right: 0;
   width: 100px;
   background: rgb(245, 243, 243);
@@ -251,23 +236,29 @@ button:hover {
   transition: all.3s ease;
 }
 .menu-link.show {
-  top: 100%;
   opacity: 1;
   pointer-events: visible;
 }
-.menu-link a,
 .menu-link li {
-  display: block;
-  padding: 6px;
-  font-size: 14px;
-  color: rgb(55, 54, 54);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
   transition: all.3s ease;
   text-decoration: none;
   list-style: none;
-  color: rgb(74, 74, 245);
+  color: black;
   font-size: 14px;
 }
-.menu-link a:hover {
-  color: #4b4a4a;
+.menu-link li:hover {
+  background: rgb(211, 209, 209);
+}
+.edit,
+.delete {
+  font-size: 15px;
+  margin-right: 10px;
 }
 
+.menu-link a:hover {
+  color: #a7a6a6;
+}

@@ -148,18 +148,20 @@
                 <td>
                   <input type="text" value="<%= item.email %>" readonly />
                 </td>
-                <td><div class="status banned">Banned</div></td>
+                <td><div class="status active">Active</div></td>
                 <td>
                   <div class="menu">
                     <i class="fa-solid fa-ellipsis-vertical icon"></i>
-                    <ul class="menu-link">
-                      <li class="edit">
-                        <a href=""><i class="fa-solid fa-pencil"></i> Edit</a>
+
+                    <ul class="menu-link ">
+                      <li>
+                        <button class="btn"><i class="fa-solid fa-pencil edit"></i> Edit</button>
                       </li>
-                      <li class="delete">
-                        <a href=""><i class="fa-solid fa-trash"></i>Remove</a>
+                      <li>
+                        <button class="btn"><i class="fa-solid fa-trash delete"></i>Remove</button>
                       </li>
                     </ul>
+
                   </div>
                 </td>
               </tr>
@@ -175,16 +177,16 @@
       const newUserBtn = document.getElementById("newUserBtn");
 
       newUserBtn.addEventListener("click", () => {
-        menu.classList.toggle("active");
+        menu.classList.toggle("activee");
       });
 
       document.addEventListener("dblclick", function (e) {
         if (
-          menu.classList.contains("active") &&
+          menu.classList.contains("activee") &&
           !menu.contains(e.target) &&
           !newUserBtn.contains(e.target)
         ) {
-          menu.classList.remove("active");
+          menu.classList.remove("activee");
           document.getElementById("form").reset();
         }
       });
@@ -203,7 +205,7 @@
       });
       // << End >> form Validation
 
-      //show-menu
+      
       //MENU(edit-delete)
       const allMenu = document.querySelectorAll(".menu");
 
@@ -216,7 +218,7 @@
         });
       });
 
-      window.addEventListener("click", function (e) {
+      document.addEventListener("click", function (e) {
         allMenu.forEach((item) => {
           const icon = item.querySelector(".icon");
           const menuLink = item.querySelector(".menu-link");
