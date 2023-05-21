@@ -104,6 +104,7 @@
 
       <section class="table">
         <!-- ----------------------koki ----------------------->
+        <% if (users.length>0) {%>
         <section>
           <div class="tableBorder">
             <table>
@@ -132,7 +133,6 @@
                 <th>Email</th>
                 <th colspan="2">Status</th>
               </tr>
-
               <% users.forEach(item => { %>
               <tr class="user">
                 <td>
@@ -153,24 +153,34 @@
                   <div class="menu">
                     <i class="fa-solid fa-ellipsis-vertical icon"></i>
 
-                    <ul class="menu-link ">
+                    <ul class="menu-link">
                       <li>
-                        <button class="btn"><i class="fa-solid fa-pencil edit"></i> Edit</button>
+                        <button class="btn">
+                          <i class="fa-solid fa-pencil edit"></i> Edit
+                        </button>
                       </li>
                       <li>
-                        <button class="btn"><i class="fa-solid fa-trash delete"></i>Remove</button>
+                        <button class="btn">
+                          <i class="fa-solid fa-trash delete"></i>Remove
+                        </button>
                       </li>
                     </ul>
-
                   </div>
                 </td>
               </tr>
               <% }); %>
-              <!-- ----------------------------- -->
             </table>
           </div>
         </section>
+        <% } else { %>
+        <div class="no-data">
+          <i class='bx bx-data'></i>
+          <p>There is no data found</p>
+        </div>
+          
+        <% } %>
       </section>
+      <!-- ----------------------------- End of Users------------------------------- -->
     </main>
     <script type="module">
       const menu = document.getElementById("addNewStudent");
@@ -205,7 +215,6 @@
       });
       // << End >> form Validation
 
-      
       //MENU(edit-delete)
       const allMenu = document.querySelectorAll(".menu");
 
