@@ -1,0 +1,170 @@
+footer {
+    padding: 8vw;
+    background-color: #101c32;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  footer .footer-col {
+    padding-bottom: 40px;
+  }
+  footer h3 {
+    color: rgb(241, 240, 245);
+    font-weight: 600;
+    padding-bottom: 20px;
+  }
+  footer li {
+    list-style: none;
+    color: #7b838a;
+    padding: 10px 0;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  footer li:hover {
+    color: rgb(241, 240, 245);
+  }
+  footer p {
+    color: #7b838a;
+  }
+  footer .subscribe {
+    margin-top: 20px;
+  }
+  footer input {
+    width: 220px;
+    padding: 15px 12px;
+    background: #334f6c;
+    border: none;
+    outline: none;
+    color: #fff;
+  }
+  footer .subscribe a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 17.5px 15px;
+    background-color: #fff;
+    font-weight: 600;
+  }
+  footer .subscribe a.yellow {
+    color: #2c2c2c;
+    background: #fdc938;
+    transition: 0.3s ease;
+  }
+  footer .subscribe a.yellow:hover {
+    color: rgb(21, 21, 100);
+    background: #fff;
+  }
+  footer .copywrite {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  footer .copywrite .pro-links {
+    margin-top: 0px;
+  }
+  footer .copywrite .pro-links i {
+    background-color: #5f7185;
+    color: #fff;
+  }
+  footer .copywrite .pro-links i:hover {
+    background-color: #fdc938;
+    color: #2c2c2c;
+  }
+  footer .copywrite p {
+    color: white;
+  }
+  @media (max-width: 769px) {
+    nav {
+      padding: 15px 20px;
+    }
+    nav img {
+      width: 130px;
+    }
+    #menu-btn {
+      display: initial;
+    }
+    #menu-close {
+      display: initial;
+      font-size: 1.6rem;
+      color: #fff;
+      padding: 30px 0 20px 20px;
+    }
+    nav .navigation ul {
+      position: absolute;
+      top: 0;
+      right: -220px;
+      width: 220px;
+      height: 100vh;
+      background: rgba(17, 20, 104, 0.45);
+      backdrop-filter: blur(4.5px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      transition: 0.3s ease;
+    }
+    nav .navigation ul.active {
+      right: 0;
+    }
+    nav .navigation ul li {
+      padding: 20px 0 20px 40px;
+      margin-left: 0;
+    }
+    nav .navigation ul li a {
+      color: #fff;
+    }
+    #home {
+      padding-top: 30px;
+    }
+    #home p {
+      width: 90%;
+    }
+    #features {
+      padding: 8vw 4vw 0 4vw;
+    }
+    #course {
+      padding: 8vw 4vw 0 4vw;
+    }
+    #registration {
+      margin-top: 8vw;
+      padding: 6vw 4vw 6vw 4vw;
+    }
+    #registration .reminder .time {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    #expert {
+      padding: 8vw 8vw 4 8vw;
+      text-align: center;
+    }
+    footer .copyright .pro-links {
+      margin-top: 15px;
+    }
+  }
+  @media (max-width: 475px) {
+    #registration {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    #registration .reminder .time {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .fab {
+    padding: 10px 13px;
+  }
+  
