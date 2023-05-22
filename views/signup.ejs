@@ -60,7 +60,7 @@
           />
           <i class="fas fa-eye toggle-password"></i></div>
       </div>
-      <div>
+      <!-- <div>
         <label for="password">Confirm Password : </label>
         <div class="password-input">
 
@@ -70,11 +70,11 @@
           name="Password"
         />
         <i class="fas fa-eye toggle-password"></i></div>
-    </div>
-  </div>
+    </div> -->
+  <!-- </div> -->
   <p style="color: red" id="error"></p>
 
-  <div>
+  <!-- <div> -->
         <div>
           <button type="submit">Sign up</button>
         </div>
@@ -100,18 +100,16 @@
 
        //start for eye icon show and hide password
        const togglePassword = document.querySelector('.toggle-password');
-const passwordInput = document.querySelector('#password');
+       const passwordInput = document.querySelector('#password');
 
-togglePassword.addEventListener('click', function () {
+  togglePassword.addEventListener('click', function () {
   if (passwordInput.type === 'password') {
     passwordInput.type = 'text';
   } else {
     passwordInput.type = 'password';
   }
 });
-      //End of eye icon show and hide password
-
-    
+      //End of eye icon show and hide password  
     </script>
   </body>
 </html>
