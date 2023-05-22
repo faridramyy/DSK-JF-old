@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/registration/login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Log in</title>
+  </head>
+  <body>
+    <main>
+      <form method="POST" id="form" action="/login/post">
+        <h1>Welcome back</h1>
+        <h2>Log in!</h2>
+        <div>
+          <label for="username">Username : </label>
+          <input type="text" id="username" name="username" />
+        </div>
+        <div>
+          <label for="password">Password : </label>
+          <div class="password-input">
+            <input type="password" id="password" name="Password" />
+            <i class="fa-regular fa-eye eye" id="eye"></i>
+            <i class="fa-regular fa-eye-slash closed-eye" id="closedEye"></i>
+          </div>
+          <a href="/forgetpassword" class="forgotpass">Forget Password ?</a>
+        </div>
+        <p style="color: red" id="error"></p>
+        <div>
+          <button type="submit">Sign in</button>
+        </div>
+        <a href="/signup" class="sign-up">Don't have an account ? Sign up</a>
+        <div class="social">
+          <div class="google"><i class="fab fa-google"></i> Google</div>
+          <div class="facebook"><i class="fab fa-facebook"></i> Facebook</div>
+        </div>
+      </form>
+    </main>
+    <script type="module">
+      // << Start >> form Validation
+      import { validateForm } from "./js/formValidation.js";
+      const form = document.getElementById("form");
+      const error = document.getElementById("error");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (validateForm(form)) error.innerHTML = validateForm(form);
+        else {
+          fetch("/login/post", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: document.getElementById("username").value,
+              Password: document.getElementById("password").value,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              error.innerHTML = data.err;
+            });
+        }
+      });
+      // << End >> form Validation
+
+      // << Start >> for eye icon show and hide password
+      const eye = document.getElementById("eye");
+      const closedEye = document.getElementById("closedEye");
+      const passwordInput = document.querySelector("#password");
+
+      eye.addEventListener("click", function () {
+        passwordInput.type = "text";
+        eye.style.display = "none";
+        closedEye.style.display = "block";
+      });
+      closedEye.addEventListener("click", function () {
+        passwordInput.type = "password";
+        closedEye.style.display = "none";
+        eye.style.display = "block";
+      });
+      // << End >> of eye icon show and hide password
+    </script>
+  </body>
+</html>

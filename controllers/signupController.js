@@ -2,7 +2,7 @@ import UserModel from "../models/user.js";
 import bcrypt from "bcrypt";
 
 const signup_get = (req, res) => {
-  res.render("signup");
+  res.render("registration/signup");
 };
 
 const signup_post = async (req, res) => {
@@ -39,7 +39,7 @@ const signup_post = async (req, res) => {
         req.session.user = req.body.username;
         req.session.save(function (err) {
           if (err) return next(err);
-          res.redirect("/home");
+          res.redirect("/student/studentHome");
         });
       });
     }

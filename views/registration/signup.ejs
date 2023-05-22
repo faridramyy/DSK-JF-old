@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/registration/signup.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Sign up</title>
+  </head>
+  <body>
+    <main>
+      <form method="post" id="form" action="/signup/post">
+        <h1>Sign up !</h1>
+        <div class="contanier">
+          <div>
+            <label for="firstName">First Name : </label>
+            <input type="text" id="firstName" name="firstName" />
+          </div>
+          <div>
+            <label for="lastName">Last Name : </label>
+            <input type="text" id="lastName" name="lastName" />
+          </div>
+        </div>
+        <div>
+          <label for="username">Username : </label>
+          <input type="text" id="username" name="username" />
+        </div>
+        <div>
+          <label for="email">Email : </label>
+          <input type="text" id="email" name="email" />
+        </div>
+        <div>
+          <label for="password">Password : </label>
+          <div class="password-input">
+            <input type="password" id="password" name="Password" />
+            <i class="fa-regular fa-eye eye" id="eye"></i>
+            <i class="fa-regular fa-eye-slash closed-eye" id="closedEye"></i>
+          </div>
+        </div>
+        <p style="color: red" id="error"></p>
+        <div>
+          <button type="submit">Sign up</button>
+        </div>
+        <a href="/login" class="sign-in">Already have an account ? Sign in</a>
+      </form>
+    </main>
+    <script type="module">
+      // << Start >> form Validation
+      import { validateForm } from "./js/formValidation.js";
+      const form = document.getElementById("form");
+      const error = document.getElementById("error");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (validateForm(form)) error.innerHTML = validateForm(form);
+        else {
+          fetch("/signup/post", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              firstName: document.getElementById("firstName").value,
+              lastName: document.getElementById("lastName").value,
+              username: document.getElementById("username").value,
+              email: document.getElementById("email").value,
+              password: document.getElementById("password").value,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              error.innerHTML = data.err;
+            });
+        }
+      });
+      // << End >> form Validation
+
+      // << Start >> for eye icon show and hide password
+      const eye = document.getElementById("eye");
+      const closedEye = document.getElementById("closedEye");
+      const passwordInput = document.querySelector("#password");
+
+      eye.addEventListener("click", function () {
+        passwordInput.type = "text";
+        eye.style.display = "none";
+        closedEye.style.display = "block";
+      });
+      closedEye.addEventListener("click", function () {
+        passwordInput.type = "password";
+        closedEye.style.display = "none";
+        eye.style.display = "block";
+      });
+      // << End >> of eye icon show and hide password
+    </script>
+  </body>
+</html>

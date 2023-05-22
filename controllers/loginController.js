@@ -2,12 +2,11 @@ import UserModel from "../models/user.js";
 import bcrypt from "bcrypt";
 
 const login_get = (req, res) => {
-  res.render("login");
+  res.render("registration/login");
 };
 
 const login_post = async (req, res) => {
   const { username, Password } = req.body;
-
   if (username === "admin" && Password === "admin") {
     req.session.regenerate(function (err) {
       if (err) next(err);
@@ -27,7 +26,7 @@ const login_post = async (req, res) => {
             req.session.user = req.body.username;
             req.session.save(function (err) {
               if (err) return next(err);
-              res.redirect("/home");
+              res.redirect("/student/studentHome");
             });
           });
         } else res.send({ err: "Wrong password" });
@@ -40,4 +39,8 @@ const login_post = async (req, res) => {
   }
 };
 
-export { login_get, login_post };
+const forgetPassword_get = (req, res) => {
+  res.render("registration/forgetpassword");
+};
+
+export { login_get, login_post, forgetPassword_get };
