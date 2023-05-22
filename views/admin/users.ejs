@@ -17,16 +17,20 @@
     <!-- koki-->
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/users.css" />
-    <title>Document</title>
+    <title>Users /AdminDashboard</title>
   </head>
   <body>
     <%- include("./nav.ejs") %>
     <main>
       <header>
         <h1>Users</h1>
-        <button class="new-user" id="newUserBtn" type="button">
+        <div>
+         <button onclick="sortTableByEmail()" class="new-user" >Sort by Name</button>
+ <button class="new-user" id="newUserBtn" type="button">
           + New User
-        </button>
+</button>
+</div>
+
       </header>
       <section class="add-new-student" id="addNewStudent">
         <p style="color: red" id="error"></p>
@@ -107,7 +111,7 @@
         <% if (users.length>0) {%>
         <section>
           <div class="tableBorder">
-            <table>
+            <table id="usersTable">
               <tr>
                 <th colspan="6">
                   <div class="table-head">
@@ -128,7 +132,7 @@
                 <th>
                   <input type="checkbox" id="checkboxAll" />
                 </th>
-                <th>Name <i class="fa-solid fa-arrow-up-long"></i></th>
+                <th>Name </th>
                 <th>Role</th>
                 <th>Email</th>
                 <th colspan="2">Status</th>
@@ -138,6 +142,9 @@
                 <td>
                   <input type="checkbox" class="chkboxName" id="checkbox1" />
                 </td>
+               <td>
+                  <input type="text" value="<%= item.email %>" readonly />
+                </td>
                 <td>
                   <img src="" alt="" />
                   <input type="text" value="<%=item.firstName%>" readonly />
@@ -145,9 +152,7 @@
                 <td>
                   <input type="text" value="<%= item.role %>" readonly />
                 </td>
-                <td>
-                  <input type="text" value="<%= item.email %>" readonly />
-                </td>
+              
                 <td><div class="status active">Active</div></td>
                 <td>
                   <div class="menu">
@@ -251,6 +256,40 @@
           chkbxOptions[i].checked = isChecked;
         }
       });
-    </script>
+
+      
+     //////////////////// sort users 
+</script>
+     <script>
+      // joe
+  function sortTableByEmail() { 
+     // Get the table element
+  var table = document.getElementById("usersTable");
+  // Get all the user rows
+  var userRows = table.getElementsByClassName("user");
+  // Convert the HTML collection to an array for easier sorting
+  var userArray = Array.from(userRows);
+  // Sort the user array alphabetically by email
+  userArray.sort(function (a, b) {
+    var emailA = a.querySelector("input[type='text']").value.toUpperCase();
+    var emailB = b.querySelector("input[type='text']").value.toUpperCase();
+    if (emailA < emailB) {
+      return -1;
+    }
+    if (emailA > emailB) {
+      return 1;
+    }
+    return 0;
+  });
+  // Remove the existing rows from the table
+  while (table.rows.length > 2) {
+    table.deleteRow(2);
+  }
+  // Append the sorted rows back to the table
+  userArray.forEach(function (userRow) {
+    table.appendChild(userRow);
+  });}
+</script>
+
   </body>
 </html>
