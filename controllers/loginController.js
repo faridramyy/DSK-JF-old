@@ -36,7 +36,6 @@ const login_post = async (req, res) => {
       }
     } catch (err) {
       res.send({ err: "Database error" });
-      console.log(err);
     }
   }
 };

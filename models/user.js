@@ -8,31 +8,46 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
+    required: true,
   },
   lastName: {
     type: String,
+    required: true,
   },
   username: {
     type: String,
+    required: true,
+    unique: true,
   },
   email: {
     type: String,
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
+    required: true,
   },
   gpa: {
     type: Number,
     default: null,
   },
-  // profilePic: {
-  //   type: file,
-  //   default: null,
-  // },
-  // courses: {
-  //   type: [];
-  //   default: null,
-  // },
+  profilePic: {
+    type: String,
+    // default: "",
+  },
+  verifiedEmail: {
+    type: Boolean,
+    default: 0,
+  },
+  isBanned: {
+    type: Boolean,
+    default: 0,
+  },
+  courses: {
+    type: [mongoose.Schema.Types.ObjectId],
+    default: [],
+  },
 });
 
 const User = model("User", UserSchema);
