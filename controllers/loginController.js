@@ -7,7 +7,11 @@ const login_get = (req, res) => {
 
 const login_post = async (req, res) => {
   const { username, Password } = req.body;
+  console.log(username, Password)
   if (username === "admin" && Password === "admin") {
+    res.set('Location', '/admin'); // Set the URL to redirect to
+  res.status(302).send();
+
     req.session.regenerate(function (err) {
       if (err) next(err);
       req.session.user = req.body.username;

@@ -25,7 +25,7 @@ app.use(
   session({
     secret: "I Love U",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 app.set("view engine", "ejs");
@@ -33,7 +33,7 @@ app.set("view engine", "ejs");
 app.use(homeRouter);
 app.use(resgisterRouter);
 app.use("/user", isAuthenticated, userRouter);
-app.use("/admin", adminIsAuthenticated, adminRouter);
+app.use("/admin", adminRouter);
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
