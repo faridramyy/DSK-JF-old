@@ -1,12 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/0b0cd0c012.js"
+      crossorigin="anonymous"
+    ></script>
+  <title>Student Page</title>
 </head>
 <body>
-    home
+  <header>
+   <!--Navigation-->
+   <nav id="nav">
+    <img src="images/DSK-JF-light-logo.png" alt="" />
+    <div class="navigation">
+      <div class="items">
+        <i class="fas fa-bell"></i> <!-- Replace with your notifications icon -->
+        <i class="fas fa-envelope"></i> <!-- Replace with your messages icon -->
+      </div>
+        <div class="profile">
+        <img
+          src="images/user.png"
+          alt="user image"
+          onclick="showMenu()"
+          id="profilePic"
+        />
+        <div class="list" id="profileMenu">
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Manage your account</a></li>
+            <li><a href="#">Switch account</a></li>
+            <li><a href="#">Add another account</a></li>
+            <li><a href="#">Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section>
+    <div class="secondary-nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Courses</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">My Courses <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-content">
+            <a href="./html/view.html">Course 1</a>
+            <a href="#">Course 2</a>
+            <a href="#">Course 3</a>
+          </div>
+        </li>
+      </ul>
+      <div class="search">
+        <input type="text" class="input" placeholder="Search..." />
+        <button class="btn"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </div>
+  </section>
+  </header>
+
+  <main>
+  <!-- Mian Body Section -->
+  <div class="main_body">
+    <div class="container">
+      <div class="cover">
+        <img src="images/c1.jpg" alt="">
+      </div>
+
+      <div class="main_details">
+        <div class="c_title">
+          <h2>Web Development Course</h2>
+          <span>Price: <b>$300</b></span>
+        </div>
+      </div>
+      
+      <div class="course_outline">
+        <div class="course">
+          <i class="fab fa-html5"></i>
+          <h5>html & css</h5>
+        </div>
+        <div class="course">
+          <i class="fab fa-js-square"></i>
+          <h5>javascript</h5>
+        </div>
+        <div class="course">
+          <i class="fab fa-react"></i>
+          <h5>react.js</h5>
+        </div>
+        <div class="course">
+          <i class="fab fa-node"></i>
+          <h5>node.js</h5>
+        </div>
+        <div class="course">
+          <i class="fas fa-code"></i>
+          <h5>.net</h5>
+        </div>
+      </div>
+
+      <div class="description">
+        <h5>Description</h5>
+        <div class="des_para">
+          <p>Web development is the work involved in developing a website for the Internet or an intranet. Web development can range from developing a simple single static page of plain text to complex web applications, electronic businesses, and social network services. <br> <br> Web developers create and maintain websites. They are also responsible for the site's technical aspects, such as its performance and capacity, which are measures of a website's speed and how much traffic the site can handle. In addition, web developers may create content for the site</p>
+          <img src="/images/c2.jpeg" alt="">
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="btn1">Enrol Now</button>
+        <button class="btn2"> <i class="fas fa-heart"></i>Add to favourite</button>
+      </div>
+
+    </div>
+
+    <!-- Sidebar Reviews Section -->
+    <div class="sidebar">
+      <div class="row">
+        <h2>Reviews</h2>
+        <a href="#">See all</a>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="images/c3.jpeg" alt="">
+          </div>
+          <div class="title">
+            <h2>Smith David</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="/images/c4.jpeg" alt="">
+          </div>
+          <div class="title">
+            <h2>Elyana Gomiz</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="/images/c5.jpg alt=">
+          </div>
+          <div class="title">
+            <h2>Sam Jhon</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="/images/c6.jpeg" alt="">
+          </div>
+          <div class="title">
+            <h2>Salina David</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="./images/c4.jpeg" alt="">
+          </div>
+          <div class="title">
+            <h2>Smith David</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+      <div class="review">
+        <div class="details">
+          <div class="logo">
+            <img src="/images/c4.jpeg" alt="">
+          </div>
+          <div class="title">
+            <h2>Elyana Gomiz</h2>
+            <span>1 day ago</span>
+          </div>
+        </div>
+        <div class="review_post">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore harum vero consectetur expedita numquam accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </main>
+ <!-- footer  -->
+
+  <footer>
+    <div class="copywrite">
+      <p>Copyright @2023 All rights reserved</p>
+      <div class="pro-links">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-linkedin-in"></i>
+      </div>
+    </div>
+  </footer> 
+  <script src="script.js"></script>
 </body>
 </html>
