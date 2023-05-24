@@ -2,51 +2,40 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import session from "express-session";
-//Routers
-import homeRouter from "./routes/homeRouter.js";
-import resgisterRouter from "./routes/registerRouter.js";
-import userRouter from "./routes/userRouter.js";
-import adminRouter from "./routes/adminRouter.js";
+import cookieParser from "cookie-parser";
+//Routes
+import registrationRouter from "./routes/registration.js";
+import studentRouter from "./routes/studentRouter.js";
 //Middlewares
-import { isAuthenticated } from "./middlewares/userAuth.js";
-import { adminIsAuthenticated } from "./middlewares/adminAuth.js";
-//////////////////////////////////////////////////////////////////
+import { userAuth } from "./middlewares/userAuth.js";
+
 dotenv.config();
 //Variables
 const app = express();
 const port = process.env.port;
 
 //Middlewares
-app.use(express.static("public")); //make the project use static files (css , js , img)
-app.use(express.json()); //parse request body to JSON
-app.use(express.urlencoded({ extended: true })); //to read data from res.body
-app.use(
-  session({
-    secret: "I Love U",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.use(express.static("public"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.set("view engine", "ejs");
-//Routers
-app.use(homeRouter);
-app.use(resgisterRouter);
-app.use("/user", isAuthenticated, userRouter);
-app.use("/admin", adminRouter);
+
+app.use(registrationRouter);
+app.use("/student", studentRouter);
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
-  res.status(404).render("404");
+  res.status(404).send("404");
 });
 
 mongoose
   .connect(process.env.mongooDbUrl)
   .then(() => {
     app.listen(port, () => {
-      console.log(`Example app listening on port ${port} and connected to Database`);
+      console.log(
+        `Example app listening on port ${port} and connected to Database`
+      );
     });
   })
-  .catch(() => {
-    console.log("Couldn't connect to Database");
-  });
+  .catch(() => console.log(`Couldn't connect to Database`));

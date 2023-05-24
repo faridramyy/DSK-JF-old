@@ -1,8 +1,17 @@
-import UserModel from "../models/user.js";
+import jwt from "jsonwebtoken";
 
-export async function isAuthenticated(req, res, next) {
-  if (req.session.user !== "admin" && req.session.user) {
-    if (await UserModel.findOne({ })) {
-    }
-  } else res.redirect("/login");
-}
+export const userAuth = (req, res, next) => {
+  const token = req.cookie.jwt;
+
+  if (token) {
+    jwt.verify(token, process.env.jwtSecretPhrase, (err, decodeToken) => {
+      if (err)
+        //el token di atl3b fiha
+        res.redirect("/login");
+        else
+        next();
+    });
+  } else {
+    res.redirect("/login");
+  }
+};

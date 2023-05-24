@@ -34,9 +34,9 @@ const UserSchema = new Schema({
   },
   profilePic: {
     type: String,
-    // default: "",
+    default: "/img/avatar.jpg",
   },
-  verifiedEmail: {
+  verifyEmail: {
     type: Boolean,
     default: 0,
   },
