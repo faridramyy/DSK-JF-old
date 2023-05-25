@@ -7,7 +7,6 @@ import cookieParser from "cookie-parser";
 import registrationRouter from "./routes/registrationRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
-import adminRouter from "./routes/adminRouter.js";
 //Middlewares
 dotenv.config();
 //Variables

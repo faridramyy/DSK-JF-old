@@ -4,20 +4,382 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- font-awesome -->
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <link rel="stylesheet" href="css/admin/nav.css" />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/admin/users.css" />
     <title>Admin-Dashboard</title>
   </head>
   <body>
     <%- include("./nav.ejs") %>
     <main>
-      sd
+      <header>
+        <h1>Users</h1>
+        <button class="new-user" id="newUserBtn" type="button">
+          + New User
+        </button>
+      </header>
+      <section class="add-new-student" id="addNewStudent">
+        <p style="color: red" id="error"></p>
+        <form method="post" id="form" action="/admin/users">
+          <div>
+            <label for="firstName">First Name : </label>
+            <input
+              type="text"
+              placeholder="First Name"
+              id="firstName"
+              name="firstName"
+            />
+          </div>
+          <div>
+            <label for="lastName">Last Name : </label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              id="lastName"
+              name="lastName"
+            />
+          </div>
+          <div>
+            <label for="username">Username : </label>
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              name="username"
+            />
+          </div>
+          <div>
+            <label for="email">Email : </label>
+            <input type="text" placeholder="Email" id="email" name="email" />
+          </div>
+          <div>
+            <label for="password">Password : </label>
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              name="password"
+            />
+          </div>
+          <div class="role">
+            <div>
+              <input type="radio" id="student" name="role" value="Student" />
+              <label for="student">Student</label>
+            </div>
+            <div>
+              <input
+                checked
+                type="radio"
+                id="instructor"
+                name="role"
+                value="Instructor"
+              />
+              <label for="instructor">Instructor</label><br />
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="teachingAssistant"
+                name="role"
+                value="Teaching Assistant"
+              />
+              <label for="teachingAssistant">Teaching Assistant</label>
+            </div>
+          </div>
+          <div>
+            <button type="submit" id="submit">Submit</button>
+          </div>
+        </form>
+      </section>
+      <section class="table">
+        <!-- ----------------------koki ----------------------->
+        <% if (users.length) {%>
+        <section>
+          <div class="tableBorder">
+            <table class="myTable">
+              <tr>
+                <th colspan="6">
+                  <div class="table-head">
+                    <div class="search-bar">
+                      <i class="fas fa-search" id="searchBtn"></i>
+                      <input
+                        type="text"
+                        name="search"
+                        id="search"
+                        placeholder="Search users..."
+                      />
+                    </div>
+
+                    <!-- filter -->
+                    <div class="filter-menu">
+                      <i class="bx bx-filter filter-icon"></i>
+                      <div class="filter-link">
+                        <h2>Filter by Role</h2>
+                        <ul>
+                          <li>
+                            <input
+                              type="checkbox"
+                              name="student"
+                              id="student"
+                            />
+                            <label for="student">Students</label>
+                          </li>
+                          <li>
+                            <input
+                              type="checkbox"
+                              name="instructor"
+                              id="instructor"
+                            />
+                            <label for="instructor">Instructor</label>
+                          </li>
+                          <li>
+                            <input type="checkbox" name="TA" id="TA" />
+                            <label for="TA">TAs</label>
+                          </li>
+                        </ul>
+                        <h2>Filter by Status</h2>
+                        <ul>
+                          <li>
+                            <input type="checkbox" name="active" id="active" />
+                            <label for="active"
+                              ><Span class="active-dot"></Span>Active</label
+                            >
+                          </li>
+                          <li>
+                            <input type="checkbox" name="banned" id="banned" />
+                            <label for="banned"
+                              ><Span class="banned-dot"></Span>Banned</label
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+
+              <tr>
+                <th>
+                  <input type="checkbox" id="checkboxAll" />
+                </th>
+                <th class="head">
+                  Name <i class="fa-solid fa-arrow-up-long arrow"></i>
+                </th>
+                <th class="head">
+                  Role <i class="fa-solid fa-arrow-up-long arrow"></i>
+                </th>
+                <th class="head">
+                  Email <i class="fa-solid fa-arrow-up-long arrow"></i>
+                </th>
+                <th colspan="2" class="head">Status</th>
+              </tr>
+
+              <% users.forEach(item => { %>
+              <tr class="user">
+                <td>
+                  <input type="checkbox" class="chkboxName" id="checkbox1" />
+                </td>
+                <td>
+                  <img src="" alt="" />
+                  <input
+                    class="name"
+                    type="text"
+                    value="<%=item.firstName%>"
+                    readonly
+                  />
+                </td>
+                <td>
+                  <input type="text" value="<%= item.role %>" readonly />
+                </td>
+                <td>
+                  <input
+                    class="email"
+                    type="text"
+                    value="<%= item.email %>"
+                    readonly
+                  />
+                </td>
+                <td><div class="status active">Active</div></td>
+                <td>
+                  <!-- menu -->
+                  <div class="menu">
+                    <i class="fa-solid fa-ellipsis-vertical icon"></i>
+                    <ul class="menu-link">
+                      <li>
+                        <button class="btn" id="editBtn">
+                          <i class="fa-solid fa-pencil edit"></i> Edit
+                        </button>
+                      </li>
+                      <li>
+                        <button class="btn">
+                          <i class="fa-solid fa-trash delete"></i>Remove
+                        </button>
+                      </li>
+                      <li>
+                        <button class="btn">
+                          <i class="fa-solid fa-ban ban"></i>Ban
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <% }); %>
+            </table>
+          </div>
+        </section>
+        <% } else { %>
+        <div class="no-data">
+          <i class="bx bx-data"></i>
+          <p>There is no data found</p>
+        </div>
+
+        <% } %>
+      </section>
+      <!-- ----------------------------- End of Users------------------------------- -->
     </main>
+    <script type="module">
+      const menu = document.getElementById("addNewStudent");
+      const newUserBtn = document.getElementById("newUserBtn");
+
+      newUserBtn.addEventListener("click", () => {
+        menu.classList.toggle("activee");
+      });
+
+      document.addEventListener("dblclick", function (e) {
+        if (
+          menu.classList.contains("activee") &&
+          !menu.contains(e.target) &&
+          !newUserBtn.contains(e.target)
+        ) {
+          menu.classList.remove("activee");
+          document.getElementById("form").reset();
+        }
+      });
+
+      // << Start >> form Validation
+      import { validateForm } from "../js/formValidation.js";
+      const form = document.getElementById("form");
+      const error = document.getElementById("error");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (validateForm(form)) error.innerHTML = validateForm(form);
+        else {
+          error.innerHTML = "";
+          e.target.submit();
+        }
+      });
+      // << End >> form Validation
+
+      // const search = document.querySelector(".searchBtn");
+      // search.addEventListener("click", function (e) {
+      //   var input, filter, table, tr, td, i, txtValue;
+      //   input = document.getElementById("myInput");
+      //   filter = input.value.toUpperCase();
+      //   table = document.getElementById("myTable");
+      //   tr = table.getElementsByTagName("tr");
+      //   for (i = 0; i < tr.length; i++) {
+      //     td = tr[i].getElementsByTagName("td")[0];
+      //     if (td) {
+      //       txtValue = td.textContent || td.innerText;
+      //       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      //         tr[i].style.display = "";
+      //       } else {
+      //         tr[i].style.display = "none";
+      //       }
+      //     }
+      //   }
+      // });
+
+      //MENU(edit-delete)
+      const allMenu = document.querySelectorAll(".menu");
+
+      allMenu.forEach((item) => {
+        const icon = item.querySelector(".icon");
+        const menuLink = item.querySelector(".menu-link");
+
+        icon.addEventListener("click", function () {
+          menuLink.classList.toggle("show");
+        });
+      });
+
+      document.addEventListener("click", function (e) {
+        allMenu.forEach((item) => {
+          const icon = item.querySelector(".icon");
+          const menuLink = item.querySelector(".menu-link");
+          if (e.target !== icon) {
+            if (e.target !== menuLink) {
+              if (menuLink.classList.contains("show")) {
+                menuLink.classList.remove("show");
+              }
+            }
+          }
+        });
+      });
+
+      //FILTER MENU
+      const filterMenu = document.querySelectorAll(".filter-menu");
+
+      filterMenu.forEach((item) => {
+        const icon = item.querySelector(".filter-icon");
+        const filterLink = item.querySelector(".filter-link");
+
+        icon.addEventListener("click", function () {
+          filterLink.classList.toggle("show");
+        });
+      });
+
+      document.addEventListener("click", function (e) {
+        filterMenu.forEach((item) => {
+          const icon = item.querySelector(".filter-icon");
+          const filterLink = item.querySelector(".filter-link");
+          if (e.target !== icon) {
+            if (e.target !== filterLink) {
+              if (filterLink.classList.contains("show")) {
+                filterLink.classList.remove("show");
+              }
+            }
+          }
+        });
+      });
+
+      // Checkbox All
+      const chkbxAll = document.querySelector("#checkboxAll");
+      const chkbxOptions = document.querySelectorAll(".chkboxName");
+
+      chkbxAll.addEventListener("click", () => {
+        const isChecked = chkbxAll.checked;
+        for (let i = 0; i < chkbxOptions.length; i++) {
+          chkbxOptions[i].checked = isChecked;
+        }
+      });
+
+      //edit user
+      const editIcon = document.querySelectorAll("#editBtn");
+      console.log(editIcon);
+      editIcon.forEach((edit) => {
+        edit.addEventListener("click", () => {
+          const editName = document.querySelector(".name");
+          const editEmail = document.querySelector(".email");
+          editName.removeAttribute("readonly");
+          editEmail.removeAttribute("readonly");
+        });
+      });
+    </script>
   </body>
 </html>
