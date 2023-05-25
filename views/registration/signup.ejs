@@ -19,17 +19,17 @@
     <main>
       <form method="post" id="form" action="/signup/post">
         <h1>First timer ?</h1>
-        <h1 id="signup">Create a new account now</h1>
+        <h2 id="signup">Create a new account now</h2>
         <div class="names">
-        <div>
-          <label for="firstName">First Name : </label>
-          <input type="text" id="firstName" name="firstName" />
+          <div>
+            <label for="firstName">First Name : </label>
+            <input type="text" id="firstName" name="firstName" />
+          </div>
+          <div>
+            <label for="lastName">Last Name : </label>
+            <input type="text" id="lastName" name="lastName" />
+          </div>
         </div>
-        <div>
-          <label for="lastName">Last Name : </label>
-          <input type="text" id="lastName" name="lastName" />
-        </div>
-      </div>
         <div>
           <label for="username">Username : </label>
           <input type="text" id="username" name="username" />
@@ -45,13 +45,13 @@
           <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
         </div>
         <p style="color: red" id="error"></p>
+        <div class="signinanchor">
+          <a href="/login">Already have an account ? Sign in</a>
+        </div>
         <div>
           <button type="submit">Sign up</button>
         </div>
-        <div class="signinanchor">
-        <a href="./signin.html" class="sign-in">Already have an account ? Sign in</a>
-    </div> 
-   </form>
+      </form>
     </main>
 
     <!-- eye -->
