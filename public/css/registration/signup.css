@@ -78,7 +78,6 @@ input {
 .password-input {
   position: relative;
 }
-
 .eye {
   position: absolute;
   top: 70%;
@@ -88,6 +87,15 @@ input {
 }
 #closedEye {
   display: none;
+}
+.recaptcha {
+  width: 95%;
+  text-align: center;
+  margin: 10px;
+}
+.g-recaptcha {
+  width: fit-content;
+  margin: 0 auto;
 }
 #error {
   margin-top: 24px;
