@@ -5,10 +5,10 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 //Routes
 import registrationRouter from "./routes/registrationRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 //Middlewares
-
 dotenv.config();
 //Variables
 const app = express();
@@ -22,6 +22,7 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 app.use(registrationRouter);
+app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
 app.use("/admin", adminRouter);
 

@@ -94,8 +94,10 @@
             });
             const data = await res.json();
             if (data.errMsg) error.innerHTML = data.errMsg;
+            else if (data.user.role === "admin") location.assign(`/admin`);
             else if (data.user)
               location.assign(`/${data.user.role}/${data.user._id}`);
+            else location.assign(`/404`);
           } catch (err) {
             console.log(err);
           }

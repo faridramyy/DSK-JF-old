@@ -32,10 +32,10 @@ export const signup_post = async (req, res) => {
     newUser.save();
     console.log("User created and saved");
 
-    const userId = newUser._id;
-    const token = jwt.sign({ userId }, process.env.jwtSecretPhrase, {
+    const token = jwt.sign({ newUser }, process.env.jwtSecretPhrase, {
       expiresIn: 3 * 24 * 60 * 60, //3 days
     });
+
     res.cookie("jwt", token, {
       httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
