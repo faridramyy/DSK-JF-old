@@ -77,6 +77,7 @@ export const forgetPasswordCkeckCode_post = async (req, res) => {
 export const forgetPasswordUpdatepassword_put = async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password)
+
   UserModel.findOneAndUpdate({ email }, { password })
     .then((updatesUser) => {
       console.log(updatesUser)
@@ -85,4 +86,5 @@ export const forgetPasswordUpdatepassword_put = async (req, res) => {
     .catch((err) => {
       console.error(err);
     });
+      
 };
