@@ -73,13 +73,13 @@ input {
   font-size: 14px;
   font-weight: 300;
 }
-.container {
+.conatiner {
   position: relative;
 }
 .eye {
   position: absolute;
-  top: 48%;
-  right: 40px;
+  top: 73%;
+  right: 20px;
   transform: translateY(-50%);
   cursor: pointer;
 }
@@ -119,6 +119,26 @@ button:hover {
   display: flex;
   justify-content: center;
   padding: 10px;
+}
+.or {
+  text-align: center;
+  color: lightgrey;
+  position: relative;
+}
+.or::after,
+.or::before {
+  content: "";
+  position: absolute;
+  background-color: lightgrey;
+  height: 1px;
+  top: 50%;
+  width: 100px;
+}
+.or::before {
+  right: 40px;
+}
+.or::after {
+  left: 40px;
 }
 .social {
   display: flex;

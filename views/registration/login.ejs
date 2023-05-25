@@ -42,6 +42,7 @@
         <div class="signupanchor">
           <a href="/signup" class="sign-up"> Don't have an account ? Sign up</a>
         </div>
+        <p class="or">or</p>
         <div class="social">
           <div class="google"><i class="fab fa-google"></i> Google</div>
           <div class="facebook"><i class="fab fa-facebook"></i> Facebook</div>
@@ -90,8 +91,9 @@
             });
             const data = await res.json();
             if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user)
-              location.assign(`/${data.user.role}/${data.user._id}`);
+            else if (data.user.role === "admin")
+              location.assign(`/admin`);
+            else location.assign(`/${data.user.role}/${data.user._id}`);
           } catch (err) {
             console.log(err);
           }
