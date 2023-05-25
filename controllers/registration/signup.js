@@ -9,7 +9,6 @@ export const signup_get = (req, res) => {
 export const signup_post = async (req, res) => {
   const { role, firstName, lastName, username, email, password, gpa } =
     req.body;
-
   try {
     if (await UserModel.findOne({ email }))
       return res.status(409).json({ errMsg: "Email is Taken" });
