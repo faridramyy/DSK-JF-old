@@ -12,16 +12,15 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="/public/css/registration/login.css" />
+    <link rel="stylesheet" href="/css/registration/login.css" />
     <title>Log in</title>
   </head>
   <body>
     <main>
       <form method="POST" id="form" action="/login/post">
         <div>
-              <h1>Welcome back</h1>
-              <h1 id="login">Log in!</h1>
-
+          <h1>Welcome back</h1>
+          <h2 id="login">Log in!</h2>
         </div>
         <div>
           <label for="username">Username : </label>
@@ -33,15 +32,15 @@
           <i class="fa-regular fa-eye eye" id="eye"></i>
           <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
         </div>
-        <div>
-          <a href="forgotpaass.html" class="forgotpass">Forget Password ?</a>
+        <div class="forgotpass">
+          <a href="/forgetpassword">Forget Password ?</a>
         </div>
         <p style="color: red" id="error"></p>
         <div class="buttondiv">
           <button type="submit">Sign in</button>
         </div>
         <div class="signupanchor">
-        <a href="signup.html" class="sign-up">Don't have an account ? Sign up</a>
+          <a href="/signup" class="sign-up"> Don't have an account ? Sign up</a>
         </div>
         <div class="social">
           <div class="google"><i class="fab fa-google"></i> Google</div>
@@ -50,23 +49,22 @@
       </form>
     </main>
     <!-- eye -->
-  <!-- eye -->
-  <script>
-    const eye = document.getElementById("eye");
-    const closedEye = document.getElementById("closedEye");
-    const passwordInput = document.querySelector("#password");
+    <script>
+      const eye = document.getElementById("eye");
+      const closedEye = document.getElementById("closedEye");
+      const passwordInput = document.querySelector("#password");
 
-    eye.addEventListener("click", function () {
-      passwordInput.type = "text";
-      eye.style.display = "none";
-      closedEye.style.display = "block";
-    });
-    closedEye.addEventListener("click", function () {
-      passwordInput.type = "password";
-      closedEye.style.display = "none";
-      eye.style.display = "block";
-    });
-  </script>
+      eye.addEventListener("click", function () {
+        passwordInput.type = "text";
+        eye.style.display = "none";
+        closedEye.style.display = "block";
+      });
+      closedEye.addEventListener("click", function () {
+        passwordInput.type = "password";
+        closedEye.style.display = "none";
+        eye.style.display = "block";
+      });
+    </script>
 
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
