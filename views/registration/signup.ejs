@@ -19,7 +19,10 @@
   <body>
     <main>
       <form method="post" id="form" action="/signup/post">
-        <h1 id="signup">Create a new account now</h1>
+        <div class="title">
+          <h1>Creat Account</h1>
+          <h2>Sign up!</h2>
+        </div>
         <div class="names">
           <div>
             <label for="firstName">First Name : </label>
@@ -46,7 +49,10 @@
         </div>
         <p style="color: red" id="error"></p>
         <div class="recaptcha">
-          <div class="g-recaptcha" data-sitekey="6Le6QD4mAAAAADV5VfC2F0joiBbaA0kDAr0PyEQN"></div>
+          <div
+            class="g-recaptcha"
+            data-sitekey="6Le6QD4mAAAAADV5VfC2F0joiBbaA0kDAr0PyEQN"
+          ></div>
         </div>
         <div class="signinanchor">
           <a href="/login">Already have an account ? Sign in</a>
