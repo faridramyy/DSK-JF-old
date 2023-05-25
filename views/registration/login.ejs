@@ -12,14 +12,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="css/registration/login.css" />
+    <link rel="stylesheet" href="/public/css/registration/login.css" />
     <title>Log in</title>
   </head>
   <body>
     <main>
       <form method="POST" id="form" action="/login/post">
-        <h1>Welcome back</h1>
-        <h2>Log in!</h2>
+        <div>
+              <h1>Welcome back</h1>
+              <h1 id="login">Log in!</h1>
+
+        </div>
         <div>
           <label for="username">Username : </label>
           <input type="text" id="username" name="username" />
@@ -28,16 +31,18 @@
           <label for="password">Password : </label>
           <input type="password" id="password" name="Password" />
           <i class="fa-regular fa-eye eye" id="eye"></i>
-          <i class="fa-regular fa-eye-slasheye" id="closedEye"></i>
+          <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
         </div>
         <div>
-          <a href="/forgetpassword" class="forgotpass">Forget Password ?</a>
+          <a href="forgotpaass.html" class="forgotpass">Forget Password ?</a>
         </div>
         <p style="color: red" id="error"></p>
-        <div>
+        <div class="buttondiv">
           <button type="submit">Sign in</button>
         </div>
-        <a href="/signup" class="sign-up">Don't have an account ? Sign up</a>
+        <div class="signupanchor">
+        <a href="signup.html" class="sign-up">Don't have an account ? Sign up</a>
+        </div>
         <div class="social">
           <div class="google"><i class="fab fa-google"></i> Google</div>
           <div class="facebook"><i class="fab fa-facebook"></i> Facebook</div>
@@ -45,22 +50,23 @@
       </form>
     </main>
     <!-- eye -->
-    <script>
-      const eye = document.getElementById("eye");
-      const closedEye = document.getElementById("closedEye");
-      const passwordInput = document.querySelector("#password");
+  <!-- eye -->
+  <script>
+    const eye = document.getElementById("eye");
+    const closedEye = document.getElementById("closedEye");
+    const passwordInput = document.querySelector("#password");
 
-      eye.addEventListener("click", function () {
-        passwordInput.type = "text";
-        eye.style.display = "none";
-        closedEye.style.display = "block";
-      });
-      closedEye.addEventListener("click", function () {
-        passwordInput.type = "password";
-        closedEye.style.display = "none";
-        eye.style.display = "block";
-      });
-    </script>
+    eye.addEventListener("click", function () {
+      passwordInput.type = "text";
+      eye.style.display = "none";
+      closedEye.style.display = "block";
+    });
+    closedEye.addEventListener("click", function () {
+      passwordInput.type = "password";
+      closedEye.style.display = "none";
+      eye.style.display = "block";
+    });
+  </script>
 
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
@@ -86,10 +92,8 @@
             });
             const data = await res.json();
             if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user.role === "admin") location.assign(`/admin`);
             else if (data.user)
               location.assign(`/${data.user.role}/${data.user._id}`);
-            else location.assign(`/404`);
           } catch (err) {
             console.log(err);
           }
