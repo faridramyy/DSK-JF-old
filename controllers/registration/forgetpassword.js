@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import bcrypt from "bcrypt";
 import UserModel from "../../models/user.js";
 import otpModel from "../../models/otp.js";
 
@@ -76,15 +77,22 @@ export const forgetPasswordCkeckCode_post = async (req, res) => {
 
 export const forgetPasswordUpdatepassword_put = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password)
 
-  UserModel.findOneAndUpdate({ email }, { password })
-    .then((updatesUser) => {
-      console.log(updatesUser)
-      res.status(200).json({ msg: "done" });
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  UserModel.findOneAndUpdate({ email }, { password: hashedPassword })
+    .then(() => {
+      otpModel
+        .findOneAndDelete({ email })
+        .then(() => {
+          res.status(200).json({ msg: "done" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       console.error(err);
     });
-      
 };
