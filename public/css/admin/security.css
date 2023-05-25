@@ -73,8 +73,8 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(to top, #13cf7d 0%, #3cba92 100%);
-  box-shadow: #5df0b0 0 10px 20px -10px;
+  background: linear-gradient(to top, #341edc 0%, #0049d1 100%);
+  box-shadow: #2e7eee 0 10px 20px -10px;
   box-sizing: border-box;
   color: #ffffff;
   font-weight: bold;
@@ -126,7 +126,7 @@ body {
 }
 
 .btn-primary:hover {
-  background: linear-gradient(to top, #01a25c 0%, #019063 100%);
+  background: linear-gradient(to top, #2401a2 0%, #015090 100%);
   /* box-shadow: #5df0b0 0 10px 20px -10px; */
   box-sizing: border-box;
   color: #ffffff;

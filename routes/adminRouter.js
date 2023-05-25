@@ -7,5 +7,8 @@ router.get("/editProfile", (req, res) => {
 router.get("/security", (req, res) => {
   res.render("admin/security");
 });
+router.get("/notifications", (req, res) => {
+  res.render("admin/notifications");
+});
 
 export default router;
