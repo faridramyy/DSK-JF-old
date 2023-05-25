@@ -13,18 +13,9 @@ router.get("/courses", (req, res) => {
 router.get("/settings", (req, res) => {
   res.render("admin/settings");
 });
-
-router.get("/", (req, res) => {
-  res.render("admin/dashboard");
+router.get("/security", (req, res) => {
+  res.render("admin/security");
 });
-router.get("/users", (req, res) => {
-  res.render("admin/users");
+router.get("/notifications", (req, res) => {
+  res.render("admin/notifications");
 });
-router.get("/courses", (req, res) => {
-  res.render("admin/courses");
-});
-router.get("/settings", (req, res) => {
-  res.render("admin/settings");
-});
-
-export default router;
