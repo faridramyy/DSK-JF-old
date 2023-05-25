@@ -39,7 +39,7 @@
           <label for="password">Password : </label>
           <input type="password" id="password" name="Password" />
           <i class="fa-regular fa-eye eye" id="eye"></i>
-          <i class="fa-regular fa-eye-slash closed-eye" id="closedEye" style="display: none;"></i>
+          <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
         </div>
         <p style="color: red" id="error"></p>
         <div>
@@ -94,7 +94,8 @@
             });
             const data = await res.json();
             if (data.errMsg) error.innerHTML = data.errMsg;
-            else if(data.user) location.assign(`/student/${data.user}`)
+            else if (data.user)
+              location.assign(`/${data.user.role}/${data.user._id}`);
           } catch (err) {
             console.log(err);
           }

@@ -20,7 +20,7 @@ export const login_post = async (req, res) => {
           httpOnly: true,
           maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
         });
-        return res.status(200).json({ user: userId });
+        return res.status(200).json({ user: founduser});
       } else return res.status(401).json({ errMsg: "Wrong password" });
     } else return res.status(401).json({ errMsg: "Username not found" });
   } catch (err) {

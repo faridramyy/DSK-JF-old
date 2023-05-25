@@ -39,10 +39,10 @@ export const signup_post = async (req, res) => {
     });
     res.cookie("jwt", token, {
       httpOnly: true,
-      maxAge: 3 * 24 * 60 * 60 * 1000, //3 days 
+      maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
     });
 
-    res.status(201).json({ user: userId }); //code 201 for created success
+    res.status(201).json({ user: newUser }); //code 201 for created success
   } catch (err) {
     console.log(err);
   }
