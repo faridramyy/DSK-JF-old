@@ -6,7 +6,7 @@ import {
   forgetPassword_post,
   forgetPasswordSendCode_post,
   forgetPasswordCkeckCode_post,
-  forgetPasswordUpdatepassword_put
+  forgetPasswordUpdatepassword_put,
 } from "../controllers/registration/forgetpassword.js";
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post("/forgetpassword/checkcode", forgetPasswordCkeckCode_post);
 router.put("/forgetpassword/updatepassword", forgetPasswordUpdatepassword_put);
 
 router.get("/logout", function (req, res) {
-  
+  res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/login");
 });
 

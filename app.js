@@ -4,10 +4,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 //Routes
-import registrationRouter from "./routes/registration.js";
+import registrationRouter from "./routes/registrationRouter.js";
 import studentRouter from "./routes/studentRouter.js";
 //Middlewares
-import { userAuth } from "./middlewares/userAuth.js";
 
 dotenv.config();
 //Variables
