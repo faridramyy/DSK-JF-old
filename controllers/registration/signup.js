@@ -14,7 +14,7 @@ export const signup_post = async (req, res) => {
       return res.status(409).json({ errMsg: "Email is Taken" });
     //code 409 for conflict
     else if (await UserModel.findOne({ username }))
-      return res.status(409).json({ errMsg: "USernmae is Taken" });
+      return res.status(409).json({ errMsg: "Usernmae is Taken" });
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);

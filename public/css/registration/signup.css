@@ -47,8 +47,7 @@ form * {
   outline: none;
   border: none;
 }
-form h1,
-h2 {
+form h2 {
   font-size: 32px;
   font-weight: 500;
   line-height: 42px;
