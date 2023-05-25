@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import registrationRouter from "./routes/registrationRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 //Middlewares
 dotenv.config();
 //Variables
@@ -23,6 +24,7 @@ app.set("view engine", "ejs");
 app.use(registrationRouter);
 app.use("/admin", adminRouter);
 app.use("/student", studentRouter);
+app.use("/admin", adminRouter);
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
