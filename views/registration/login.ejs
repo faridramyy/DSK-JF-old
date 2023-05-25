@@ -12,14 +12,16 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="css/registration/login.css" />
+    <link rel="stylesheet" href="/css/registration/login.css" />
     <title>Log in</title>
   </head>
   <body>
     <main>
       <form method="POST" id="form" action="/login/post">
-        <h1>Welcome back</h1>
-        <h2>Log in!</h2>
+        <div>
+          <h1>Welcome back</h1>
+          <h2 id="login">Log in!</h2>
+        </div>
         <div>
           <label for="username">Username : </label>
           <input type="text" id="username" name="username" />
@@ -28,16 +30,19 @@
           <label for="password">Password : </label>
           <input type="password" id="password" name="Password" />
           <i class="fa-regular fa-eye eye" id="eye"></i>
-          <i class="fa-regular fa-eye-slasheye" id="closedEye"></i>
+          <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
         </div>
-        <div>
-          <a href="/forgetpassword" class="forgotpass">Forget Password ?</a>
+        <div class="forgotpass">
+          <a href="/forgetpassword">Forget Password ?</a>
         </div>
         <p style="color: red" id="error"></p>
-        <div>
+        <div class="buttondiv">
           <button type="submit">Sign in</button>
         </div>
-        <a href="/signup" class="sign-up">Don't have an account ? Sign up</a>
+        <div class="signupanchor">
+          <a href="/signup" class="sign-up"> Don't have an account ? Sign up</a>
+        </div>
+        <p class="or">or</p>
         <div class="social">
           <div class="google"><i class="fab fa-google"></i> Google</div>
           <div class="facebook"><i class="fab fa-facebook"></i> Facebook</div>
@@ -86,10 +91,9 @@
             });
             const data = await res.json();
             if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user.role === "admin") location.assign(`/admin`);
-            else if (data.user)
-              location.assign(`/${data.user.role}/${data.user._id}`);
-            else location.assign(`/404`);
+            else if (data.user.role === "admin")
+              location.assign(`/admin`);
+            else location.assign(`/${data.user.role}/${data.user._id}`);
           } catch (err) {
             console.log(err);
           }
