@@ -3,7 +3,6 @@
   --error-color: #e74c3c;
 }
 body {
-  margin-top: 20px;
   background-color: #f2f6fc;
   color: #69707a;
 }
@@ -13,7 +12,6 @@ body {
 .rounded-circle {
   border-radius: 50% !important;
 }
-
 .form-control,
 .dataTable-input {
   display: block;

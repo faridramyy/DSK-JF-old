@@ -8,11 +8,13 @@ router.get("/", (req, res) => {
 router.get("/users", async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 3;
-  let users = await userModel
-    .find()
+
+  let userss = await userModel.find();
+  const usersLength = userss.length;
+  let users = await userModel.find()
     .skip(page * usersPerPage)
     .limit(usersPerPage);
-  res.render("admin/users", { users });
+  res.render("admin/users", { users , usersLength,usersPerPage});
 });
 router.get("/courses", (req, res) => {
   res.render("admin/courses");
