@@ -23,6 +23,7 @@ main {
   transition: width 600ms ease;
   overflow: scroll;
   z-index: 999999;
+  height: 100vh;
 }
 .navbar::-webkit-scrollbar {
   display: none;
@@ -134,4 +135,8 @@ main {
   .navbar:hover .logo-text {
     left: 30px;
   }
+}
+
+main {
+  width: calc(100% - 115px);
 }
