@@ -229,13 +229,16 @@
       <div class="no-data">
         <p>No data found!</p>
       </div>
-      <% } %> <% const number = Math.ceil(users.length / 2) %>
+      <% } %> <% const number = Math.ceil(usersLength / usersPerPage) %>
+      <% console.log(number); %>
       <div class="pagination">
-        <a href="#">&laquo;</a>
-        <% let num = 1 %> <% for (let i = 0; i < number; i++) { %>
-        <a href="#" class="link active" onclick="activeLink()"><%= num %></a>
-        <% num++ %> <% } %>
-        <a href="#">&raquo;</a>
+        <button class="btn1" onclick="backBtn()">&laquo;</button>
+        <ul>
+          <% let num = 1 %> <% for (let i = 0; i < number; i++) { %>
+            <li class="link" value="<%=num %>" onclick="activeLink()"><%=num %></li>
+            <% num++; %><% } %>
+        </ul>
+        <button class="btn2" onclick="nextBtn()">&raquo;</button>
       </div>
     </main>
     <script type="module">
@@ -330,6 +333,41 @@
           }
         });
       });
+
+      //pagination
+      let link = document.getElementsByClassName("link");
+      let currentValue = 1;
+
+      // const number = Math.ceil(usersLength / usersPerPage)
+      // console.log(usersLength);
+
+      function activeLink() {
+        for (l of link) {
+          l.classList.remove("active");
+        }
+         event.target.classList.add("active");
+         currentValue=event.target.value;
+         console.log(currentValue);
+      }
+
+      function backBtn() {
+        if (currentValue > 1) {
+          for (l of link) {
+            l.classList.remove("active");
+          }
+          currentValue--;
+          link[currentValue-1].classList.add("active")
+        }
+      }
+      function nextBtn() {
+        if (currentValue<number) {
+          for (l of link) {
+            l.classList.remove("active");
+          }
+          currentValue--;
+          link[currentValue+1].classList.add("active")
+        }
+      }
     </script>
      
   </body>
