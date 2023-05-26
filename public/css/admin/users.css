@@ -159,7 +159,9 @@ table {
 .search-bar i {
   left: 10px;
 }
-button {
+button,
+a.delete,
+a.ban {
   border: none;
   text-align: center;
   cursor: pointer;
@@ -168,6 +170,17 @@ button {
 button i {
   font-size: 30px;
 }
+
+.delete {
+  text-decoration: none;
+  color: red;
+}
+
+.ban {
+  text-decoration: none;
+  color: rgb(32, 0, 120);
+}
+
 td,
 th {
   border-bottom: 1px solid #dddddd;
@@ -300,7 +313,7 @@ th {
 .pagination ul {
   padding: 0;
   display: flex;
-  gap:7px;
+  gap: 7px;
 }
 .pagination ul a {
   display: flex;
@@ -313,7 +326,7 @@ th {
   background-color: #eee;
   width: 15px;
   height: 15px;
-  transition: .3s;
+  transition: 0.3s;
 }
 .pagination ul a:hover {
   transform: translateY(-5px);
