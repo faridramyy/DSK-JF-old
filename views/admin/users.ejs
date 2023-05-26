@@ -26,7 +26,7 @@
       </header>
       <section class="add-new-student" id="addNewStudent">
         <p style="color: red" id="error"></p>
-        <form method="post" id="form" action="/admin/users">
+        <form method="post" id="form">
           <div>
             <label for="firstName">First Name : </label>
             <input
@@ -261,12 +261,37 @@
       import { validateForm } from "../js/formValidation.js";
       const form = document.getElementById("form");
       const error = document.getElementById("error");
-      form.addEventListener("submit", (e) => {
+
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        error.innerHTML = "";
+        error.style.color = "red";
         if (validateForm(form)) error.innerHTML = validateForm(form);
         else {
-          error.innerHTML = "";
-          e.target.submit();
+          try {
+            const res = await fetch("/signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                role: document.querySelector('input[name="role"]:checked')
+                  .value,
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                username: document.getElementById("username").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                gpa: 0,
+              }),
+            });
+            const data = await res.json();
+            if (data.errMsg) error.innerHTML = data.errMsg;
+            else if (data.user) {
+              error.style.color = "green";
+              error.innerHTML = "Added";
+            }
+          } catch (err) {
+            console.log(err);
+          }
         }
       });
       // << End >> form Validation
@@ -306,5 +331,6 @@
         });
       });
     </script>
-  </body>
+     
+  </body>
 </html>
