@@ -27,63 +27,45 @@
       <div class="container-xl px-4 mt-4">
         <!-- Account page navigation-->
         <nav class="nav nav-borders">
-          <a class="nav-link" href="/admin/settings">Profile</a>
-          <a class="nav-link" href="/admin/security">Security</a>
-          <a class="nav-link active ms-0" href="#">Notifications</a>
+          <li><a class="nav-link" href="/admin/settings">Profile</a></li>
+          <li><a class="nav-link" href="/admin/security">Security</a></li>
+          <li><a class="nav-link active" href="#">Notifications</a></li>
         </nav>
         <hr class="mt-0 mb-4" />
         <div class="row">
-          <div class="col-xl-4"></div>
-          <div class="containerAll">
-            <div class="col-xl-8">
-              <!-- Account details card-->
-              <div class="card mb-4">
-                <div class="card-header">Notifications</div>
-                <div class="card-body">
-                  <form id="UpdateProfile_Form">
-                    <div class="mb-3">
-                      <label class="small mb-1">
-                        <div class="cb2">Notifications for all groups</div>
-                      </label>
+          <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+              <h1 class="card-header">Notifications</h1>
+              <div class="card-body">
+                <form id="UpdateProfile_Form">
+                  <div class="mb-3">
+                    <div class="cb2">
+                      <h2>Get Notifications</h2>
                       <input type="checkbox" hidden="hidden" id="cb-n1" />
                       <label class="switch" for="cb-n1"></label>
                     </div>
-                    <hr />
-                    <div class="mb-3">
-                      <div class="cb2">Automatically watch team</div>
-                      Anytime you join a new team,
-                      <div>you will automatically be subscribed</div>
-                      <div>to updates and receive notification</div>
-                      <div>when that team is @mentioned.</div>
+                  </div>
+                  <hr />
+                  <div class="mb-3">
+                    <div class="cb2">
+                      <h2>Notification title</h2>
                       <input type="checkbox" hidden="hidden" id="cb-n2" />
                       <label class="switch" for="cb-n2"></label>
                     </div>
-                    <hr />
-                    <div class="mb-3">
-                      <div class="cb2">'Deploy key' alert email</div>
-                      When you are given admin
-                      <div>to an organization, automatically permissions</div>
-                      <div>
-                        receive notifications when a new deploy key is added.
-                      </div>
-                      <input type="checkbox" hidden="hidden" id="cb-n3" />
-                      <label class="switch" for="cb-n3" id="cb-btn3"></label>
-                    </div>
-                    <hr />
-                    <div class="mb-3">
-                      <div class="cb2">Automatically watch repositories</div>
-                      When you're given push access to a repository,
-                      <div>automatically receive notifications for it.</div>
-                      <input type="checkbox" hidden="hidden" id="cb-n4" />
-                      <label class="switch" for="cb-n4" id="cb-btn4"></label>
-                    </div>
-                    <hr />
-                    <button class="btn btn-primary" type="submit">
-                      Save changes
-                    </button>
-                    <button class="clear_btn" type="button">Reset</button>
-                  </form>
-                </div>
+                    <p>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                      Atque fuga eligendi quos recusandae dicta! Repudiandae,
+                      quasi voluptatibus numquam, eveniet autem tempore facilis
+                      accusantium quisquam sequi hic fugit? Voluptates, aliquam
+                      tempore?
+                    </p>
+                  </div>
+                  <button class="btn btn-primary" type="submit">
+                    Save changes
+                  </button>
+                  <button class="btn clear_btn" type="button">Reset</button>
+                </form>
               </div>
             </div>
           </div>
