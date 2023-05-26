@@ -30,31 +30,29 @@
         <form method="post" id="form" action="/admin/users">
           <div>
             <label for="Course's Name">Course's Name : </label>
-            <input type="text" class="field" placeholder="Course's Name" />
-
+            <input type="text" class="field" name="courseName" placeholder="Course's Name" />
           </div>
           <div>
             <label for="Number of students">Number of students: </label>
-            <input type="number" class="field" placeholder="Number of students" /> 
-
+            <input
+              type="number"
+              class="field"
+              name="numberofStudnt"
+              placeholder="Number of students"
+            />
           </div>
           <div>
-            <label for="username">Instructor's name </label>
-            <select class="field" name="cars" placeholder="Instructor's Name">
+            <label for="username">Instructor's name :</label>
+            <select class="field selectt" name="InstructorName" placeholder="Instructor's Name">
               <option disabled selected></option>
-              <option> Essam</option>
-              <option >Ashraf</option>
-              <option >Walaa</option>
-              <option >Fatma</option>
-              <option >No Instructor</option>
-  
+              <option>Essam</option>
+              <option>Ashraf</option>
+              <option>Walaa</option>
+              <option>Fatma</option>
+              <option>No Instructor</option>
             </select>
           </div>
-          <div>
-            <label for="Course's Description"> Course's Description: </label>
-            <textarea placeholder="Course's Description" class="field"></textarea>
-          </div>
-          
+
           <div>
             <button type="submit" id="submit">Add</button>
           </div>
@@ -63,93 +61,12 @@
 
       <section class="articles">
         <article>
-          <div class="article-wrapper">
+          <div class="image">
             <img src="/img/Web.jpeg" alt="" />
-            <div class="article-body">
-              <h2>Web Development</h2>
-
-              <a href="#" class="read-more">
-                Read more 
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-              <div class="stars">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-              </div>
-            </div>
           </div>
-        </article>
 
-        <article>
-          <div class="article-wrapper">
-            <img src="/img/OOP.png" alt="" />
-            <div class="article-body">
-              <h2>OOP</h2>
-
-              <a href="#" class="read-more">
-                Read more 
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-              <div class="stars">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article>
-          <div class="article-wrapper">
-            <img src="/img/ds.png" alt="" />
-            <div class="article-body">
-              <h2>Data stuctures</h2>
-
-              <a href="#" class="read-more">
-                Read more <span class="sr-only">about this is some title</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-              <div class="stars">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-             
-              </div>
-            </div>
+          <div class="article-body">
+            <h2>Web Development</h2>
           </div>
         </article>
       </section>
