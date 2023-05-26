@@ -8,6 +8,7 @@ import registrationRouter from "./routes/registrationRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
 //Middlewares
+import { adminAuth } from "./middlewares/userAuth.js";
 dotenv.config();
 //Variables
 const app = express();
@@ -21,9 +22,8 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 app.use(registrationRouter);
-app.use("/admin", adminRouter);
+app.use("/admin", adminAuth, adminRouter);
 app.use("/student", studentRouter);
-app.use("/admin", adminRouter);
 
 // Handle 404 (Not Found)
 app.use((req, res) => {

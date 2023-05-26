@@ -47,6 +47,9 @@ form * {
   outline: none;
   border: none;
 }
+.title {
+  margin-bottom: 20px;
+}
 form h1,
 h2 {
   font-size: 32px;
