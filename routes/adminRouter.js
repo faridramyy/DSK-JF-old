@@ -11,11 +11,24 @@ router.get("/users", async (req, res) => {
 
   let userss = await userModel.find();
   const usersLength = userss.length;
-  let users = await userModel.find()
+  let users = await userModel
+    .find()
     .skip(page * usersPerPage)
     .limit(usersPerPage);
-  res.render("admin/users", { users , usersLength,usersPerPage});
+  res.render("admin/users", { users, usersLength, usersPerPage });
 });
+
+// filter by role
+
+// router.get("/users/:role ", async (req, res) => {
+//   const role = req.params.role;
+//   const filter = { role: role };
+
+//   let usersFilter = await userModel.find(filter);
+
+//   res.render("admin/users", { usersFilter });
+// });
+
 router.get("/courses", (req, res) => {
   res.render("admin/courses");
 });
@@ -27,6 +40,17 @@ router.get("/security", (req, res) => {
 });
 router.get("/notifications", (req, res) => {
   res.render("admin/notifications");
+});
+
+router.get("/delete/:id", async (req, res) => {
+  await userModel
+    .findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.redirect("/admin/users");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 export default router;
