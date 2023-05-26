@@ -115,6 +115,7 @@
         e.preventDefault();
       }
       //Show input error messages
+
       function showError(input, message) {
         const formControl = input.parentElement;
         formControl.className = "form-control error";
@@ -125,6 +126,7 @@
       //show success color
       function showSucces(input) {
         const formControl = input.parentElement;
+        console.log(formControl);
         formControl.className = "form-control success";
       }
 
