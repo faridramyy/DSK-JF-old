@@ -17,7 +17,7 @@ main {
   margin-left: 5rem;
   padding: 1rem;
 }
-.navbar {
+.navbarx {
   position: fixed;
   background-color: var(--bg-primary);
   transition: width 600ms ease;
@@ -25,10 +25,10 @@ main {
   z-index: 999999;
   height: 100vh;
 }
-.navbar::-webkit-scrollbar {
+.navbarx::-webkit-scrollbar {
   display: none;
 }
-.navbar-nav {
+.navbar-navx {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -37,13 +37,13 @@ main {
   align-items: center;
   height: 100%;
 }
-.nav-item {
+.nav-itemx {
   width: 100%;
 }
-.nav-item:last-child {
+.nav-itemx:last-child {
   margin-top: auto;
 }
-.nav-link {
+.nav-linkx {
   display: flex;
   align-items: center;
   height: 5rem;
@@ -52,24 +52,24 @@ main {
   filter: grayscale(100%) opacity(0.7);
   transition: var(--transition-speed);
 }
-.nav-link:hover {
+.nav-linkx:hover {
   filter: grayscale(0%) opacity(1);
   background: var(--bg-secondary);
   color: var(--text-secondary);
 }
-.nav-link i {
+.nav-linkx i {
   position: relative;
   left: 20px;
   transition: 0.3s;
 }
-.nav-link:hover i {
+.nav-linkx:hover i {
   transform: translateX(-5px);
 }
-.link-text {
+.link-textx {
   display: none;
   margin-left: 2rem;
 }
-.logo {
+.logox {
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -80,7 +80,7 @@ main {
   letter-spacing: 0.3ch;
   width: 100%;
 }
-.logo-text {
+.logo-textx {
   display: inline;
   position: absolute;
   left: 999px;
@@ -89,50 +89,46 @@ main {
 
 /* Small screens */
 @media only screen and (max-width: 600px) {
-  .navbar {
+  .navbarx {
     bottom: 0;
     width: 100vw;
     height: 5rem;
   }
 
-  .logo {
+  .logox {
     display: none;
   }
 
-  .navbar-nav {
+  .navbar-navx {
     flex-direction: row;
   }
 
-  .nav-link {
+  .nav-linkx {
     justify-content: center;
   }
 
-  main {
+  mainx {
     margin: 0;
   }
 }
 
 /* Large screens */
 @media only screen and (min-width: 600px) {
-  .navbar {
+  .navbarx {
     top: 0;
     width: 5rem;
     height: 100vh;
   }
 
-  .navbar:hover {
+  .navbarx:hover {
     width: 13rem;
   }
 
-  .navbar:hover .link-text {
+  .navbarx:hover .link-textx {
     display: inline;
   }
 
-  .navbar:hover .logo svg {
-    margin-left: 11rem;
-  }
-
-  .navbar:hover .logo-text {
+  .navbarx:hover .logo-textx {
     left: 30px;
   }
 }
