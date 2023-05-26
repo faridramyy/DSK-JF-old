@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import UserModel from "../../models/user.js";
 
 export const login_get = (req, res) => {
-  res.render("registration/login");
+  res.render("registration/login", { msg: req.body.msg });
 };
 
 export const login_post = async (req, res) => {
@@ -14,9 +14,13 @@ export const login_post = async (req, res) => {
 
     if (founduser) {
       if (await bcrypt.compare(Password, founduser.password)) {
-        const token = jwt.sign({ founduser }, process.env.jwtSecretPhrase, {
-          expiresIn: 3 * 24 * 60 * 60, //3 days
-        });
+        const token = jwt.sign(
+          { user: founduser },
+          process.env.jwtSecretPhrase,
+          {
+            expiresIn: 3 * 24 * 60 * 60, //3 days
+          }
+        );
 
         res.cookie("jwt", token, {
           httpOnly: true,
