@@ -52,5 +52,24 @@ router.get("/delete/:id", async (req, res) => {
       console.log(err);
     });
 });
+router.get("/ban/:id", async (req, res) => {
+  const userID = req.params.id;
+  await userModel
+    .findByIdAndUpdate(userID, { isBanned: "true" })
+    .then(() => {
+      console.log("Banned");
+      res.redirect("/admin/users");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// return Day.findOneAndUpdate(
+//   { _id: day.id },
+//   [
+//     { $set: { present: { $not: "$present" } } }
+//   ]
+// );
 
 export default router;
