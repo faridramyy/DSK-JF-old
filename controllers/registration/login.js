@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import UserModel from "../../models/user.js";
 
 export const login_get = (req, res) => {
-  res.render("registration/login", { msg: req.body.msg });
+  const notAllowed = req.query.notAllowed || false;
+  res.render("registration/login", { notAllowed });
 };
 
 export const login_post = async (req, res) => {
