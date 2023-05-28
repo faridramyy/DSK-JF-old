@@ -12,74 +12,65 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/registration/signup.css" />
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title>Sign up</title>
   </head>
   <body>
     <main>
-      <form method="post" id="form" action="/signup/post">
+      <div class="container">
         <div class="title">
           <h1>Creat Account</h1>
           <h2>Sign up!</h2>
         </div>
-        <div class="names">
-          <div>
-            <label for="firstName">First Name : </label>
-            <input type="text" id="firstName" name="firstName" />
+        <form method="post" id="form" action="/signup/post">
+          <div class="names">
+            <div>
+              <label for="firstName">First Name : </label>
+              <input type="text" id="firstName" name="firstName" />
+            </div>
+            <div>
+              <label for="lastName">Last Name : </label>
+              <input type="text" id="lastName" name="lastName" />
+            </div>
           </div>
+
           <div>
-            <label for="lastName">Last Name : </label>
-            <input type="text" id="lastName" name="lastName" />
+            <label for="username">Username : </label>
+            <input type="text" id="username" name="username" />
           </div>
-        </div>
-        <div>
-          <label for="username">Username : </label>
-          <input type="text" id="username" name="username" />
-        </div>
-        <div>
-          <label for="email">Email : </label>
-          <input type="text" id="email" name="email" />
-        </div>
-        <div class="password-input">
-          <label for="password">Password : </label>
-          <input type="password" id="password" name="Password" />
-          <i class="fa-regular fa-eye eye" id="eye"></i>
-          <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
-        </div>
-        <p style="color: red" id="error"></p>
-        <div class="recaptcha">
-          <div
-            class="g-recaptcha"
-            data-sitekey="6Le6QD4mAAAAADV5VfC2F0joiBbaA0kDAr0PyEQN"
-          ></div>
-        </div>
-        <div class="signinanchor">
+
+          <div>
+            <label for="email">Email : </label>
+            <input type="text" id="email" name="email" />
+          </div>
+
+          <div class="pass">
+            <label for="password">Password : </label>
+            <input type="password" id="password" name="Password" />
+            <i class="fa-regular fa-eye eye" id="eye"></i>
+            <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
+          </div>
+
+          <p style="color: red" id="error"></p>
+
+          <div class="recaptcha">
+            <div
+              class="g-recaptcha"
+              data-sitekey="6Le6QD4mAAAAADV5VfC2F0joiBbaA0kDAr0PyEQN"
+            ></div>
+          </div>
+
           <a href="/login">Already have an account ? Sign in</a>
-        </div>
-        <div>
-          <button type="submit">Sign up</button>
-        </div>
-      </form>
+
+          <button type="submit" class="btn sign-up">Sign up</button>
+        </form>
+      </div>
     </main>
-
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- eye -->
-    <script>
-      const eye = document.getElementById("eye");
-      const closedEye = document.getElementById("closedEye");
-      const passwordInput = document.querySelector("#password");
-
-      eye.addEventListener("click", function () {
-        passwordInput.type = "text";
-        eye.style.display = "none";
-        closedEye.style.display = "block";
-      });
-      closedEye.addEventListener("click", function () {
-        passwordInput.type = "password";
-        closedEye.style.display = "none";
-        eye.style.display = "block";
-      });
-    </script>
+    <script src="js/registration/eye.js"></script>
 
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
@@ -89,30 +80,31 @@
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const errorMsg = validateForm(form);
-        if (errorMsg) error.innerHTML = errorMsg;
-        else {
-          try {
-            const res = await fetch("/signup", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                role: "student",
-                firstName: document.getElementById("firstName").value,
-                lastName: document.getElementById("lastName").value,
-                username: document.getElementById("username").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value,
-                gpa: 0,
-              }),
-            });
-            const data = await res.json();
-            if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user)
-              location.assign(`/${data.user.role}/${data.user._id}`);
-          } catch (err) {
-            console.log(err);
-          }
+        if (errorMsg) return (error.innerHTML = errorMsg);
+
+        try {
+          const res = await fetch("/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              role: "student",
+              firstName: document.getElementById("firstName").value,
+              lastName: document.getElementById("lastName").value,
+              username: document.getElementById("username").value,
+              email: document.getElementById("email").value,
+              password: document.getElementById("password").value,
+              gpa: 0,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (data.errMsg) error.innerHTML = data.errMsg;
+          else location.assign(`/${data.user.role}/${data.user._id}`);
+        } catch (err) {
+          console.log(err);
         }
       });
     </script>

@@ -1,0 +1,31 @@
+.services-card {
+  background: #f9f9ff;
+  margin: 300px 50px 50px 50px;
+  border: #33333325 solid 1px;
+  padding: 50px;
+  display: inline-block;
+  border-radius: 8px;
+  width: 20%;
+  height: 20%;
+
+  /* transition: 0.3s; */
+}
+.services-card img {
+  width: 150px;
+  /* border-radius: 50%; */
+  transition: 0.3s;
+}
+.services-card h3 {
+  font-size: 25px;
+  margin: 20px;
+}
+.services-card p {
+  font-size: 15px;
+}
+.services-card:hover {
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.29);
+}
+.services-card:hover img {
+  /* width: 160px; */
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.29);
+}

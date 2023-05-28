@@ -12,60 +12,50 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- my-style -->
+    <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/registration/login.css" />
     <title>Log in</title>
   </head>
   <body>
     <main>
-      <form method="POST" id="form" action="/login/post">
-        <div>
+      <div class="container">
+        <div class="title">
+          <div class="notAllowed"><%=notAllowed ? "You are not allowe to enter the Admin Page" : ""%></div>
           <h1>Welcome back</h1>
           <h2>Log in!</h2>
         </div>
-        <div>
-          <label for="username">Username : </label>
-          <input type="text" id="username" name="username" />
-        </div>
-        <div class="conatiner">
-          <label for="password">Password : </label>
-          <input type="password" id="password" name="Password" />
-          <i class="fa-regular fa-eye eye" id="eye"></i>
-          <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
-        </div>
-        <div class="forgotpass">
-          <a href="/forgetpassword">Forget Password ?</a>
-        </div>
-        <p style="color: red" id="error"></p>
-        <div class="buttondiv">
-          <button type="submit">Sign in</button>
-        </div>
-        <div class="signupanchor">
+        <form method="POST" id="form" action="/login/post">
+          <div>
+            <label for="username">Username : </label>
+            <input type="text" id="username" name="username" />
+          </div>
+
+          <div class="pass">
+            <label for="password">Password : </label>
+            <input type="password" id="password" name="Password" />
+            <i class="fa-regular fa-eye eye" id="eye"></i>
+            <i class="fa-regular fa-eye-slash eye" id="closedEye"></i>
+          </div>
+
+          <a href="/forgetpassword" class="forgetpassword">Forget Password ?</a>
+          <p style="color: red" id="error"></p>
+          <button type="submit" class="btn sign-in">Sign in</button>
           <a href="/signup" class="sign-up"> Don't have an account ? Sign up</a>
-        </div>
-        <p class="or">or</p>
-        <div class="social">
-          <div class="google"><i class="fab fa-google"></i> Google</div>
-          <div class="facebook"><i class="fab fa-facebook"></i> Facebook</div>
-        </div>
-      </form>
+          <p class="or">or</p>
+          <div class="social">
+            <button class="btn google">
+              <i class="fab fa-google"></i> Google
+            </button>
+            <button class="btn facebook">
+              <i class="fab fa-facebook"></i> Facebook
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
     <!-- eye -->
-    <script>
-      const eye = document.getElementById("eye");
-      const closedEye = document.getElementById("closedEye");
-      const passwordInput = document.querySelector("#password");
-
-      eye.addEventListener("click", function () {
-        passwordInput.type = "text";
-        eye.style.display = "none";
-        closedEye.style.display = "block";
-      });
-      closedEye.addEventListener("click", function () {
-        passwordInput.type = "password";
-        closedEye.style.display = "none";
-        eye.style.display = "block";
-      });
-    </script>
+    <script src="js/registration/eye.js"></script>
 
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
@@ -76,26 +66,27 @@
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const errorMsg = validateForm(form);
-        if (errorMsg) error.innerHTML = errorMsg;
-        else {
-          try {
-            const res = await fetch("/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username: document.getElementById("username").value,
-                Password: document.getElementById("password").value,
-              }),
-            });
-            const data = await res.json();
-            if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user.role === "admin") location.assign(`/admin`);
-            else location.assign(`/${data.user.role}/${data.user._id}`);
-          } catch (err) {
-            console.log(err);
-          }
+        if (errorMsg) return (error.innerHTML = errorMsg);
+
+        try {
+          const res = await fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: document.getElementById("username").value,
+              Password: document.getElementById("password").value,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (data.errMsg) error.innerHTML = data.errMsg;
+          else if (data.user.role === "admin") location.assign(`/admin`);
+          else location.assign(`/${data.user.role}/${data.user._id}`);
+        } catch (err) {
+          console.log(err);
         }
       });
     </script>

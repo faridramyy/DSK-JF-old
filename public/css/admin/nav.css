@@ -67,6 +67,7 @@ main {
 }
 .link-textx {
   display: none;
+  white-space: nowrap;
   margin-left: 2rem;
 }
 .logox {

@@ -1,256 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="/css/admin/nav.css" />
-    <link rel="stylesheet" href="/css/admin/users.css" />
-    <title>Admin-Users</title>
-  </head>
 
-  <body>
-    <%- include("./nav.ejs") %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/admin/nav.css" />
+  <link rel="stylesheet" href="/css/admin/users.css" />
+  <title>Admin-Users</title>
+</head>
+
+<body>
+  <%- include("./nav.ejs") %>
     <main>
       <header>
         <h1>Users</h1>
-        <button class="new-user" id="newUserBtn" type="button">
-          + New User
-        </button>
+        <button class="new-user btn" id="newUserBtn">+ New User</button>
+        <section class="add-new-student" id="addNewStudent">
+          <p style="color: red" id="error"></p>
+          <form method="post" id="form">
+            <div>
+              <label for="firstName">First Name : </label>
+              <input type="text" id="firstName" name="firstName" />
+            </div>
+            <div>
+              <label for="lastName">Last Name : </label>
+              <input type="text" id="lastName" name="lastName" />
+            </div>
+            <div>
+              <label for="username">Username : </label>
+              <input type="text" id="username" name="username" />
+            </div>
+            <div>
+              <label for="email">Email : </label>
+              <input type="text" id="email" name="email" />
+            </div>
+            <div>
+              <label for="password">Password : </label>
+              <input type="password" id="password" name="password" />
+            </div>
+            <div class="role">
+              <div>
+                <input type="radio" id="student" name="role" value="Student" />
+                <label for="student">Student</label>
+              </div>
+              <div>
+                <input checked type="radio" id="instructor" name="role" value="Instructor" />
+                <label for="instructor">Instructor</label><br />
+              </div>
+              <div>
+                <input type="radio" id="teachingAssistant" name="role" value="Teaching Assistant" />
+                <label for="teachingAssistant">Teaching Assistant</label>
+              </div>
+            </div>
+            <div>
+              <button class="btn" id="submit">Submit</button>
+            </div>
+          </form>
+        </section>
       </header>
-      <section class="add-new-student" id="addNewStudent">
-        <p style="color: red" id="error"></p>
-        <form method="post" id="form">
-          <div>
-            <label for="firstName">First Name : </label>
-            <input
-              type="text"
-              placeholder="First Name"
-              id="firstName"
-              name="firstName"
-            />
-          </div>
-          <div>
-            <label for="lastName">Last Name : </label>
-            <input
-              type="text"
-              placeholder="Last Name"
-              id="lastName"
-              name="lastName"
-            />
-          </div>
-          <div>
-            <label for="username">Username : </label>
-            <input
-              type="text"
-              placeholder="Username"
-              id="username"
-              name="username"
-            />
-          </div>
-          <div>
-            <label for="email">Email : </label>
-            <input type="text" placeholder="Email" id="email" name="email" />
-          </div>
-          <div>
-            <label for="password">Password : </label>
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              name="password"
-            />
-          </div>
-          <div class="role">
-            <div>
-              <input type="radio" id="student" name="role" value="Student" />
-              <label for="student">Student</label>
-            </div>
-            <div>
-              <input
-                checked
-                type="radio"
-                id="instructor"
-                name="role"
-                value="Instructor"
-              />
-              <label for="instructor">Instructor</label><br />
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="teachingAssistant"
-                name="role"
-                value="Teaching Assistant"
-              />
-              <label for="teachingAssistant">Teaching Assistant</label>
-            </div>
-          </div>
-          <div>
-            <button type="submit" id="submit">Submit</button>
-          </div>
-        </form>
-      </section>
       <section>
-        <!-- koki -->
         <% if (users.length) {%>
-        <div class="tableBorder">
-          <table>
-            <tr>
-              <th colspan="6">
-                <div class="table-head">
-                  <div class="search-bar">
-                    <i class="fas fa-search"></i>
-                    <input
-                      type="text"
-                      name="search"
-                      id="search"
-                      placeholder="Search users..."
-                    />
+          <div class="tableBorder">
+            <table>
+              <tr>
+                <th colspan="6">
+                  <div class="table-head">
+                    <div class="search-bar">
+                      <i class="fas fa-search"></i>
+                      <input type="text" name="search" id="search" placeholder="Search users..." />
+                    </div>
+                    <div class="filter-menu" id="filter-menu">
+                      <div class="filter-link">
+                        <p>Filter by Role</p>
+                        <ul>
+                          <li>
+                            <input type="checkbox" name="student" id="student" />
+                            <label for="student">Students</label>
+                          </li>
+                          <li>
+                            <input type="checkbox" name="instructor" id="instructor" />
+                            <label for="instructor">Instructor</label>
+                          </li>
+                          <li>
+                            <input type="checkbox" name="TA" id="TA" />
+                            <label for="TA">TAs</label>
+                          </li>
+                        </ul>
+                        <p>Filter by Status</p>
+                        <ul>
+                          <li>
+                            <input type="checkbox" name="active" id="active" />
+                            <label for="active"><Span class="active-dot"></Span>Active</label>
+                          </li>
+                          <li>
+                            <input type="checkbox" name="banned" id="banned" />
+                            <label for="banned"><Span class="banned-dot"></Span>Banned</label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <button>
+                      <i class="fa-solid fa-filter" id="filter-icon"></i>
+                    </button>
                   </div>
-                  <div class="filter-menu" id="filter-menu">
-                    <div class="filter-link">
-                      <p>Filter by Role</p>
-                      <ul>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <input type="checkbox" id="checkboxAll" />
+                </th>
+
+                <th>Name <i class="fa-solid fa-arrow-up-long"></i></th>
+                <th>Role</th>
+                <th>Email</th>
+                <th colspan="2">Status</th>
+              </tr>
+              <% users.forEach(item=> { %>
+                <tr class="user">
+                  <td>
+                    <input type="checkbox" class="chkboxName" id="checkbox1" />
+                  </td>
+                  <td>
+                    <div class="profile-pic-container">
+                      <img src="<%=item.profilePic%>" alt="probile pic" class="profile-pic" />
+                      <input type="text" value="<% let name = (item.firstName||"") +
+                  " " + (item.lastName||"") %><%=name%> " readonly />
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" value="<%= item.role %>" readonly />
+                  </td>
+                  <td>
+                    <input type="text" value="<%= item.email|| " ---" %>" readonly
+                    />
+                  </td>
+                  <td>
+                    <button class="status <%= item.isBanned ? " Banned" : "Active" %>">
+                      <%= item.isBanned ? "Banned" : "Active" %>
+                    </button>
+                  </td>
+                  <td>
+                    <div class="menu">
+                      <div class="dots">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </div>
+                      <ul class="menu-link">
                         <li>
-                          <input type="checkbox" name="student" id="student" />
-                          <label for="student">Students</label>
+                          <button class="btn">
+                            <i class="fa-solid fa-message"></i> Message
+                          </button>
                         </li>
                         <li>
-                          <input
-                            type="checkbox"
-                            name="instructor"
-                            id="instructor"
-                          />
-                          <label for="instructor">Instructor</label>
+                          <button class="btn">
+                            <i class="fa-solid fa-pencil edit"></i> Edit
+                          </button>
                         </li>
                         <li>
-                          <input type="checkbox" name="TA" id="TA" />
-                          <label for="TA">TAs</label>
-                        </li>
-                      </ul>
-                      <p>Filter by Status</p>
-                      <ul>
-                        <li>
-                          <input type="checkbox" name="active" id="active" />
-                          <label for="active"
-                            ><Span class="active-dot"></Span>Active</label
-                          >
+                          <a class="delete" href="/admin/delete/<%= item.id %>">
+                            <i class="fa-solid fa-trash delete"></i>
+                            Remove
+                          </a>
                         </li>
                         <li>
-                          <input type="checkbox" name="banned" id="banned" />
-                          <label for="banned"
-                            ><Span class="banned-dot"></Span>Banned</label
-                          >
+                          <a class="ban" href="/admin/ban/<%= item.id %>">
+                            <i class="fa-solid fa-ban ban"></i>
+                            Ban
+                          </a>
                         </li>
                       </ul>
                     </div>
-                  </div>
-                  <button>
-                    <i class="fa-solid fa-filter" id="filter-icon"></i>
-                  </button>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <input type="checkbox" id="checkboxAll" />
-              </th>
-
-              <th>Name <i class="fa-solid fa-arrow-up-long"></i></th>
-              <th>Role</th>
-              <th>Email</th>
-              <th colspan="2">Status</th>
-            </tr>
-            <% users.forEach(item=> { %>
-            <tr class="user">
-              <td>
-                <input type="checkbox" class="chkboxName" id="checkbox1" />
-              </td>
-              <td>
-                <div class="profile-pic-container">
-                  <img
-                    src="<%=item.profilePic%>"
-                    alt="probile pic"
-                    class="profile-pic"
-                  />
-                  <input type="text" value="<%=item.firstName%>" readonly />
-                </div>
-              </td>
-              <td>
-                <input type="text" value="<%= item.role %>" readonly />
-              </td>
-              <td>
-                <input type="text" value="<%= item.email|| " ---" %>" readonly
-                />
-              </td>
-              <!-- will be modified -->
-              <td>
-                <div class="status active">Active</div>
-              </td>
-              <td>
-                <div class="menu">
-                  <div class="dots">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                  </div>
-                  <ul class="menu-link">
-                    <li>
-                      <button class="btn">
-                        <i class="fa-solid fa-message"></i> Message
-                      </button>
-                    </li>
-                    <li>
-                      <button class="btn">
-                        <i class="fa-solid fa-pencil edit"></i> Edit
-                      </button>
-                    </li>
-                    <li>
-                      <button class="btn">
-                        <i class="fa-solid fa-trash delete"></i>Remove
-                      </button>
-                    </li>
-                    <li>
-                      <button class="btn">
-                        <i class="fa-solid fa-ban ban"></i>Ban
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <%}); %>
-          </table>
-        </div>
+                  </td>
+                </tr>
+                <%}); %>
+            </table>
+          </div>
       </section>
       <% } else { %>
-      <div class="no-data">
-        <p>No data found!</p>
-      </div>
-      <% } %> <% const number=Math.ceil(usersLength / usersPerPage) || 0 %> <%
-      console.log(number); %>
-      <div class="pagination">
-        <button class="btn1" onclick="backBtn()">&laquo;</button>
-        <ul>
-          <% let num=1 %> <% for (let i=0; i < number; i++) { %>
-          <a
-            class="link"
-            value="<%=num %>"
-            href="users?p=<%=num-1 %>"
-            onclick="activeLink()"
-          >
-            <%=num %>
-          </a>
-          <% num++; %> <% } %>
-        </ul>
-        <button class="btn2" onclick="nextBtn()">&raquo;</button>
-      </div>
+        <div class="no-data">
+          <p>No data found!</p>
+        </div>
+        <% } %>
+          <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
+            <% console.log(number); %>
+              <div class="pagination">
+                <button class="btn1" onclick="backBtn()">&laquo;</button>
+                <ul>
+                  <% let num=1 %>
+                    <% for (let i=0; i < number; i++) { %>
+                      <a class="link" value="<%=num %>" href="users?p=<%=num-1 %>" onclick="activeLink()">
+                        <%=num %>
+                      </a>
+                      <% num++; %>
+                        <% } %>
+                </ul>
+                <button class="btn2" onclick="nextBtn()">&raquo;</button>
+              </div>
     </main>
     <script type="module">
       const menu = document.getElementById("addNewStudent");
@@ -295,6 +244,7 @@
                 email: document.getElementById("email").value,
                 password: document.getElementById("password").value,
                 gpa: 0,
+                createdByAdmin: 1
               }),
             });
             const data = await res.json();
@@ -381,5 +331,6 @@
       }
     </script>
      
-  </body>
+</body>
+
 </html>
