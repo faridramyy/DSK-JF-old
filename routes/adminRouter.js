@@ -1,5 +1,6 @@
-import express from "express";
+import express, { query } from "express";
 import userModel from "../models/user.js";
+import courseModel from "../models/course.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -8,14 +9,44 @@ router.get("/", (req, res) => {
 router.get("/users", async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 3;
-
+  // const search = req.query.search || "";
+  // let sort = req.query.sort || "";
+  // let role = req.query.role || "All";
   let userss = await userModel.find();
   const usersLength = userss.length;
+  // role === "All" ? (role = userModel.role) : (role = req.query.role);
+  // req.query.sort ? (sort = query.sort)
   let users = await userModel
     .find()
+    // .where("role")
+    // .in([...roles])
     .skip(page * usersPerPage)
     .limit(usersPerPage);
   res.render("admin/users", { users, usersLength, usersPerPage });
+});
+
+router.post("/courses", async (req, res) => {
+  const { title, numberOfStudents, Instructor, description, coverPic } =
+    req.body;
+  try {
+    if (await courseModel.findOne({ title })) {
+      res.send({ err: "Course Already exists " });
+    } else {
+      const newCourse = new courseModel({
+        title,
+        numberOfStudents,
+        Instructor,
+        description,
+        coverPic,
+      });
+      newCourse.save();
+
+      res.send({ msg: "done" });
+    }
+  } catch (err) {
+    res.send({ err: "Database error" });
+    console.log(err);
+  }
 });
 
 // filter by role
