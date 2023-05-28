@@ -20,8 +20,16 @@ router.get("/courses", async (req, res) => {
   res.render("student/courses", { courses });
 });
 
+router.get("/settings", (req, res) => {
+  res.render("student/settings");
+});
+router.get("/security", (req, res) => {
+  res.render("student/security");
+});
+router.get("/notifications", (req, res) => {
+  res.render("student/notifications");
+});
 router.get("/:id", (req, res) => {
   res.render("student/home");
 });
-
 export default router;
