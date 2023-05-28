@@ -64,6 +64,21 @@ router.get("/courses", async (req, res) => {
 router.get("/settings", (req, res) => {
   res.render("admin/settings");
 });
+router.post("/settings", async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+  try {
+    userModel
+      .findOneAndUpdate({ username: "admin" }, { firstName, lastName, email })
+      .then(() => {
+        return res.json({ msg: "done" });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+});
 router.get("/security", (req, res) => {
   res.render("admin/security");
 });
