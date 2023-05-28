@@ -1,0 +1,101 @@
+:root {
+  --succes-color: #2ecc71;
+  --error-color: #e74c3c;
+  align-content: center;
+}
+body {
+  background-color: #f2f6fc;
+  color: #69707a;
+  font-family: "Poppins", sans-serif;
+}
+.nav-borders .nav-link.active {
+  color: #0061f2;
+  border-bottom-color: #0061f2;
+}
+.nav-borders .nav-link {
+  color: #69707a;
+  border-bottom-width: 0.125rem;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+}
+h1 {
+  font-size: 16px;
+}
+.card-header {
+  padding: 15px;
+}
+.card {
+  align-content: center;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 255, 26, 0.15);
+}
+.cb2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.cb2 h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+.btn {
+  color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 8px 18px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.btn-primary {
+  background: linear-gradient(to top, #13cf7d 0%, #3cba92 100%);
+  box-shadow: #5df0b0 0 10px 20px -10px;
+}
+.btn-primary:hover {
+  background: linear-gradient(to top, #01a25c 0%, #019063 100%);
+}
+.clear_btn {
+  background-image: linear-gradient(144deg, #ff0000, #ff6c6c 50%, #f80000);
+  box-shadow: #ff786e 0 10px 20px -10px;
+  float: right;
+}
+.clear_btn:hover {
+  background-image: linear-gradient(144deg, #9a0606, #f41414 50%, #cb0606);
+  box-shadow: #ff786e 0 10px 20px -10px;
+}
+.switch {
+  margin-bottom: 3px;
+  position: relative;
+  width: 45px;
+  height: 20px;
+  border-radius: 20px;
+  margin-left: 20px;
+  background: #dfd9ea;
+  transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fafafa;
+  border-radius: 50%;
+  transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.switch:active::before {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(128, 128, 128, 0.1);
+}
+input:checked + .switch {
+  background: #72da67;
+}
+input:checked + .switch::before {
+  left: 27px;
+  background: #fff;
+}
+input:checked + .switch:active::before {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 0 0 20px rgba(0, 150, 136, 0.2);
+}
