@@ -7,9 +7,10 @@ const CourseSchema = new Schema({
   },
   description: {
     type: String,
+    default: 0,
   },
-  instructor: {
-    tcype: String,
+  instructorId: {
+    type: mongoose.Schema.Types.ObjectId,
   },
   numberOfStudents: {
     type: Number,

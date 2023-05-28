@@ -26,24 +26,19 @@ router.get("/users", async (req, res) => {
 });
 
 router.post("/courses", async (req, res) => {
-  const { title, numberOfStudents, Instructor, description, coverPic } =
+  const { title, numberOfStudents, instructorId } =
     req.body;
   try {
-    if (await courseModel.findOne({ title })) {
-      res.send({ err: "Course Already exists " });
-    } else {
       const newCourse = new courseModel({
         title,
         numberOfStudents,
-        Instructor,
-        description,
-        coverPic,
+        instructorId,
       });
       newCourse.save();
 
-      res.send({ msg: "done" });
+      res.json({ msg: "done" });
     }
-  } catch (err) {
+   catch (err) {
     res.send({ err: "Database error" });
     console.log(err);
   }
@@ -60,8 +55,11 @@ router.post("/courses", async (req, res) => {
 //   res.render("admin/users", { usersFilter });
 // });
 
-router.get("/courses", (req, res) => {
-  res.render("admin/courses");
+router.get("/courses", async (req, res) => {
+  let instructors = await userModel.find({role : "Instructor"});
+  res.render("admin/courses" , {instructors});
+
+
 });
 router.get("/settings", (req, res) => {
   res.render("admin/settings");

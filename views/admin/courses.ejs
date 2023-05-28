@@ -11,6 +11,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/courses.css" />
 
@@ -30,11 +31,18 @@
         <form method="post" id="form" action="/admin/users">
           <div>
             <label for="Course's Name">Course's Name : </label>
-            <input type="text" class="field" name="courseName" placeholder="Course's Name" />
+            <input
+              id="courseName"
+              type="text"
+              class="field"
+              name="courseName"
+              placeholder="Course's Name"
+            />
           </div>
           <div>
             <label for="Number of students">Number of students: </label>
             <input
+              id="numofStudents"
               type="number"
               class="field"
               name="numberofStudnt"
@@ -43,18 +51,23 @@
           </div>
           <div>
             <label for="username">Instructor's name :</label>
-            <select class="field selectt" name="InstructorName" placeholder="Instructor's Name">
-              <option disabled selected></option>
-              <option>Essam</option>
-              <option>Ashraf</option>
-              <option>Walaa</option>
-              <option>Fatma</option>
-              <option>No Instructor</option>
+            <select
+              id="InstructorName"
+              class="field selectt"
+              name="InstructorName"
+              placeholder="Instructor's Name"
+            >
+              <% if (instructors){ %> <% instructors.forEach(instructor => { %>
+              <option data-instructorId="<%= instructor._id %>">
+                <%= instructor.firstName %>
+              </option>
+              <% })} %>
+              <option data-instructorId="NULL">No Instructor</option>
             </select>
           </div>
 
           <div>
-            <button type="submit" id="submit">Add</button>
+            <button class="btn" id="submit">Add</button>
           </div>
         </form>
       </section>
@@ -96,12 +109,28 @@
   import { validateForm } from "../js/formValidation.js";
   const form = document.getElementById("form");
   const error = document.getElementById("error");
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (validateForm(form)) error.innerHTML = validateForm(form);
     else {
-      error.innerHTML = "";
-      e.target.submit();
+      try {
+        const res = await fetch("/admin/courses", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: document.getElementById("courseName").value,
+            numberOfStudents: document.getElementById("numofStudents").value,
+            instructorId:
+              document.getElementById("InstructorName").options[
+                document.getElementById("InstructorName").selectedIndex
+              ].dataset.instructorid,
+          }),
+        });
+        const data = await res.json();
+        if (data.msg) error.innerHTML = "added";
+      } catch (err) {
+        console.log(err);
+      }
     }
   });
   // << End >> form Validation
