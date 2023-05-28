@@ -7,7 +7,7 @@ const findUser = async (id) => {
   return await UserModel.findById(id);
 };
 
-router.get("student/gotbanned", (req, res) => {
+router.get("/gotbanned", (req, res) => {
   res.render("student/gotBanned", { user: findUser(req.params.id) });
 });
 

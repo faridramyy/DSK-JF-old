@@ -5,7 +5,7 @@ export const adminAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.jwtSecretPhrase, (err, decodedToken) => {
       if (decodedToken.user.role == "admin") next();
-      res.redirect(`/login?notAllowed=${true}`);
+      else res.redirect(`/login?notAllowed=${true}`);
     });
   } else {
     res.redirect(`/login?notAllowed=${true}`);
@@ -21,7 +21,7 @@ export const studentAuth = (req, res, next) => {
         decodedToken.user.role == "student" &&
         decodedToken.user.isBanned
       )
-        res.redirect("/gotbanned");
+        res.redirect("/student/gotbanned");
       else res.redirect("/login");
     });
   } else {
