@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 
 app.use(registrationRouter);
-app.use("/admin", adminAuth, adminRouter);
+app.use("/admin", adminRouter);
 app.use("/student", studentAuth, studentRouter);
 
 // Handle 404 (Not Found)
