@@ -19,7 +19,7 @@ router.post("/", dashboard_post);
 
 router.get("/users", users_get);
 router.put("/users/ban/:id", users_ban_put);
-router.delete("users/delete/:id", users_delete);
+router.delete("/users/delete/:id", users_delete);
 
 router.get("/courses", courses_get);
 router.post("/courses", courses_post);

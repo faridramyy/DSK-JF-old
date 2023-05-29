@@ -141,7 +141,7 @@
                     </button>
                   </li>
                   <li>
-                    <button>
+                    <button class="removebtn">
                       <i class="fa-solid fa-trash delete"></i>
                       Remove
                     </button>
@@ -264,7 +264,25 @@
               method: "PUT",
             });
             const data = await res.json();
-            console.log(data);
+            if (data.msg) location.reload();
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      });
+    </script>
+
+    <script>
+      const removebtn = document.getElementsByClassName("removebtn");
+
+      Array.from(removebtn).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const userid = b.parentElement.parentElement.dataset.userid;
+          try {
+            const res = await fetch(`/admin/users/delete/${userid}`, {
+              method: "DELETE",
+            });
+            const data = await res.json();
             if (data.msg) location.reload();
           } catch (err) {
             console.log(err);

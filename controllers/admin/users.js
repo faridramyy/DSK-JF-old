@@ -31,7 +31,7 @@ export const users_delete = async (req, res) => {
   await userModel
     .findByIdAndDelete(req.params.id)
     .then(() => {
-      res.redirect("/admin/users");
+      res.json({ msg: "done" });
     })
     .catch((err) => {
       console.log(err);
