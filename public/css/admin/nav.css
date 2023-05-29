@@ -7,12 +7,6 @@
   --bg-secondary: #141418;
   --transition-speed: 600ms;
 }
-body {
-  color: black;
-  background-color: white;
-  margin: 0;
-  padding: 0;
-}
 main {
   margin-left: 5rem;
   padding: 1rem;
@@ -108,7 +102,7 @@ main {
     justify-content: center;
   }
 
-  mainx {
+  main {
     margin: 0;
   }
 }

@@ -2,7 +2,7 @@ import userModel from "../../models/user.js";
 
 export const users_get = async (req, res) => {
   const page = req.query.p || 0;
-  const usersPerPage = 3;
+  const usersPerPage = 10;
   let userss = await userModel.find();
   const usersLength = userss.length;
 
@@ -17,10 +17,11 @@ export const users_get = async (req, res) => {
 export const users_ban_put = async (req, res) => {
   const userID = req.params.id;
   await userModel
-    .findByIdAndUpdate(userID, { isBanned: "true" })
-    .then(() => {
-      console.log("Banned");
-      res.redirect("/admin/users");
+    .findById(userID)
+    .then((user) => {
+      user.isBanned = !user.isBanned; // Toggle the value of isBanned
+      user.save();
+      res.json({ msg: "done" });
     })
     .catch((err) => {
       console.log(err);
