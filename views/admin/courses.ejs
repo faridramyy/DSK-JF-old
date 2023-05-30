@@ -17,6 +17,7 @@
 
     <title>Admin-Courses</title>
   </head>
+
   <body>
     <%- include("./nav.ejs") %>
     <main>
@@ -71,21 +72,32 @@
           </div>
         </form>
       </section>
+      <% if (course.length>0) {%>
 
       <section class="articles">
+        <% course.forEach(c=> { %>
+
         <article>
           <div class="image">
-            <img src="/img/Web.jpeg" alt="" />
+            <img src="<%= c.coverPic %>" alt="" />
           </div>
 
           <div class="article-body">
-            <h2>Web Development</h2>
+            <h2><%= c.title %></h2>
+            <p>instructor ID : <%= c.instructorId %></p>
+            <h6>num of students :<%= c.numberOfStudents %></h2>
+            <script></script>
           </div>
         </article>
+
+        <% })} else {%>
+        <div><p>no courses to show</p></div>
+        <% }%>
       </section>
     </main>
   </body>
 </html>
+
 <script type="module">
   const menu = document.getElementById("addNewStudent");
   const newUserBtn = document.getElementById("newUserBtn");
