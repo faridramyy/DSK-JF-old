@@ -3,11 +3,6 @@
   --error-color: #e74c3c;
   align-content: center;
 }
-body {
-  background-color: #f2f6fc;
-  color: #69707a;
-  font-family: "Poppins", sans-serif;
-}
 .nav-borders .nav-link.active {
   color: #0061f2;
   border-bottom-color: #0061f2;
@@ -39,30 +34,18 @@ h1 {
   display: flex;
   flex-direction: column;
 }
-.btn {
-  color: #ffffff;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  padding: 8px 18px;
-  font-size: 16px;
-  font-weight: 700;
+.btns{
+  display: flex;
+  justify-content: space-between;
 }
 .btn-primary {
   background: linear-gradient(to top, #13cf7d 0%, #3cba92 100%);
   box-shadow: #5df0b0 0 10px 20px -10px;
 }
-.btn-primary:hover {
-  background: linear-gradient(to top, #01a25c 0%, #019063 100%);
-}
 .clear_btn {
   background-image: linear-gradient(144deg, #ff0000, #ff6c6c 50%, #f80000);
   box-shadow: #ff786e 0 10px 20px -10px;
   float: right;
-}
-.clear_btn:hover {
-  background-image: linear-gradient(144deg, #9a0606, #f41414 50%, #cb0606);
-  box-shadow: #ff786e 0 10px 20px -10px;
 }
 .change_username {
   color: #000000;
