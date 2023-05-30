@@ -4,6 +4,9 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 .btn {
   display: block;
   width: fit-content;
@@ -15,6 +18,9 @@
   cursor: pointer;
   position: relative;
   text-decoration: none;
+  outline: none;
+  border: none;
+  white-space: nowrap;
 }
 .btn:hover {
   filter: brightness(0.7);

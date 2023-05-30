@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/general.css" />
-  <link rel="stylesheet" href="/css/admin/nav.css" />
-  <link rel="stylesheet" href="/css/admin/users.css" />
-  <title>Admin-Users</title>
-</head>
+    <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/admin/users.css" />
+    <title>Admin-Users</title>
+  </head>
 
-<body>
-  <%- include("./nav.ejs") %>
+  <body>
+    <%- include("./nav.ejs") %>
     <main>
-      <header>
+      <div class="header">
         <h1>Users</h1>
         <button class="new-user btn" id="newUserBtn">+ New User</button>
         <section class="add-new-student" id="addNewStudent">
@@ -49,11 +53,22 @@
                 <label for="student">Student</label>
               </div>
               <div>
-                <input checked type="radio" id="instructor" name="role" value="Instructor" />
+                <input
+                  checked
+                  type="radio"
+                  id="instructor"
+                  name="role"
+                  value="Instructor"
+                />
                 <label for="instructor">Instructor</label><br />
               </div>
               <div>
-                <input type="radio" id="teachingAssistant" name="role" value="Teaching Assistant" />
+                <input
+                  type="radio"
+                  id="teachingAssistant"
+                  name="role"
+                  value="Teaching Assistant"
+                />
                 <label for="teachingAssistant">Teaching Assistant</label>
               </div>
             </div>
@@ -62,146 +77,102 @@
             </div>
           </form>
         </section>
-      </header>
+      </div>
       <section>
         <% if (users.length) {%>
-          <div class="tableBorder">
-            <table>
-              <tr>
-                <th colspan="6">
-                  <div class="table-head">
-                    <div class="search-bar">
-                      <i class="fas fa-search"></i>
-                      <input type="text" name="search" id="search" placeholder="Search users..." />
-                    </div>
-                    <div class="filter-menu" id="filter-menu">
-                      <div class="filter-link">
-                        <p>Filter by Role</p>
-                        <ul>
-                          <li>
-                            <input type="checkbox" name="student" id="student" />
-                            <label for="student">Students</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" name="instructor" id="instructor" />
-                            <label for="instructor">Instructor</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" name="TA" id="TA" />
-                            <label for="TA">TAs</label>
-                          </li>
-                        </ul>
-                        <p>Filter by Status</p>
-                        <ul>
-                          <li>
-                            <input type="checkbox" name="active" id="active" />
-                            <label for="active"><Span class="active-dot"></Span>Active</label>
-                          </li>
-                          <li>
-                            <input type="checkbox" name="banned" id="banned" />
-                            <label for="banned"><Span class="banned-dot"></Span>Banned</label>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <button>
-                      <i class="fa-solid fa-filter" id="filter-icon"></i>
-                    </button>
-                  </div>
-                </th>
-              </tr>
-              <tr>
-                <th>
-                  <input type="checkbox" id="checkboxAll" />
-                </th>
+        <table>
+          <tr>
+            <th colspan="5">
+              <div class="search">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="Search users ..."
+                />
+              </div>
+            </th>
+            <th>
+              <button class="filter">
+                <i class="fa-solid fa-filter"></i>
+              </button>
+            </th>
+          </tr>
 
-                <th>Name <i class="fa-solid fa-arrow-up-long"></i></th>
-                <th>Role</th>
-                <th>Email</th>
-                <th colspan="2">Status</th>
-              </tr>
-              <% users.forEach(item=> { %>
-                <tr class="user">
-                  <td>
-                    <input type="checkbox" class="chkboxName" id="checkbox1" />
-                  </td>
-                  <td>
-                    <div class="profile-pic-container">
-                      <img src="<%=item.profilePic%>" alt="probile pic" class="profile-pic" />
-                      <input type="text" value="<% let name = (item.firstName||"") +
-                  " " + (item.lastName||"") %><%=name%> " readonly />
-                    </div>
-                  </td>
-                  <td>
-                    <input type="text" value="<%= item.role %>" readonly />
-                  </td>
-                  <td>
-                    <input type="text" value="<%= item.email|| " ---" %>" readonly
-                    />
-                  </td>
-                  <td>
-                    <button class="status <%= item.isBanned ? " Banned" : "Active" %>">
-                      <%= item.isBanned ? "Banned" : "Active" %>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+
+          <% users.forEach(item=> { if(item.role !== "admin"){%>
+          <tr class="user" id="user">
+            <td><input type="checkbox" /></td>
+            <td>
+              <div class="container">
+                <img src="<%= item.profilePic %>" alt="profile picture" />
+                <input type="text" value="<%= item.firstName +" "+ item.lastName
+                %>" readonly />
+              </div>
+            </td>
+            <td><input type="text" value="<%= item.role %>" readonly /></td>
+            <td>
+              <input type="text" value="<%= item.email || "-" %>" readonly />
+            </td>
+            <td class="<%= item.isBanned ? `banned` : `active` %>">
+              <span><%- item.isBanned ? "Baned" : "Active" %></span>
+            </td>
+            <td style="position: relative">
+              <button class="dots btn">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <div class="options">
+                <ul data-userid="<%= item._id %>">
+                  <li>
+                    <button><i class="fa-solid fa-message"></i> Message</button>
+                  </li>
+                  <li>
+                    <button>
+                      <i class="fa-solid fa-pencil edit"></i> Edit
                     </button>
-                  </td>
-                  <td>
-                    <div class="menu">
-                      <div class="dots">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                      </div>
-                      <ul class="menu-link">
-                        <li>
-                          <button class="btn">
-                            <i class="fa-solid fa-message"></i> Message
-                          </button>
-                        </li>
-                        <li>
-                          <button class="btn">
-                            <i class="fa-solid fa-pencil edit"></i> Edit
-                          </button>
-                        </li>
-                        <li>
-                          <a class="delete" href="/admin/delete/<%= item.id %>">
-                            <i class="fa-solid fa-trash delete"></i>
-                            Remove
-                          </a>
-                        </li>
-                        <li>
-                          <a class="ban" href="/admin/ban/<%= item.id %>">
-                            <i class="fa-solid fa-ban ban"></i>
-                            Ban
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
-                </tr>
-                <%}); %>
-            </table>
-          </div>
+                  </li>
+                  <li>
+                    <button class="removebtn">
+                      <i class="fa-solid fa-trash delete"></i>
+                      Remove
+                    </button>
+                  </li>
+                  <li>
+                    <button class="banbtn">
+                      <i class="fa-solid fa-ban ban"></i>
+                      <span><%- item.isBanned ? "unban" : "Ban" %></span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <%}}); %>
+        </table>
       </section>
       <% } else { %>
-        <div class="no-data">
-          <p>No data found!</p>
-        </div>
-        <% } %>
+      <p class="no-data">No data found!</p>
+      <% } %>
+      <div class="pagination">
+        <ul>
           <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
-            <% console.log(number); %>
-              <div class="pagination">
-                <button class="btn1" onclick="backBtn()">&laquo;</button>
-                <ul>
-                  <% let num=1 %>
-                    <% for (let i=0; i < number; i++) { %>
-                      <a class="link" value="<%=num %>" href="users?p=<%=num-1 %>" onclick="activeLink()">
-                        <%=num %>
-                      </a>
-                      <% num++; %>
-                        <% } %>
-                </ul>
-                <button class="btn2" onclick="nextBtn()">&raquo;</button>
-              </div>
+          <%for(let i=0; i < number; i++) { %>
+          <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
+          <% } %>
+        </ul>
+      </div>
     </main>
-    <script type="module">
+
+    <script>
       const menu = document.getElementById("addNewStudent");
       const newUserBtn = document.getElementById("newUserBtn");
 
@@ -219,118 +190,105 @@
           document.getElementById("form").reset();
         }
       });
+    </script>
 
-      // << Start >> form Validation
+    <script type="module">
       import { validateForm } from "../js/formValidation.js";
       const form = document.getElementById("form");
       const error = document.getElementById("error");
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        error.innerHTML = "";
+
         error.style.color = "red";
-        if (validateForm(form)) error.innerHTML = validateForm(form);
-        else {
+        const errorMsg = validateForm(form);
+        if (errorMsg) return (error.innerHTML = errorMsg);
+
+        try {
+          const res = await fetch("/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              role: document.querySelector('input[name="role"]:checked').value,
+              firstName: document.getElementById("firstName").value,
+              lastName: document.getElementById("lastName").value,
+              username: document.getElementById("username").value,
+              email: document.getElementById("email").value,
+              password: document.getElementById("password").value,
+              gpa: 0,
+              createdByAdmin: 1,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (data.errMsg) error.innerHTML = data.errMsg;
+          else if (data.user) {
+            error.style.color = "green";
+            error.innerHTML = "Added";
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+
+    <script>
+      const dots = document.getElementsByClassName("dots");
+
+      Array.from(dots).forEach((dotaya) => {
+        dotaya.addEventListener("click", (e) => {
+          const options = dotaya.nextElementSibling;
+          options.classList.toggle("showList");
+        });
+      });
+
+      document.addEventListener("click", (e) => {
+        Array.from(dots).forEach((dotaya) => {
+          if (!dotaya.contains(e.target)) {
+            const options = dotaya.nextElementSibling;
+            options.classList.remove("showList");
+          }
+        });
+      });
+    </script>
+
+    <script>
+      const banbtn = document.getElementsByClassName("banbtn");
+
+      Array.from(banbtn).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const userid = b.parentElement.parentElement.dataset.userid;
           try {
-            const res = await fetch("/signup", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                role: document.querySelector('input[name="role"]:checked')
-                  .value,
-                firstName: document.getElementById("firstName").value,
-                lastName: document.getElementById("lastName").value,
-                username: document.getElementById("username").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value,
-                gpa: 0,
-                createdByAdmin: 1
-              }),
+            const res = await fetch(`/admin/users/ban/${userid}`, {
+              method: "PUT",
             });
             const data = await res.json();
-            if (data.errMsg) error.innerHTML = data.errMsg;
-            else if (data.user) {
-              error.style.color = "green";
-              error.innerHTML = "Added";
-            }
+            if (data.msg) location.reload();
           } catch (err) {
             console.log(err);
           }
-        }
-      });
-      // << End >> form Validation
-
-      // Checkbox All
-      const chkbxAll = document.querySelector("#checkboxAll");
-      const chkbxOptions = document.querySelectorAll(".chkboxName");
-
-      chkbxAll.addEventListener("click", () => {
-        const isChecked = chkbxAll.checked;
-        for (let i = 0; i < chkbxOptions.length; i++) {
-          chkbxOptions[i].checked = isChecked;
-        }
+        });
       });
     </script>
+
     <script>
-      document.getElementById("filter-icon").addEventListener("click", () => {
-        document.getElementById("filter-menu").classList.toggle("showMenu");
-      });
+      const removebtn = document.getElementsByClassName("removebtn");
 
-      const dots = document.getElementsByClassName("dots");
-
-      Array.from(dots).forEach((element) => {
-        element.addEventListener("click", (event) => {
-          const menuLink = element.nextElementSibling;
-          menuLink.classList.toggle("showList");
-          event.stopPropagation(); // Prevents the event from bubbling up to the document
-        });
-      });
-
-      document.addEventListener("click", (event) => {
-        const menuLinks = document.getElementsByClassName("menu-link");
-        Array.from(menuLinks).forEach((menuLink) => {
-          if (!menuLink.contains(event.target)) {
-            menuLink.classList.remove("showList");
+      Array.from(removebtn).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const userid = b.parentElement.parentElement.dataset.userid;
+          try {
+            const res = await fetch(`/admin/users/delete/${userid}`, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (data.msg) location.reload();
+          } catch (err) {
+            console.log(err);
           }
         });
       });
-
-      //pagination
-      let link = document.getElementsByClassName("link");
-      let currentValue = 1;
-
-      // const number = Math.ceil(usersLength / usersPerPage)
-      // console.log(usersLength);
-
-      function activeLink() {
-        for (l of link) {
-          l.classList.remove("active");
-        }
-        event.target.classList.add("active");
-        currentValue = event.target.value;
-        console.log(currentValue);
-      }
-
-      function backBtn() {
-        if (currentValue > 1) {
-          for (l of link) {
-            l.classList.remove("active");
-          }
-          currentValue--;
-          link[currentValue - 1].classList.add("active");
-        }
-      }
-      function nextBtn() {
-        if (currentValue < number) {
-          for (l of link) {
-            l.classList.remove("active");
-          }
-          currentValue--;
-          link[currentValue + 1].classList.add("active");
-        }
-      }
     </script>
-     
-</body>
-
+  </body>
 </html>
