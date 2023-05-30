@@ -1,15 +1,7 @@
 import express from "express";
-import UserModel from "../models/user.js";
 import courseModel from "../models/course.js";
 const router = express.Router();
 
-const findUser = async (id) => {
-  return await UserModel.findById(id);
-};
-
-router.get("/gotbanned", (req, res) => {
-  res.render("student/gotBanned", { user: findUser(req.params.id) });
-});
 
 router.get("/courses", async (req, res) => {
   // const page = req.query.p || 0;

@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import registrationRouter from "./routes/registrationRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
+//Schema
+import UserModel from "./models/user.js";
 //Middlewares
 import { adminAuth, studentAuth } from "./middlewares/userAuth.js";
 dotenv.config();
@@ -25,6 +27,9 @@ app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/student", studentAuth, studentRouter);
 
+app.get("/gotbanned/:id", async (req, res) => {
+  res.render("student/gotBanned", { user: await UserModel.findById(req.params.id) });
+});
 // Handle 404 (Not Found)
 app.use((req, res) => {
   res.status(404).send("404");

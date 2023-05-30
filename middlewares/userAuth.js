@@ -21,7 +21,7 @@ export const studentAuth = (req, res, next) => {
         decodedToken.user.role == "student" &&
         decodedToken.user.isBanned
       )
-        res.redirect("/student/gotbanned");
+        res.redirect(`/gotbanned/${decodedToken.user._id}`);
       else res.redirect("/login");
     });
   } else {

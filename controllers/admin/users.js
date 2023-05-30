@@ -13,7 +13,6 @@ export const users_get = async (req, res) => {
 
   res.render("admin/users", { users, usersLength, usersPerPage });
 };
-
 export const users_ban_put = async (req, res) => {
   const userID = req.params.id;
   await userModel
