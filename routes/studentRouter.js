@@ -11,19 +11,17 @@ router.get("/courses", async (req, res) => {
   // .limit(usersPerPage);
   res.render("student/courses", { courses });
 });
-<<<<<<< HEAD
 
 router.get("/settings", settings_get);
 router.post("/settings", settings_post);
 
-=======
 router.get("/courseInner", (req, res) => {
   res.render("student/courseInner");
 });
 router.get("/settings", (req, res) => {
   res.render("student/settings");
 });
->>>>>>> 373823d6539669d24fa4011549540e95aae7a6f6
+
 router.get("/security", (req, res) => {
   res.render("student/security");
 });
