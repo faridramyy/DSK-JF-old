@@ -1,11 +1,10 @@
-import userModel from "../../models/user.js"; 
-import courseModel from "../../models/course.js"; 
+import userModel from "../../models/user.js";
+import courseModel from "../../models/course.js";
 
 export const courses_get = async (req, res) => {
   let instructors = await userModel.find({ role: "Instructor" });
   let course = await courseModel.find();
-console.log(course);
-  res.render("admin/courses", { instructors , course });
+  res.render("admin/courses", { instructors, course });
 };
 
 export const courses_post = async (req, res) => {
@@ -20,7 +19,6 @@ export const courses_post = async (req, res) => {
 
     res.json({ msg: "done" });
   } catch (err) {
-    res.send({ err: "Database error" });
     console.log(err);
   }
 };

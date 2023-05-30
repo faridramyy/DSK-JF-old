@@ -1,43 +1,19 @@
 header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.new-user {
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  outline: 0px;
-  border: 0px;
-  cursor: pointer;
-  vertical-align: middle;
-  appearance: none;
-  text-decoration: none;
-  font-weight: 700;
-  line-height: 1.71429;
-  font-size: 0.875rem;
-  text-transform: capitalize;
-  min-width: 69px;
-  padding: 6px 16px;
-  border-radius: 6px;
+.new-course {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: rgb(255, 255, 255);
   background-color: rgb(32, 101, 209);
   box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
 }
-.new-user:hover {
-  background-color: rgb(16, 57, 150);
-  box-shadow: none;
-}
-.add-new-student {
-  top: 100px;
+.add-new-course {
+  top: 70px;
   right: 80px;
   position: absolute;
   background-color: #eee;
@@ -50,24 +26,22 @@ header {
   transform: translateY(-100px);
   transition: 0.3s;
   text-align: center;
-  z-index: 99999;
+  z-index: 999;
 }
 #error {
   margin: 10px;
 }
-.add-new-student.active {
+.add-new-course.activee {
   pointer-events: all;
   opacity: 1;
-  user-select: all;
   transform: translateY(0);
 }
-.add-new-student div {
+.add-new-course div {
   margin: 3px;
   display: flex;
   justify-content: space-between;
 }
-.add-new-student div input,
-.add-new-student div select {
+.add-new-course div input ,#instructorName{
   border: none;
   border-bottom: 1px solid rgb(76, 139, 240);
   padding: 5px;
@@ -75,76 +49,43 @@ header {
   border-radius: 5px 3px;
   transition: 0.1s;
 }
-.add-new-student div input:focus,
-.add-new-student div select :focus {
+.add-new-course div input:focus {
   outline: none;
   border-bottom: 3px solid rgb(76, 139, 240);
 }
-form div {
-display: flex;
-justify-content: space-between;
+#instructorName{
+  width: 173px;
 }
-
 #submit {
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  outline: 0px;
-  border: 0px;
-  cursor: pointer;
-  vertical-align: middle;
-  appearance: none;
-  text-decoration: none;
-  font-weight: 700;
-  line-height: 1.71429;
-  font-size: 0.875rem;
-  text-transform: capitalize;
-  min-width: 64px;
-  padding: 6px 16px;
-  border-radius: 6px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: rgb(255, 255, 255);
   background-color: rgb(45, 182, 27);
   box-shadow: rgba(38, 209, 32, 0.24) 0px 8px 16px 0px;
-  margin-top: 10px;
 }
-#submit:hover {
-  background-color: rgb(16, 150, 21);
-  box-shadow: none;
+form div:last-child {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
 }
-.articles {
+.courses {
+  margin-top: 20px;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 10px;
+  gap: 20px;
 }
 article {
-  border-radius: 5px;
-  background: #eee;
-  width: 400px;
+  width: 200px;
+  background-color: #eee;
+  cursor: pointer;
 }
-.image img {
+article .image img {
   width: 100%;
-  border-radius: 5px;
 }
-article h2 {
-  font-size: 1.5rem;
-  white-space: nowrap;
-  color: var(--title-color);
-  transition: color 0.3s ease-out;
+.article-body h2 {
+  width: 100%;
   text-align: center;
-}
-.article-body {
   padding: 10px;
-}
-.selectt{
-  width: 180px;
-  padding: 5px;
 }

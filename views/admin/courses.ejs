@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- font-awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -11,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/courses.css" />
@@ -22,74 +24,49 @@
     <%- include("./nav.ejs") %>
     <main>
       <header>
-        <h1>Avilable Courses</h1>
-        <button class="new-user" id="newUserBtn" type="button">
-          + New Course
-        </button>
+        <h1>Courses</h1>
+        <button class="new-course btn" id="newCourseBtn">+ New Course</button>
+        <section class="add-new-course" id="addNewCourse">
+          <p style="color: red" id="error"></p>
+          <form method="post" id="form">
+            <div>
+              <label for="Course's Name">Course's Name : </label>
+              <input id="courseName" type="text" name="courseName" />
+            </div>
+            <div>
+              <label for="Number of students">Number of students: </label>
+              <input id="numOfStudents" type="number" name="numberofStudent" />
+            </div>
+            <div>
+              <label for="username">Instructor's name :</label>
+              <select id="instructorName" name="instructorName">
+                <% if (instructors){ %> <% instructors.forEach(instructor => {
+                %>
+                <option data-instructorId="<%= instructor._id %>">
+                  <%= instructor.firstName %>
+                </option>
+                <% });} %>
+                <option data-instructorId="NULL">No Instructor</option>
+              </select>
+            </div>
+            <div>
+              <button class="btn" id="submit">Add</button>
+            </div>
+          </form>
+        </section>
       </header>
-      <section class="add-new-student" id="addNewStudent">
-        <p style="color: red" id="error"></p>
-        <form method="post" id="form" action="/admin/users">
-          <div>
-            <label for="Course's Name">Course's Name : </label>
-            <input
-              id="courseName"
-              type="text"
-              class="field"
-              name="courseName"
-              placeholder="Course's Name"
-            />
-          </div>
-          <div>
-            <label for="Number of students">Number of students: </label>
-            <input
-              id="numofStudents"
-              type="number"
-              class="field"
-              name="numberofStudnt"
-              placeholder="Number of students"
-            />
-          </div>
-          <div>
-            <label for="username">Instructor's name :</label>
-            <select
-              id="InstructorName"
-              class="field selectt"
-              name="InstructorName"
-              placeholder="Instructor's Name"
-            >
-              <% if (instructors){ %> <% instructors.forEach(instructor => { %>
-              <option data-instructorId="<%= instructor._id %>">
-                <%= instructor.firstName %>
-              </option>
-              <% })} %>
-              <option data-instructorId="NULL">No Instructor</option>
-            </select>
-          </div>
-
-          <div>
-            <button class="btn" id="submit">Add</button>
-          </div>
-        </form>
-      </section>
       <% if (course.length>0) {%>
-
-      <section class="articles">
+      <section class="courses">
         <% course.forEach(c=> { %>
-
         <article>
           <div class="image">
-            <img src="<%= c.coverPic %>" alt="" />
+            <img src="<%= c.coverPic %>" alt="cover picture" />
           </div>
 
           <div class="article-body">
             <h2><%= c.title %></h2>
-            <p>instructor ID : <%= c.instructorId %></p>
-            <h6>num of students :<%= c.numberOfStudents %></h2>
-            <script></script>
           </div>
         </article>
-
         <% })} else {%>
         <div><p>no courses to show</p></div>
         <% }%>
@@ -99,20 +76,20 @@
 </html>
 
 <script type="module">
-  const menu = document.getElementById("addNewStudent");
-  const newUserBtn = document.getElementById("newUserBtn");
+  const menu = document.getElementById("addNewCourse");
+  const newCourseBtn = document.getElementById("newCourseBtn");
 
-  newUserBtn.addEventListener("click", () => {
-    menu.classList.toggle("active");
+  newCourseBtn.addEventListener("click", () => {
+    menu.classList.toggle("activee");
   });
 
   document.addEventListener("dblclick", function (e) {
     if (
-      menu.classList.contains("active") &&
+      menu.classList.contains("activee") &&
       !menu.contains(e.target) &&
-      !newUserBtn.contains(e.target)
+      !newCourseBtn.contains(e.target)
     ) {
-      menu.classList.remove("active");
+      menu.classList.remove("activee");
       document.getElementById("form").reset();
     }
   });
@@ -121,28 +98,34 @@
   import { validateForm } from "../js/formValidation.js";
   const form = document.getElementById("form");
   const error = document.getElementById("error");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (validateForm(form)) error.innerHTML = validateForm(form);
-    else {
-      try {
-        const res = await fetch("/admin/courses", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            title: document.getElementById("courseName").value,
-            numberOfStudents: document.getElementById("numofStudents").value,
-            instructorId:
-              document.getElementById("InstructorName").options[
-                document.getElementById("InstructorName").selectedIndex
-              ].dataset.instructorid,
-          }),
-        });
-        const data = await res.json();
-        if (data.msg) error.innerHTML = "added";
-      } catch (err) {
-        console.log(err);
+
+    error.style.color = "red";
+    const errorMsg = validateForm(form);
+    if (errorMsg) return (error.innerHTML = errorMsg);
+
+    try {
+      const res = await fetch("/admin/courses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: document.getElementById("courseName").value,
+          numberOfStudents: document.getElementById("numOfStudents").value,
+          instructorId:
+            document.getElementById("instructorName").options[
+              document.getElementById("instructorName").selectedIndex
+            ].dataset.instructorid,
+        }),
+      });
+      const data = await res.json();
+      if (data.msg) {
+        error.style.color = "green";
+        error.innerHTML = "Added";
       }
+    } catch (err) {
+      console.log(err);
     }
   });
   // << End >> form Validation

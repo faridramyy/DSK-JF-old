@@ -21,7 +21,7 @@
   <body>
     <%- include("./nav.ejs") %>
     <main>
-      <div class="header">
+      <header>
         <h1>Users</h1>
         <button class="new-user btn" id="newUserBtn">+ New User</button>
         <section class="add-new-student" id="addNewStudent">
@@ -77,7 +77,7 @@
             </div>
           </form>
         </section>
-      </div>
+      </header>
       <section>
         <% if (users.length) {%>
         <table>
@@ -290,5 +290,7 @@
         });
       });
     </script>
+
+    
   </body>
 </html>
