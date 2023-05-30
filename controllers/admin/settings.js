@@ -1,3 +1,4 @@
+import userModel from "../../models/user.js";
 export const settings_get = (req, res) => {
   res.render("admin/settings");
 };

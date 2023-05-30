@@ -1,7 +1,7 @@
 import express from "express";
 import courseModel from "../models/course.js";
+import { settings_get, settings_post } from "../controllers/student/settings.js";
 const router = express.Router();
-
 
 router.get("/courses", async (req, res) => {
   // const page = req.query.p || 0;
@@ -12,9 +12,9 @@ router.get("/courses", async (req, res) => {
   res.render("student/courses", { courses });
 });
 
-router.get("/settings", (req, res) => {
-  res.render("student/settings");
-});
+router.get("/settings", settings_get);
+router.post("/settings", settings_post);
+
 router.get("/security", (req, res) => {
   res.render("student/security");
 });
