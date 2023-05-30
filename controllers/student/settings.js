@@ -47,16 +47,29 @@ export const settings_post = (req, res) => {
         userModel.findById(userId)
           .then((user) => {
             if (user.role === "student") {
-              // Update the user's settings
-              userModel.findOneAndUpdate(
-                { _id: userId },
-                { role, firstName, lastName, username }
-              )
-                .then(() => {
-                  res.json({ msg: "Settings updated successfully" });
+              // Check if the username already exists for another user
+              userModel.findOne({ username: username })
+                .then((existingUser) => {
+                  if (existingUser && existingUser._id.toString() !== userId) {
+                    // Username already taken
+                    res.status(400).json({ errMsg: "Username already taken" });
+                  } else {
+                    // Update the user's settings
+                    userModel.findOneAndUpdate(
+                      { _id: userId },
+                      { role, firstName, lastName, username }
+                    )
+                      .then(() => {
+                        res.json({ msg: "Settings updated successfully" });
+                      })
+                      .catch((err) => {
+                        console.error(err);
+                        res.status(500).json({ errMsg: "Internal server error" });
+                      });
+                  }
                 })
                 .catch((err) => {
-                  console.error(err);
+                  console.log(err);
                   res.status(500).json({ errMsg: "Internal server error" });
                 });
             } else {
