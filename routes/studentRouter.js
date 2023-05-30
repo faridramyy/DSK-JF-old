@@ -11,7 +11,9 @@ router.get("/courses", async (req, res) => {
   // .limit(usersPerPage);
   res.render("student/courses", { courses });
 });
-
+router.get("/courseInner", (req, res) => {
+  res.render("student/courseInner");
+});
 router.get("/settings", (req, res) => {
   res.render("student/settings");
 });
@@ -24,4 +26,5 @@ router.get("/notifications", (req, res) => {
 router.get("/:id", (req, res) => {
   res.render("student/home");
 });
+
 export default router;
