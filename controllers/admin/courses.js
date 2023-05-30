@@ -3,7 +3,9 @@ import courseModel from "../../models/course.js";
 
 export const courses_get = async (req, res) => {
   let instructors = await userModel.find({ role: "Instructor" });
-  res.render("admin/courses", { instructors });
+  let course = await courseModel.find();
+console.log(course);
+  res.render("admin/courses", { instructors , course });
 };
 
 export const courses_post = async (req, res) => {
