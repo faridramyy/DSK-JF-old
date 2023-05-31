@@ -102,6 +102,7 @@
           const data = await res.json();
 
           if (data.errMsg) error.innerHTML = data.errMsg;
+          else if (data.err) location.assign("/error");
           else location.assign(`/${data.user.role}/${data.user._id}`);
         } catch (err) {
           console.log(err);

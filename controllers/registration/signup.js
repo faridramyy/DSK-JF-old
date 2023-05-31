@@ -56,7 +56,7 @@ const signup_post = async (req, res) => {
 
     res.status(201).json({ user: newUser }); //code 201 for created success
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ err: true });
   }
 };
 

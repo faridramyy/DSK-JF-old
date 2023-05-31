@@ -35,8 +35,8 @@ const login_post = async (req, res) => {
       } else return res.status(401).json({ errMsg: "Wrong password" });
     } else return res.status(401).json({ errMsg: "Username not found" });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ err: true });
   }
 };
 
-export default{ login_get, login_post };
+export default { login_get, login_post };

@@ -39,11 +39,11 @@ async function sendCode(email) {
         newotp
           .save()
           .then(() => console.log("Email sent: " + info.response))
-          .catch((err) => console.log(err));
+          .catch((err) => location.assign("/error"));
       }
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ err: true });
   }
 }
 
@@ -58,7 +58,7 @@ const forgetPassword_post = async (req, res) => {
     if (founduser) return res.status(200).json({ Msg: "Email found" });
     else return res.status(401).json({ errMsg: "Email not found" });
   } catch (err) {
-    console.log(err);
+    location.assign("/error");
   }
 };
 
@@ -74,7 +74,7 @@ const forgetPasswordCkeckCode_post = async (req, res) => {
     if (foundEmail.otp == otp) return res.status(200).json({ msg: "verified" });
     return res.status(401).json({ errMsg: "Wrong code" });
   } catch (err) {
-    console.log(err);
+    location.assign("/error");
   }
 };
 
@@ -92,11 +92,11 @@ const forgetPasswordUpdatepassword_put = async (req, res) => {
           res.status(200).json({ msg: "done" });
         })
         .catch((err) => {
-          console.log(err);
+          location.assign("/error");
         });
     })
     .catch((err) => {
-      console.error(err);
+      location.assign("/error");
     });
 };
 

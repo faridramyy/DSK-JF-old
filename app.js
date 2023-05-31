@@ -38,8 +38,13 @@ app.get("/gotbanned/:id", async (req, res) => {
     user: await UserModel.findById(req.params.id),
   });
 });
+
 app.get("/chat", (req, res) => {
   res.render("chat");
+});
+
+app.get("/error", (req, res) => {
+  res.render("error");
 });
 // Handle 404 (Not Found)
 app.use((req, res) => {
