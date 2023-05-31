@@ -33,7 +33,7 @@ export const instructorAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {
     jwt.verify(token, process.env.jwtSecretPhrase, (err, decodedToken) => {
-      if (decodedToken.user.role == "instructor") next();
+      if (decodedToken.user.role == "Instructor") next();
       else res.redirect("/login");
     });
   } else {
