@@ -116,7 +116,7 @@
             <th></th>
           </tr>
 
-          <% users.forEach(item=> { if(item.role !== "admin"){%>
+          <% users.forEach(item=> {%>
           <tr class="user" id="user">
             <td>
               <input type="checkbox" class="checkbox" />
@@ -140,7 +140,8 @@
             </td>
             <td><input type="text" value="<%= item.role %>" readonly /></td>
             <td>
-              <input type="text" name="email" value="<%= item.email || "-" %>" readonly />
+              <input type="text" name="email" value="<%= item.email || "-" %>"
+              readonly />
             </td>
             <td class="<%= item.isBanned ? `banned` : `active` %>">
               <span><%- item.isBanned ? "Baned" : "Active" %></span>
@@ -175,7 +176,7 @@
               </div>
             </td>
           </tr>
-          <%}}); %>
+          <%}); %>
         </table>
       </section>
       <% } else { %>
@@ -244,6 +245,7 @@
           const data = await res.json();
 
           if (data.errMsg) error.innerHTML = data.errMsg;
+          else if (data.err) location.assign("/error");
           else if (data.user) {
             error.style.color = "green";
             error.innerHTML = "Added";
@@ -286,8 +288,9 @@
             });
             const data = await res.json();
             if (data.msg) location.reload();
+            else if (data.err) location.assign("/error");
           } catch (err) {
-            console.log(err);
+            location.assign("/error");
           }
         });
       });
@@ -313,9 +316,9 @@
                 backgroundColor: "red",
               }).showToast();
               location.reload();
-            }
+            } else if (data.err) location.assign("/error");
           } catch (err) {
-            console.log(err);
+            location.assign("/error");
           }
         });
       });
@@ -333,8 +336,8 @@
       Array.from(Cs).forEach((c) => {
         c.addEventListener("click", () => {
           const user = c.parentElement.parentElement.parentElement;
-          const newEmail = user.querySelector([])
-          console.log(newEmail)
+          const newEmail = user.querySelector([]);
+          console.log(newEmail);
         });
       });
 

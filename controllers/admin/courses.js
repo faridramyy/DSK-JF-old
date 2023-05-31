@@ -2,9 +2,13 @@ import userModel from "../../models/user.js";
 import courseModel from "../../models/course.js";
 
 const courses_get = async (req, res) => {
-  let instructors = await userModel.find({ role: "Instructor" });
-  let course = await courseModel.find();
-  res.render("admin/courses", { instructors, course });
+  try {
+    let instructors = await userModel.find({ role: "Instructor" });
+    let course = await courseModel.find();
+    res.render("admin/courses", { instructors, course });
+  } catch (err) {
+    res.status(500).json({ err: true });
+  }
 };
 
 const courses_post = async (req, res) => {
@@ -19,7 +23,7 @@ const courses_post = async (req, res) => {
 
     res.json({ msg: "done" });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ err: true });
   }
 };
 

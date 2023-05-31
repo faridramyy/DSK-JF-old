@@ -123,9 +123,9 @@
       if (data.msg) {
         error.style.color = "green";
         error.innerHTML = "Added";
-      }
+      } else if (data.err) location.assign("/error");
     } catch (err) {
-      console.log(err);
+      location.assign("/error");
     }
   });
   // << End >> form Validation

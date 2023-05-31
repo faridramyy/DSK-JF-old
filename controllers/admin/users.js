@@ -3,11 +3,11 @@ import userModel from "../../models/user.js";
 const users_get = async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 10;
-  let userss = await userModel.find();
+  let userss = await userModel.find({ role: { $ne: "admin" } });
   const usersLength = userss.length;
 
   let users = await userModel
-    .find()
+    .find({ role: { $ne: "admin" } })
     .skip(page * usersPerPage)
     .limit(usersPerPage);
 
@@ -24,7 +24,7 @@ const users_ban_put = async (req, res) => {
       res.json({ msg: "done" });
     })
     .catch((err) => {
-      console.log(err);
+      res.status(500).json({ err: true });
     });
 };
 
@@ -35,7 +35,7 @@ const users_delete = async (req, res) => {
       res.json({ msg: "done" });
     })
     .catch((err) => {
-      console.log(err);
+      res.status(500).json({ err: true });
     });
 };
 
