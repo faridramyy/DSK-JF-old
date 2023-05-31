@@ -25,6 +25,11 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
     },
+    phoneNumber: {
+      type: Number,
+      unique: true,
+      default: "0123456789",
+    },
     password: {
       type: String,
       required: true,
