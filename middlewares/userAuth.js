@@ -11,6 +11,7 @@ export const adminAuth = (req, res, next) => {
     res.redirect(`/login?notAllowed=${true}`);
   }
 };
+
 export const studentAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   if (token) {

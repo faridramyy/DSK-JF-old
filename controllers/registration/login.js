@@ -1,13 +1,16 @@
+//Packages
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+//Shcema
 import UserModel from "../../models/user.js";
+// --------------------------------------------\\
 
-export const login_get = (req, res) => {
+const login_get = (req, res) => {
   const notAllowed = req.query.notAllowed || false;
   res.render("registration/login", { notAllowed });
 };
 
-export const login_post = async (req, res) => {
+const login_post = async (req, res) => {
   const { username, Password } = req.body;
 
   try {
@@ -35,3 +38,5 @@ export const login_post = async (req, res) => {
     console.log(err);
   }
 };
+
+export default{ login_get, login_post };

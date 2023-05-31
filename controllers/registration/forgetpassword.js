@@ -1,7 +1,10 @@
+//Packages
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
+//Shcema
 import UserModel from "../../models/user.js";
 import otpModel from "../../models/otp.js";
+// --------------------------------------------\\
 
 async function sendCode(email) {
   try {
@@ -44,11 +47,11 @@ async function sendCode(email) {
   }
 }
 
-export const forgetPassword_get = (req, res) => {
+const forgetPassword_get = (req, res) => {
   res.render("registration/forgetpassword");
 };
 
-export const forgetPassword_post = async (req, res) => {
+const forgetPassword_post = async (req, res) => {
   const { email } = req.body;
   try {
     const founduser = await UserModel.findOne({ email });
@@ -59,12 +62,12 @@ export const forgetPassword_post = async (req, res) => {
   }
 };
 
-export const forgetPasswordSendCode_post = async (req, res) => {
+const forgetPasswordSendCode_post = async (req, res) => {
   const { email } = req.body;
   sendCode(email);
 };
 
-export const forgetPasswordCkeckCode_post = async (req, res) => {
+const forgetPasswordCkeckCode_post = async (req, res) => {
   const { email, otp } = req.body;
   try {
     const foundEmail = await otpModel.findOne({ email });
@@ -75,7 +78,7 @@ export const forgetPasswordCkeckCode_post = async (req, res) => {
   }
 };
 
-export const forgetPasswordUpdatepassword_put = async (req, res) => {
+const forgetPasswordUpdatepassword_put = async (req, res) => {
   const { email, password } = req.body;
 
   const salt = await bcrypt.genSalt();
@@ -95,4 +98,12 @@ export const forgetPasswordUpdatepassword_put = async (req, res) => {
     .catch((err) => {
       console.error(err);
     });
+};
+
+export default {
+  forgetPassword_get,
+  forgetPassword_post,
+  forgetPasswordSendCode_post,
+  forgetPasswordCkeckCode_post,
+  forgetPasswordUpdatepassword_put,
 };

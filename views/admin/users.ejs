@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- font-awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -11,7 +12,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/users.css" />
@@ -24,9 +31,9 @@
       <header>
         <h1>Users</h1>
         <button class="new-user btn" id="newUserBtn">+ New User</button>
-        <section class="add-new-student" id="addNewStudent">
+        <section class="add-new-user" id="addNewUser">
           <p style="color: red" id="error"></p>
-          <form method="post" id="form">
+          <form id="form">
             <div>
               <label for="firstName">First Name : </label>
               <input type="text" id="firstName" name="firstName" />
@@ -111,7 +118,19 @@
 
           <% users.forEach(item=> { if(item.role !== "admin"){%>
           <tr class="user" id="user">
-            <td><input type="checkbox" /></td>
+            <td>
+              <input type="checkbox" class="checkbox" />
+              <div class="right-and-wrong" style="display: none">
+                <i
+                  class="fa-solid fa-check"
+                  style="color: green; cursor: pointer"
+                ></i>
+                <i
+                  class="fa-solid fa-xmark"
+                  style="color: red; cursor: pointer"
+                ></i>
+              </div>
+            </td>
             <td>
               <div class="container">
                 <img src="<%= item.profilePic %>" alt="profile picture" />
@@ -121,7 +140,7 @@
             </td>
             <td><input type="text" value="<%= item.role %>" readonly /></td>
             <td>
-              <input type="text" value="<%= item.email || "-" %>" readonly />
+              <input type="text" name="email" value="<%= item.email || "-" %>" readonly />
             </td>
             <td class="<%= item.isBanned ? `banned` : `active` %>">
               <span><%- item.isBanned ? "Baned" : "Active" %></span>
@@ -136,7 +155,7 @@
                     <button><i class="fa-solid fa-message"></i> Message</button>
                   </li>
                   <li>
-                    <button>
+                    <button class="editbtn">
                       <i class="fa-solid fa-pencil edit"></i> Edit
                     </button>
                   </li>
@@ -172,8 +191,9 @@
       </div>
     </main>
 
+    <!-- add new user button  -->
     <script>
-      const menu = document.getElementById("addNewStudent");
+      const menu = document.getElementById("addNewUser");
       const newUserBtn = document.getElementById("newUserBtn");
 
       newUserBtn.addEventListener("click", () => {
@@ -192,6 +212,7 @@
       });
     </script>
 
+    <!-- create new user  -->
     <script type="module">
       import { validateForm } from "../js/formValidation.js";
       const form = document.getElementById("form");
@@ -232,7 +253,7 @@
         }
       });
     </script>
-
+    <!-- dots -->
     <script>
       const dots = document.getElementsByClassName("dots");
 
@@ -252,7 +273,7 @@
         });
       });
     </script>
-
+    <!-- ban btn  -->
     <script>
       const banbtn = document.getElementsByClassName("banbtn");
 
@@ -271,7 +292,7 @@
         });
       });
     </script>
-
+    <!-- remove btn  -->
     <script>
       const removebtn = document.getElementsByClassName("removebtn");
 
@@ -283,14 +304,57 @@
               method: "DELETE",
             });
             const data = await res.json();
-            if (data.msg) location.reload();
+            if (data.msg) {
+              Toastify({
+                text: "removed Successfully",
+                duration: 3000,
+                gravity: "top",
+                close: false,
+                backgroundColor: "red",
+              }).showToast();
+              location.reload();
+            }
           } catch (err) {
             console.log(err);
           }
         });
       });
     </script>
+    <!-- edit btn  -->
+    <script>
+      const Xs = document.getElementsByClassName("fa-xmark");
+      Array.from(Xs).forEach((x) => {
+        x.addEventListener("click", () => {
+          location.reload();
+        });
+      });
 
-    
+      const Cs = document.getElementsByClassName("fa-check");
+      Array.from(Cs).forEach((c) => {
+        c.addEventListener("click", () => {
+          const user = c.parentElement.parentElement.parentElement;
+          const newEmail = user.querySelector([])
+          console.log(newEmail)
+        });
+      });
+
+      const editbtn = document.getElementsByClassName("editbtn");
+
+      Array.from(editbtn).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const userid = b.parentElement.parentElement.dataset.userid;
+          const user =
+            b.parentElement.parentElement.parentElement.parentElement
+              .parentElement;
+
+          user.querySelector(".right-and-wrong").style.display = "block";
+          user.querySelector(".checkbox").style.display = "none";
+          user.querySelectorAll("input").forEach((i) => {
+            i.classList.add("edite-input");
+            i.readOnly = false;
+          });
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import userModel from "../../models/user.js";
 
-export const users_get = async (req, res) => {
+const users_get = async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 10;
   let userss = await userModel.find();
@@ -13,7 +13,8 @@ export const users_get = async (req, res) => {
 
   res.render("admin/users", { users, usersLength, usersPerPage });
 };
-export const users_ban_put = async (req, res) => {
+
+const users_ban_put = async (req, res) => {
   const userID = req.params.id;
   await userModel
     .findById(userID)
@@ -26,7 +27,8 @@ export const users_ban_put = async (req, res) => {
       console.log(err);
     });
 };
-export const users_delete = async (req, res) => {
+
+const users_delete = async (req, res) => {
   await userModel
     .findByIdAndDelete(req.params.id)
     .then(() => {
@@ -36,3 +38,5 @@ export const users_delete = async (req, res) => {
       console.log(err);
     });
 };
+
+export default { users_get, users_ban_put, users_delete };

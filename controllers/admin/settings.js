@@ -1,15 +1,16 @@
 import userModel from "../../models/user.js";
 import fileUpload from "express-fileupload";
 
-export const settings_get = async (req, res) => {
+const settings_get = async (req, res) => {
   const user = await userModel.findOne({ username: "admin" });
   res.render("admin/settings", { user });
 };
 
-export const changeImage_put = async (req, res) => {};
+const changeImage_put = async (req, res) => {};
 
-export const settings_put = async (req, res) => {
+const settings_put = async (req, res) => {
   const { firstName, lastName, email } = req.body;
+
   try {
     userModel
       .findOneAndUpdate({ username: "admin" }, { firstName, lastName, email })
@@ -23,7 +24,8 @@ export const settings_put = async (req, res) => {
     console.log(err);
   }
 };
-export const checkemail_post = async (req, res) => {
+
+const checkemail_post = async (req, res) => {
   const { email } = req.body;
   try {
     const user = userModel.find({ email });
@@ -33,3 +35,5 @@ export const checkemail_post = async (req, res) => {
     console.log(err);
   }
 };
+
+export default { settings_get, settings_put, changeImage_put, checkemail_post };

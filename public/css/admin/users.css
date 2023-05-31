@@ -12,7 +12,7 @@ header {
   background-color: rgb(32, 101, 209);
   box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
 }
-.add-new-student {
+.add-new-user {
   top: 70px;
   right: 80px;
   position: absolute;
@@ -31,17 +31,17 @@ header {
 #error {
   margin: 10px;
 }
-.add-new-student.activee {
+.add-new-user.activee {
   pointer-events: all;
   opacity: 1;
   transform: translateY(0);
 }
-.add-new-student div {
+.add-new-user div {
   margin: 3px;
   display: flex;
   justify-content: space-between;
 }
-.add-new-student div input {
+.add-new-user div input {
   border: none;
   border-bottom: 1px solid rgb(76, 139, 240);
   padding: 5px;
@@ -49,7 +49,7 @@ header {
   border-radius: 5px 3px;
   transition: 0.1s;
 }
-.add-new-student div input:focus {
+.add-new-user div input:focus {
   outline: none;
   border-bottom: 3px solid rgb(76, 139, 240);
 }
@@ -133,6 +133,11 @@ th {
 td input {
   border: none;
   outline: none;
+  cursor: default;
+}
+.edite-input {
+  cursor: text;
+  border-bottom: 1px solid rgb(76, 139, 240);
 }
 .active span {
   color: green;
@@ -154,14 +159,18 @@ td input {
   color: black;
 }
 .options {
-  display: none;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-50%);
   z-index: 10;
   position: absolute;
   top: 85%;
   right: 50px;
 }
 .options.showList {
-  display: block;
+  pointer-events: all;
+  opacity: 1;
+  transform: translateY(0);
 }
 .options ul {
   list-style: none;

@@ -239,6 +239,14 @@
 
           if (!foundAnError) {
             try {
+
+
+
+              
+
+
+  
+
               const res = await fetch("/admin/settings", {
                 method: "PUT",
                 headers: {
@@ -250,6 +258,14 @@
                   lastName: document.getElementById("lastName").value,
                 }),
               });
+
+
+
+
+
+
+
+
               const data = await res.json();
               if (data.msg) {
                 Toastify({

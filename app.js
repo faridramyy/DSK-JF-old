@@ -11,6 +11,7 @@ import studentRouter from "./routes/studentRouter.js";
 import UserModel from "./models/user.js";
 //Middlewares
 import { adminAuth, studentAuth } from "./middlewares/userAuth.js";
+// -------------------------------------------------------------------\\
 dotenv.config();
 //Variables
 const app = express();
@@ -28,7 +29,9 @@ app.use("/admin", adminAuth, adminRouter);
 app.use("/student", studentAuth, studentRouter);
 
 app.get("/gotbanned/:id", async (req, res) => {
-  res.render("student/gotBanned", { user: await UserModel.findById(req.params.id) });
+  res.render("student/gotBanned", {
+    user: await UserModel.findById(req.params.id),
+  });
 });
 // Handle 404 (Not Found)
 app.use((req, res) => {

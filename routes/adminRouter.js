@@ -1,41 +1,29 @@
 import express from "express";
-import {
-  dashboard_get,
-  dashboard_post,
-} from "../controllers/admin/dashboard.js";
-import {
-  users_get,
-  users_ban_put,
-  users_delete,
-} from "../controllers/admin/users.js";
-import { courses_get, courses_post } from "../controllers/admin/courses.js";
-import {
-  settings_get,
-  changeImage_put,
-  checkemail_post,
-  settings_put,
-} from "../controllers/admin/settings.js";
-import { security_get } from "../controllers/admin/security.js";
-import { notifications_get } from "../controllers/admin/notifications.js";
+import d from "../controllers/admin/dashboard.js";
+import u from "../controllers/admin/users.js";
+import c from "../controllers/admin/courses.js";
+import settings from "../controllers/admin/settings.js";
+import security from "../controllers/admin/security.js";
+import n from "../controllers/admin/notifications.js";
 const router = express.Router();
 
-router.get("/", dashboard_get);
-router.post("/", dashboard_post);
+router.get("/", d.dashboard_get);
+router.post("/", d.dashboard_post);
 
-router.get("/users", users_get);
-router.put("/users/ban/:id", users_ban_put);
-router.delete("/users/delete/:id", users_delete);
+router.get("/users", u.users_get);
+router.put("/users/ban/:id", u.users_ban_put);
+router.delete("/users/delete/:id", u.users_delete);
 
-router.get("/courses", courses_get);
-router.post("/courses", courses_post);
+router.get("/courses", c.courses_get);
+router.post("/courses", c.courses_post);
 
-router.get("/settings", settings_get);
-router.put("/changeimage", changeImage_put);
-router.post("/checkemail", checkemail_post);
-router.put("/settings", settings_put);
+router.get("/settings", settings.settings_get);
+router.put("/changeimage", settings.changeImage_put);
+router.post("/checkemail", settings.checkemail_post);
+router.put("/settings", settings.settings_put);
 
-router.get("/security", security_get);
+router.get("/security", security.security_get);
 
-router.get("/notifications", notifications_get);
+router.get("/notifications", n.notifications_get);
 
 export default router;
