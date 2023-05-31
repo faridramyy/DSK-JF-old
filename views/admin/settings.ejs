@@ -34,7 +34,7 @@
 
   <body>
     <%- include("./nav.ejs") %>
-    <main>
+    <main data-userid="<%=user._id%>">
       <div class="container-xl px-4 mt-4">
         <nav class="nav nav-borders">
           <li><a class="nav-link active" href="#">Profile</a></li>
@@ -164,7 +164,6 @@
             });
             const data = await res.json();
 
-            console.log(data);
           } catch (err) {
             console.log(err);
           }
@@ -222,6 +221,7 @@
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
+                owner: document.getElementsByTagName("main")[0].dataset.userid,
                 email: document.getElementById("email").value,
               }),
             });
@@ -241,7 +241,9 @@
           e.preventDefault();
           foundAnError = false;
           checkRequired([email, firstName, lastName]);
-          checkEmail(email);
+          if (!foundAnError) {
+            await checkEmail(email);
+          }
 
           if (!foundAnError) {
             try {
@@ -254,6 +256,8 @@
                   email: document.getElementById("email").value,
                   firstName: document.getElementById("firstName").value,
                   lastName: document.getElementById("lastName").value,
+                  phoneNumber: document.getElementById("Phone").value,
+                  birthdayDate: document.getElementById("inputBirthday").value,
                 }),
               });
 

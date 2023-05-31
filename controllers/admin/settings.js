@@ -9,11 +9,14 @@ const settings_get = async (req, res) => {
 const changeImage_put = async (req, res) => {};
 
 const settings_put = async (req, res) => {
-  const { firstName, lastName, email } = req.body;
+  const { firstName, lastName, email, phoneNumber, birthdayDate } = req.body;
 
   try {
     userModel
-      .findOneAndUpdate({ username: "admin" }, { firstName, lastName, email })
+      .findOneAndUpdate(
+        { username: "admin" },
+        { firstName, lastName, email, phoneNumber, birthdayDate }
+      )
       .then(() => {
         return res.json({ msg: "done" });
       })
@@ -26,10 +29,11 @@ const settings_put = async (req, res) => {
 };
 
 const checkemail_post = async (req, res) => {
-  const { email } = req.body;
+  const { email, owner } = req.body;
   try {
-    const user = userModel.find({ email });
-    if (user) res.json({ errMsg: "found" });
+    const user = await userModel.findOne({ email });
+    if (user) var userId = user._id.toString();
+    if (user && userId !== owner) res.json({ errMsg: "found" });
     else res.json({ msg: "Notound" });
   } catch (err) {
     console.log(err);
