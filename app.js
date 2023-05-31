@@ -27,7 +27,7 @@ app.set("view engine", "ejs");
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/student", studentAuth, studentRouter);
-app.use("/instructor",instructorAuth, instructorRouter)
+app.use("/Instructor",instructorAuth, instructorRouter)
 
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {

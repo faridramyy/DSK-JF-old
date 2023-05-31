@@ -45,8 +45,9 @@
                 <option data-instructorId="<%= instructor._id %>">
                   <%= instructor.firstName %>
                 </option>
-                <% });} %>
+                <% });} else{%>
                 <option data-instructorId="NULL">No Instructor</option>
+                <%}%>
               </select>
             </div>
             <div>

@@ -1,50 +1,36 @@
 <header>
-    <!--Navigation-->
-    <nav id="nav">
-      <img src="/img/DSK-JF-light-logo.png" alt="" />
-      <div class="navigation">
-        <div class="secondary-nav">
-          <ul>
-            <li><a href="/student">Home</a></li>
-            <li><a href="/student/courses">Courses</a></li>
-            <li class="dropdown">
-              <a href="" class="dropbtn"
-                >My Courses <i class="fas fa-caret-down"></i
-              ></a>
-              <div class="dropdown-content">
-                <a href="">Course 1</a>
-                <a href="#">Course 2</a>
-                <a href="#">Course 3</a>
-              </div>
-            </li>
-          </ul>
-          <div class="search">
-            <input type="text" class="input" placeholder="Search..." />
-            <button class="btn"><i class="fas fa-search"></i></button>
-          </div>
-        </div>
-        <div class="items">
-          <i class="fas fa-bell"></i>
-          <!-- Replace with your notifications icon -->
-        </div>
-        <div class="profile">
-          <img
-            src="/img/defaultPP.png"
-            alt="user image"
-            onclick="showMenu()"
-            id="profilePic"
-          />
-          <div class="list" id="profileMenu">
-            <ul>
-              <li><a href="#">Profile</a></li>
-              <li><a href="/student/settings">Manage your account</a></li>
-              <li><a href="#">Switch account</a></li>
-              <li><a href="#">Add another account</a></li>
-              <li><a href="#">Log out</a></li>
-            </ul>
-          </div>
+  <!--Navigation-->
+  <nav id="nav">
+    <img src="/img/DSK-JF-light-logo.png" alt="" />
+    <div class="navigation">
+      <!-- nezabat classes -->
+      <div class="secondary-nav">
+        <div class="search">
+          <input type="text" class="input" placeholder="Search..." />
+          <button class="btn"><i class="fas fa-search"></i></button>
         </div>
       </div>
-    </nav>
-  </header>
-  
+      <div class="items">
+        <i class="fas fa-bell"></i>
+        <!-- Replace with your notifications icon -->
+      </div>
+      <div class="profile">
+        <img
+          src="/img/defaultPP.png"
+          alt="user image"
+          onclick="showMenu()"
+          id="profilePic"
+        />
+        <div class="list" id="profileMenu">
+          <ul>
+            <li><a href="#">Profile</a></li>
+            <li><a href="/instructor/settings">Manage your account</a></li>
+            <li><a href="#">Switch account</a></li>
+            <li><a href="#">Add another account</a></li>
+            <li><a href="#">Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
