@@ -28,3 +28,14 @@ export const studentAuth = (req, res, next) => {
     res.redirect("/login");
   }
 };
+export const instructorAuth = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.jwtSecretPhrase, (err, decodedToken) => {
+      if (decodedToken.user.role == "instructor") next();
+      else res.redirect("/login");
+    });
+  } else {
+    res.redirect("/login");
+  }
+};
