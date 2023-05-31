@@ -113,7 +113,12 @@
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
                       <label class="small mb-1" for="Phone">Phone number</label>
-                      <input class="form-control" id="Phone" type="tel" />
+                      <input
+                        class="form-control"
+                        id="Phone"
+                        type="tel"
+                        value="<%= user.phoneNumber%>"
+                      />
                     </div>
                     <div class="col-md-6">
                       <label class="small mb-1" for="inputBirthday"
@@ -124,6 +129,7 @@
                         id="inputBirthday"
                         type="date"
                         name="birthday"
+                        value="<%= user.birthdayDate%>"
                       />
                     </div>
                   </div>
@@ -239,14 +245,6 @@
 
           if (!foundAnError) {
             try {
-
-
-
-              
-
-
-  
-
               const res = await fetch("/admin/settings", {
                 method: "PUT",
                 headers: {
@@ -258,13 +256,6 @@
                   lastName: document.getElementById("lastName").value,
                 }),
               });
-
-
-
-
-
-
-
 
               const data = await res.json();
               if (data.msg) {

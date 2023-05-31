@@ -34,6 +34,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    birthdayDate: {
+      type: String,
+      default: "2003-12-22",
+    },
     gpa: {
       type: Number,
       default: null,
