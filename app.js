@@ -7,11 +7,11 @@ import cookieParser from "cookie-parser";
 import registrationRouter from "./routes/registrationRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import studentRouter from "./routes/studentRouter.js";
+import instructorRouter from "./routes/instructorRouter.js";
 //Schema
 import UserModel from "./models/user.js";
 //Middlewares
-import { adminAuth, studentAuth } from "./middlewares/userAuth.js";
-// -------------------------------------------------------------------\\
+import { adminAuth, instructorAuth, studentAuth } from "./middlewares/userAuth.js";
 dotenv.config();
 //Variables
 const app = express();
@@ -27,6 +27,7 @@ app.set("view engine", "ejs");
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/student", studentAuth, studentRouter);
+app.use("/instructor",instructorAuth, instructorRouter)
 
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
