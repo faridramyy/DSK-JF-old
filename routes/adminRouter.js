@@ -9,7 +9,12 @@ import {
   users_delete,
 } from "../controllers/admin/users.js";
 import { courses_get, courses_post } from "../controllers/admin/courses.js";
-import { settings_get, settings_post } from "../controllers/admin/settings.js";
+import {
+  settings_get,
+  changeImage_put,
+  checkemail_post,
+  settings_put,
+} from "../controllers/admin/settings.js";
 import { security_get } from "../controllers/admin/security.js";
 import { notifications_get } from "../controllers/admin/notifications.js";
 const router = express.Router();
@@ -25,7 +30,9 @@ router.get("/courses", courses_get);
 router.post("/courses", courses_post);
 
 router.get("/settings", settings_get);
-router.post("/settings", settings_post);
+router.put("/changeimage", changeImage_put);
+router.post("/checkemail", checkemail_post);
+router.put("/settings", settings_put);
 
 router.get("/security", security_get);
 
