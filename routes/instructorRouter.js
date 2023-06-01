@@ -7,7 +7,8 @@ router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
     let courses = await courseModel.find({ instructorId: instructorId });
-    res.render("instructor/home", { courses });
+    let projects = await projectModel.find();
+    res.render("instructor/home", { courses, projects });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

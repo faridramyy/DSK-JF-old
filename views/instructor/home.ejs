@@ -43,8 +43,8 @@
                       <p class="name">
                         <%=project.title %>
                       </p>
-                      <p>Number of students: <%=course.studentsPerTeam %> student</p>
-                      <p>Go to <a href="/Instructor/<%=project.course.id %>/project">course</a></p>
+                      <p>Number of students: <%=project.studentsPerTeam %> student</p>
+                      <p>Go to <a href="/Instructor/<% courses.instructorId %>/<%=project.id %>/project">Project</a></p>
                     </div>
                     <% });%>
                 </section>
@@ -52,7 +52,7 @@
                   <p>No Available Projects</p>
                   <% } %>
             </section>
-            
+
     </main>
 
     <!-- footer  -->
