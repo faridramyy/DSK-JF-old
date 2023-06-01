@@ -22,8 +22,8 @@ const ProjectSchema = new Schema(
       default: false,
     },
     teamLeader: {
-      type: [mongoose.Schema.Types.ObjectId],
-      default: [],
+      type: String,
+      default: "",
     },
     coverPic: {
       type: String,
@@ -32,6 +32,15 @@ const ProjectSchema = new Schema(
     deadline: {
       type: Date,
       require: true,
+    },
+    noOfPhases: {
+      type: Number,
+      default: 1,
+    },
+    requirementsFile: {
+      type: String,
+      default:"aaa"
+      // required: true,
     },
   },
   { timestamps: true }

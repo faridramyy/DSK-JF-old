@@ -57,25 +57,25 @@
           </div>
           <div class="add-project">
             <div class="add-project-form" id="project">
-              <form action="post">
+              <form action="/instructor/<%= instructorId %>/<%=courseId %>" method="post">
                 <fieldset>
                   <legend><span class="number">1</span> Project Info</legend>
 
-                  <label for="name">Project Name:</label>
-                  <input type="text" id="name" name="project_name">
+                  <label for="title">Project title:</label>
+                  <input type="text" id="title" name="title">
 
                   <label for="Deadline">Deadline:</label>
-                  <input type="date" id="deadline" name="Deadline">
+                  <input type="date" id="deadline" name="deadline">
 
                 </fieldset>
                 <fieldset>
                   <legend><span class="number">2</span> Project details</legend>
 
-                  <label for="bio">Description:</label>
-                  <textarea id="bio" name="bio"></textarea>
+                  <label for="description">Description:</label>
+                  <textarea id="description" name="description"></textarea>
                   <div>
-                    <label for="members">Number of team members:</label>
-                    <select name="members" id="members-list">
+                    <label for="numberOfStudentsPerTeam">Number of team members:</label>
+                    <select name="numberOfStudentsPerTeam" id="numberOfStudentsPerTeam">
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
@@ -83,8 +83,8 @@
                     </select>
                   </div>
                   <div>
-                    <label for="phases">Number of phases:</label>
-                    <select name="phases" id="phases-list">
+                    <label for="noOfPhases">Number of phases:</label>
+                    <select name="noOfPhases" id="noOfPhases">
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -92,7 +92,7 @@
                   </div>
 
                   <label>Rquirments file:</label>
-                  <input type="file">
+                  <input type="file" name="requirementsFile">
 
                 </fieldset>
 
