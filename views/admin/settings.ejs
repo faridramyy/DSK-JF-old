@@ -50,7 +50,7 @@
             <div class="card mb-4 mb-xl-0">
               <div class="card-header">Profile Picture</div>
               <div class="card-body text-center">
-                <form method="post" enctype="multipart/form-data">
+                <form>
                   <label for="fileToUpload">
                     <div
                       class="profile-pic"
@@ -75,7 +75,7 @@
             <div class="card mb-4">
               <div class="card-header">Account Details</div>
               <div class="card-body">
-                <form>
+                <form id="form">
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
                       <label class="small mb-1" for="firstName"
@@ -84,20 +84,20 @@
                       <input
                         class="form-control"
                         id="firstName"
+                        name="firstName"
                         type="text"
                         value="<%= user.firstName%>"
                       />
-                      <span id="errorFirstName" class="error"></span>
                     </div>
                     <div class="col-md-6">
                       <label class="small mb-1" for="lastName">Last name</label>
                       <input
                         class="form-control"
                         id="lastName"
+                        name="lastName"
                         type="text"
                         value="<%= user.lastName%>"
                       />
-                      <span id="errorLastName" class="error"></span>
                     </div>
                   </div>
                   <div class="mb-3">
@@ -105,10 +105,10 @@
                     <input
                       class="form-control"
                       id="email"
+                      name="email"
                       type="text"
                       value="<%= user.email%>"
                     />
-                    <span id="errorEmail" class="error"></span>
                   </div>
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
@@ -127,8 +127,8 @@
                       <input
                         class="form-control"
                         id="inputBirthday"
+                        name="Birthday"
                         type="date"
-                        name="birthday"
                         value="<%= user.birthdayDate%>"
                       />
                     </div>
@@ -137,7 +137,7 @@
                     <button class="btn btn-primary" id="saveBtn" type="submit">
                       Save changes
                     </button>
-                    <button class="btn clear_btn" type="button">Clear</button>
+                    <button class="btn clear_btn" type="reset">Clear</button>
                   </div>
                 </form>
               </div>
@@ -146,135 +146,62 @@
         </div>
       </div>
     </main>
-
-    <!-- image upload  -->
-    <script>
-      document
-        .getElementById("upload-new-image")
-        .addEventListener("click", async (e) => {
-          e.preventDefault();
-
-          try {
-            const res = await fetch("/admin/changeimage", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({}),
-            });
-            const data = await res.json();
-          } catch (err) {
-            console.log(err);
-          }
-        });
-    </script>
     <!-- form validation and update data  -->
-    <script>
-      const firstName = document.getElementById("firstName");
-      const errorFirstName = document.getElementById("errorFirstName");
+    <script type="module">
+      import { validateForm } from "/js/formValidation.js";
+      const form = document.getElementById("form");
 
-      const lastName = document.getElementById("lastName");
-      const errorLastName = document.getElementById("errorLastName");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      const email = document.getElementById("email");
-      const errorEmail = document.getElementById("errorEmail");
-
-      const inputBirthday = document.getElementById("inputBirthday");
-
-      let foundAnError;
-
-      function getFieldName(input) {
-        let value = input.id;
-        return value.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
-      }
-
-      function showError(input, message) {
-        foundAnError = true;
-        const span = input.parentElement.querySelector("span");
-        input.style.border = "1px solid red";
-        span.innerText = message;
-      }
-
-      function showSucces(input) {
-        input.style.border = "1px solid green";
-        const span = (input.parentElement.querySelector("span").innerText = "");
-      }
-
-      function checkRequired(inputArr) {
-        inputArr.forEach(function (input) {
-          if (input.value.trim() === "")
-            showError(input, `${getFieldName(input)} is required`);
-          else showSucces(input);
-        });
-      }
-
-      async function checkEmail(input) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(input.value.trim()))
-          showError(input, "Email is invalid");
-        else {
-          try {
-            const res = await fetch("/admin/checkemail", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                owner: document.getElementsByTagName("main")[0].dataset.userid,
-                email: document.getElementById("email").value,
-              }),
-            });
-            const data = await res.json();
-            console.log(data);
-            if (data.errMsg) showError(input, "email is taken");
-            else showSucces(input);
-          } catch (err) {
-            console.log(err);
-          }
+        const errorMsg = validateForm(form);
+        if (errorMsg) {
+          return Toastify({
+            text: errorMsg,
+            duration: 3000,
+            gravity: "top",
+            close: false,
+            backgroundColor: "red",
+          }).showToast();
         }
-      }
 
-      document
-        .getElementById("saveBtn")
-        .addEventListener("click", async (e) => {
-          e.preventDefault();
-          foundAnError = false;
-          checkRequired([email, firstName, lastName]);
-          if (!foundAnError) {
-            await checkEmail(email);
+        try {
+          const res = await fetch("/admin/settings", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              firstName: document.getElementById("firstName").value,
+              lastName: document.getElementById("lastName").value,
+              email: document.getElementById("email").value,
+              phoneNumber: document.getElementById("Phone").value,
+              birthdayDate: document.getElementById("inputBirthday").value,
+            }),
+          });
+
+          const data = await res.json();
+          if (data.msg) {
+            Toastify({
+              text: "Updated Successfully",
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "green",
+            }).showToast();
+          }else if(data.errMsg){
+            Toastify({
+              text: data.errMsg,
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "red",
+            }).showToast();
           }
-
-          if (!foundAnError) {
-            try {
-              const res = await fetch("/admin/settings", {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  email: document.getElementById("email").value,
-                  firstName: document.getElementById("firstName").value,
-                  lastName: document.getElementById("lastName").value,
-                  phoneNumber: document.getElementById("Phone").value,
-                  birthdayDate: document.getElementById("inputBirthday").value,
-                }),
-              });
-
-              const data = await res.json();
-              if (data.msg) {
-                Toastify({
-                  text: "Updated Successfully",
-                  duration: 3000,
-                  gravity: "top",
-                  close: false,
-                  backgroundColor: "green",
-                }).showToast();
-              }
-            } catch (err) {
-              console.log(err);
-            }
-          }
-        });
+        } catch (err) {
+          console.log(err);
+        }
+      });
     </script>
   </body>
 </html>

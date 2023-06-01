@@ -1,5 +1,4 @@
 import userModel from "../../models/user.js";
-import fileUpload from "express-fileupload";
 
 const settings_get = async (req, res) => {
   const user = await userModel.findOne({ username: "admin" });
@@ -10,8 +9,14 @@ const changeImage_put = async (req, res) => {};
 
 const settings_put = async (req, res) => {
   const { firstName, lastName, email, phoneNumber, birthdayDate } = req.body;
-
   try {
+    const foundUser = await userModel.findOne({ email });
+    if (foundUser) {
+      if (foundUser.role !== "admin") {
+        return res.json({ errMsg: "Email is taken" });
+      }
+    }
+
     userModel
       .findOneAndUpdate(
         { username: "admin" },

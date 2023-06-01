@@ -44,7 +44,7 @@ export function validateForm(form) {
   let errorMessage;
   let pwd;
   for (let input of Array.from(form.elements)) {
-    if (input.value === "" && input.type !== "submit") {
+    if (input.value === "" && input.type !== "submit"&& input.type !== "reset") {
       errorMessage = camelcaseToNormalString(input.name);
       errorMessage = capitalizeFirstLetter(errorMessage);
       return errorMessage + " is required";
