@@ -33,7 +33,25 @@
           <p>No Available courses</p>
           <% } %>
 
-
+            <section>
+              <h1>My Projects</h1>
+              <% if(projects){ %>
+                <section class="projects">
+                  <% projects.forEach(project=> {%>
+                    <div class="project">
+                      <img src="<%=project.coverPic %>" alt="course 1" />
+                      <p class="name">
+                        <%=project.title %>
+                      </p>
+                      <p>Number of students: <%=course.studentsPerTeam %> student</p>
+                      <p>Go to <a href="/Instructor/<%=project.course.id %>/project">course</a></p>
+                    </div>
+                    <% });%>
+                </section>
+                <% } else {%>
+                  <p>No Available courses</p>
+                  <% } %>
+            </section>
     </main>
 
     <!-- footer  -->
