@@ -19,6 +19,7 @@ router.get("/:id/:cid", async (req, res) => {
     const courseId = req.params.cid;
     const students = await courseModel.find({ courseId: courseId });
     res.render("instructor/course", { instructorId, courseId,students });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -36,7 +37,7 @@ router.post("/:id/:cid", async (req, res) => {
       numberOfStudentsPerTeam,
       noOfPhases,
     });
-
+   
     newProject.save();
   } catch (err) {
     res.status(500).json({ err: true });
