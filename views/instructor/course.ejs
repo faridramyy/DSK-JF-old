@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- nav css -->
-    <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <!-- course css -->
-    <link rel="stylesheet" href="/css/instructor/course.css" />
-    <title>Instructor course</title>
-  </head>
-  <body>
-    <%- include("./nav.ejs") %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- nav css -->
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <!-- course css -->
+  <link rel="stylesheet" href="/css/instructor/course.css" />
+  <link rel="stylesheet" href="/css/instructor/project.css" />
+  <title>Instructor course</title>
+</head>
+
+<body>
+  <%- include("./nav.ejs") %>
     <main>
       <section>
         <div class="my-course">
-          <input
-            type="text"
-            name="title"
-            class="title"
-            id="title"
-            value="Course Title"
-            readonly
-          />
+          <input type="text" name="title" class="title" id="title" value="Course Title" readonly />
           <i class="fa-solid fa-pencil" onclick="editTitle()"></i>
         </div>
         <div class="course">
@@ -39,39 +35,17 @@
             <div class="add-material-form" id="material">
               <form action="post">
                 <div>
-                  <label for="type" class="form-label"
-                    >Choose the type of Material:</label
-                  >
-                  <input
-                    type="radio"
-                    name="type"
-                    id="links"
-                    onchange="linkInput()"
-                  />
+                  <label for="type" class="form-label">Choose the type of Material:</label>
+                  <input type="radio" name="type" id="links" onchange="linkInput()" />
                   <label for="">Link</label>
-                  <input
-                    type="radio"
-                    name="type"
-                    id="document"
-                    onchange="documentInput()"
-                  />
+                  <input type="radio" name="type" id="document" onchange="documentInput()" />
                   <label for="">Document</label>
-                  <input
-                    type="radio"
-                    name="type"
-                    id="submissions"
-                    onchange="submissionInput()"
-                  />
+                  <input type="radio" name="type" id="submissions" onchange="submissionInput()" />
                   <label for="">Submissions</label>
                 </div>
                 <div>
                   <label for="title" class="form-label">Material Title:</label>
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Enter The Title here"
-                  />
+                  <input type="text" name="" id="" placeholder="Enter The Title here" />
                 </div>
                 <div>
                   <label for="content" class="form-label">Content:</label>
@@ -84,28 +58,47 @@
           <div class="add-project">
             <div class="add-project-form" id="project">
               <form action="post">
-                <div>
-                  <label for="title" class="form-label">Project Title</label>
-                  <input type="text" placeholder="Enter the title" />
-                </div>
-                <div>
-                  <label for="description" class="form-label"
-                    >Project Description</label
-                  >
-                  <input type="text" placeholder="Enter the description" />
-                </div>
-                <div>
-                  <label for="members" class="form-label"
-                    >Choose the number of team members:</label
-                  >
-                  <select name="members" id="members-list">
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-                <button>Add</button>
+                <fieldset>
+                  <legend><span class="number">1</span> Project Info</legend>
+
+                  <label for="name">Project Name:</label>
+                  <input type="text" id="name" name="project_name">
+
+                  <label for="Deadline">Deadline:</label>
+                  <input type="date" id="deadline" name="Deadline">
+
+                </fieldset>
+                <fieldset>
+                  <legend><span class="number">2</span> Project details</legend>
+
+                  <label for="bio">Description:</label>
+                  <textarea id="bio" name="bio"></textarea>
+                  <div>
+                    <label for="members">Number of team members:</label>
+                    <select name="members" id="members-list">
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="phases">Number of phases:</label>
+                    <select name="phases" id="phases-list">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+
+                  <label>Rquirments file:</label>
+                  <input type="file">
+
+                </fieldset>
+
+                <button type="submit" id="submit">Submit</button>
+                <button type="clear" id="clear">Clear</button>
+
               </form>
             </div>
           </div>
@@ -114,10 +107,7 @@
     </main>
 
     <!-- font-awesome -->
-    <script
-      src="https://kit.fontawesome.com/0b0cd0c012.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
 
     <!-- profile menu -->
     <script>
@@ -209,5 +199,6 @@
         document.getElementById("add-activity-btn").classList.add("active");
       }
     </script>
-  </body>
+</body>
+
 </html>
