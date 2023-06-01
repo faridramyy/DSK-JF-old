@@ -336,7 +336,7 @@
       Array.from(Cs).forEach((c) => {
         c.addEventListener("click", () => {
           const user = c.parentElement.parentElement.parentElement;
-          const newEmail = user.querySelector([]);
+          const newEmail = user.querySelectorAll("input");
           console.log(newEmail);
         });
       });

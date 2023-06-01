@@ -16,6 +16,10 @@ const CourseSchema = new Schema({
     type: Number,
     default: 0,
   },
+  availableForUsers:{
+    type: Boolean,
+    default: false,
+  },
   student: {
     type: [mongoose.Schema.Types.ObjectId],
     default: [],

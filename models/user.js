@@ -26,7 +26,8 @@ const UserSchema = new Schema(
       unique: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
+      default: "",
     },
     password: {
       type: String,
@@ -55,6 +56,22 @@ const UserSchema = new Schema(
     courses: {
       type: [mongoose.Schema.Types.ObjectId],
       default: [],
+    },
+    facebook: {
+      type: String,
+      default: "",
+    },
+    linkedin: {
+      type: String,
+      default: "",
+    },
+    github: {
+      type: String,
+      default: "",
+    },
+    twitter: {
+      type: String,
+      default: "",
     },
   },
   { timestamps: true }

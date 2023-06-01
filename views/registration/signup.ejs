@@ -73,7 +73,7 @@
     <script src="js/registration/eye.js"></script>
 
     <script type="module">
-      import { validateForm } from "./js/formValidation.js";
+      import { validateForm } from "/js/formValidation.js";
 
       const form = document.getElementById("form");
       const error = document.getElementById("error");
@@ -85,7 +85,7 @@
         if (errorMsg) return (error.innerHTML = errorMsg);
 
         try {
-          const res = await fetch("/signup", {
+          const res = await fetch("/student/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

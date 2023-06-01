@@ -31,7 +31,7 @@ export const settings_get = (req, res) => {
   }
 };
 
-export const settings_post = (req, res) => {
+export const settings_put = (req, res) => {
   const token = req.cookies.jwt; // Assuming the token is stored in a cookie named 'jwt'
   const { role, firstName, lastName, username } = req.body;
 

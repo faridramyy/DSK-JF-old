@@ -1,6 +1,6 @@
 import express from "express";
 import courseModel from "../models/course.js";
-import { settings_get, settings_post } from "../controllers/student/settings.js";
+import { settings_get, settings_put } from "../controllers/student/settings.js";
 const router = express.Router();
 
 router.get("/courses", async (req, res) => {
@@ -13,7 +13,7 @@ router.get("/courses", async (req, res) => {
 });
 
 router.get("/settings", settings_get);
-router.post("/settings", settings_post);
+router.put("/settings", settings_put);
 
 router.get("/courseInner", (req, res) => {
   res.render("student/courseInner");

@@ -3,10 +3,6 @@
   --error-color: #e74c3c;
   align-content: center;
 }
-body {
-  color: #69707a;
-  font-family: "Poppins", sans-serif;
-}
 .nav-borders .nav-link.active {
   color: #0061f2;
   border-bottom-color: #0061f2;
@@ -23,15 +19,16 @@ h1 {
 .card-header {
   padding: 15px;
 }
+.button-container {
+  display: flex;
+  justify-content: center;
+}
 .card {
   align-content: center;
   box-shadow: 0 0.15rem 1.75rem 0 rgba(0, 255, 26, 0.15);
 }
 .img-account-profile {
   height: 10rem;
-}
-.rounded-circle {
-  border-radius: 50% !important;
 }
 .form-control {
   display: block;
@@ -80,54 +77,24 @@ form input[type="file"] {
 .form-control.error span {
   visibility: visible;
 }
-.btn {
-  color: #ffffff;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  padding: 8px 18px;
-  font-size: 16px;
-  font-weight: 700;
+.social-media {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+}
+.social-media i {
+  font-size: 25px;
+}
+.btns {
+  display: flex;
+  justify-content: space-between;
 }
 .btn-primary {
   background: linear-gradient(to top, #13cf7d 0%, #3cba92 100%);
   box-shadow: #5df0b0 0 10px 20px -10px;
 }
-.btn-primary:hover {
-  background: linear-gradient(to top, #01a25c 0%, #019063 100%);
-}
 .clear_btn {
   background-image: linear-gradient(144deg, #ff0000, #ff6c6c 50%, #f80000);
   box-shadow: #ff786e 0 10px 20px -10px;
-  float: right;
-}
-.clear_btn:hover {
-  background-image: linear-gradient(144deg, #9a0606, #f41414 50%, #cb0606);
-  box-shadow: #ff786e 0 10px 20px -10px;
-}
-p {
-  font-weight: bold;
-  color: rgb(37, 37, 37);
-}
-body::-webkit-scrollbar {
-  display: none;
-}
-#fb {
-  color: #1877f2;
-}
-#Li {
-  color: #0a66c2;
-}
-
-#tw {
-  color: #1d9bf0;
-}
-#gh {
-  color: #24292f;
-}
-.custom-toast {
-    /* Add your custom styles here */
-    background-color: #ff0000;
-    color: #ffffff;
-    /* Add more styles as needed */
 }
