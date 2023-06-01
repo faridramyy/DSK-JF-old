@@ -2,8 +2,6 @@ import express from "express";
 import courseModel from "../models/course.js";
 const router = express.Router();
 
-
-
 router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
@@ -18,6 +16,5 @@ router.get("/:id", async (req, res) => {
 router.get("/:id/course", (req, res) => {
   res.render("instructor/course");
 });
-
 
 export default router;
