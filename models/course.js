@@ -9,12 +9,15 @@ const CourseSchema = new Schema({
     type: String,
     default: 0,
   },
-  instructorId: {
+  courseId: {
     type: mongoose.Schema.Types.ObjectId,
   },
   numberOfStudents: {
     type: Number,
     default: 0,
+  },
+  instructorId: {
+    type: mongoose.Schema.Types.ObjectId,
   },
   availableForUsers:{
     type: Boolean,
