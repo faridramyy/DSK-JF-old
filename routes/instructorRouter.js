@@ -7,9 +7,9 @@ router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
     let courses = await courseModel.find({ instructorId: instructorId });
-    res.render("instructor/home", { courses });
+    let projects = await projectModel.find();
+    res.render("instructor/home", { courses, projects, instructorId });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -17,8 +17,8 @@ router.get("/:id/:cid", async (req, res) => {
   try {
     const instructorId = req.params.id;
     const courseId = req.params.cid;
-
-    res.render("instructor/course",{instructorId,courseId});
+    const students = await courseModel.find({ courseId: courseId });
+    res.render("instructor/course", { instructorId, courseId,students });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -36,14 +36,23 @@ router.post("/:id/:cid", async (req, res) => {
       numberOfStudentsPerTeam,
       noOfPhases,
     });
-   
-    newProject.save();
 
-    
+    newProject.save();
   } catch (err) {
     res.status(500).json({ err: true });
     console.log(err);
   }
+});
+router.get("/:id/:pid/project", (req, res) => {
+  const projectID = req.params.pid;
+  projectModel
+    .findById(projectID)
+    .then((result) => {
+      res.render("instructor/project", { project: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 export default router;

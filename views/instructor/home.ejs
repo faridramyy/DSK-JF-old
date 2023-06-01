@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- nav css -->
+    <link rel="stylesheet" href="/css/instructor/nav.css" />
+    <!-- home css -->
+    <link rel="stylesheet" href="/css/instructor/home.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- nav css -->
-  <link rel="stylesheet" href="/css/instructor/nav.css" />
-  <!-- home css -->
-  <link rel="stylesheet" href="/css/instructor/home.css" />
+    <title>Instructor Page</title>
+  </head>
 
-  <title>Instructor Page</title>
-</head>
-
-<body>
-  <%- include("./nav.ejs") %>
+  <body>
+    <%- include("./nav.ejs") %>
     <main>
       <h1>My Courses</h1>
       <% if(courses){ %>
-        <section class="courses">
-          <% courses.forEach(course=> {%>
-            <div class="course">
-              <img src="<%=course.coverPic %>" alt="course 1" />
-              <p class="name">
-                <%=course.title %>
-              </p>
-              <p>Enrolled <%=course.numberOfStudents%> student</p>
-              <p>Go to <a href="/Instructor/<%=course.instructorId%>/<%=course.id %>">course</a></p>
-            </div>
-            <% });%>
+      <section class="courses">
+        <% courses.forEach(course=> {%>
+        <div class="course">
+          <img src="<%=course.coverPic %>" alt="course 1" />
+          <p class="name"><%=course.title %></p>
+          <p>Enrolled <%=course.numberOfStudents%> student</p>
+          <p>
+            Go to
+            <a href="/Instructor/<%=course.instructorId%>/<%=course.id %>"
+              >course</a
+            >
+          </p>
+        </div>
+        <% });%>
+      </section>
+      <% } else {%>
+      <p>No Available courses</p>
+      <% } %>
+      <section>
+        <h1>My Projects</h1>
+        <% if(projects){ %>
+        <section class="projects">
+          <% projects.forEach(project=> {%>
+          <div class="project">
+            <img src="<%=project.coverPic %>" alt="course 1" />
+            <p class="name"><%=project.title %></p>
+            <p>Number of students: <%=project.numberOfStudentsPerTeam %> students </p>
+            <p>
+              Go to
+              <a
+                href="/Instructor/<%=instructorId %>/<%=project.id %>/project"
+                >project</a
+              >
+            </p>
+          </div>
+          <% });%>
         </section>
         <% } else {%>
-          <p>No Available courses</p>
-          <% } %>
-
-            
+        <p>No Available Projects</p>
+        <% } %>
+      </section>
     </main>
 
     <!-- footer  -->
@@ -49,7 +72,10 @@
     </footer>
 
     <!-- font-awesome  -->
-    <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/0b0cd0c012.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- profile-menu -->
     <script>
@@ -91,7 +117,5 @@
         input.focus();
       });
     </script>
-
-</body>
-
+  </body>
 </html>
