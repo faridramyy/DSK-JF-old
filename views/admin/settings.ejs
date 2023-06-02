@@ -181,6 +181,7 @@
 
       form2.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const errorMsg = validateForm(form2);
         if (errorMsg) {
           return Toastify({
@@ -204,6 +205,7 @@
                 email: document.getElementById("email").value,
                 firstName: document.getElementById("firstName").value,
                 lastName: document.getElementById("lastName").value,
+                birthdayDate: document.getElementById("inputBirthday").value,
               }),
             }
           );

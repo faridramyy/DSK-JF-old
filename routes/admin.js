@@ -31,13 +31,12 @@ router.get("/:id/settings", async (req, res) => {
 
 router.post("/:id/settings/updatedata", async (req, res) => {
   const userid = req.params.id;
-  const { firstName, lastName, email } = req.body;
+  const { firstName, lastName, email, birthdayDate } = req.body;
   try {
-    if ( await userModel.findOne({ email, _id: { $ne: userid } })
-    )
+    if (await userModel.findOne({ email, _id: { $ne: userid } }))
       return res.status(409).json({ errMsg: "Email is Taken" });
     userModel
-      .findByIdAndUpdate(userid, { firstName, lastName, email })
+      .findByIdAndUpdate(userid, { firstName, lastName, email, birthdayDate })
       .then(() => {
         return res.status(200).json({ msg: "done" });
       })
@@ -64,7 +63,6 @@ router.post("/settings/changepp/:id", async (req, res) => {
       } else {
         try {
           const id = req.params.id;
-          console.log(id);
           await userModel.findByIdAndUpdate(id, {
             profilePic: `/upload/images/${filename}`,
           });
