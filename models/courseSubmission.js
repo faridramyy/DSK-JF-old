@@ -11,6 +11,7 @@ const courseSubmissionSchema = new Schema({
   },
   feadBack: {
     type: String,
+    default:""
   },
   deadLine: {
     type: String,

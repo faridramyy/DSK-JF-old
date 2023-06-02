@@ -3,6 +3,7 @@ import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
 import courseLinkModel from "../models/courseLink.js";
 import courseFileModel from "../models/courseFile.js";
+import courseSubmissionModel from "../models/courseSubmission.js";
 import path from "path";
 const __dirname = path.resolve();
 const router = express.Router();
@@ -131,6 +132,27 @@ router.get("/:Iid/:Cid/addSubmission", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+router.post("/addSubmission", async (req, res) => {
+  const { title, deadLine, description, courseID } = req.body;
+  try {
+    const newcourseSubmission = new courseSubmissionModel({
+      title,
+      deadLine,
+      description,
+    });
+    newcourseSubmission.save();
+
+    const course = await courseModel.findById(courseID);
+    course.submissions.push(newcourseSubmission._id);
+    course.save();
+
+    res.status(200).json({ msg: "done" });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
   }
