@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-    <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- toastify -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- style sheets -->
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <link rel="stylesheet" href="/css/instructor/inner-course.css" />
-    <title><%= course.title %></title>
-  </head>
-  <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
-    <%- include("./nav.ejs") %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- style sheets -->
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+  <title>
+    <%= course.title %>
+  </title>
+</head>
+
+<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+  <%- include("./nav.ejs") %>
     <main>
       <section>
         <div class="title">
           <div>
-            <input
-              type="text"
-              id="title"
-              value="<%= course.title %>"
-              oninput="adjustInputWidth()"
-              readonly
-            />
+            <input type="text" id="title" value="<%= course.title %>" oninput="adjustInputWidth()" readonly />
             <i class="fa-solid fa-pencil pencil" onclick="editTitle()"></i>
           </div>
           <div class="menu-container">
@@ -46,7 +37,7 @@
                 <li><a href="">Link</a></li>
                 <li><a href="">File</a></li>
                 <li><a href="">Submission</a></li>
-                <li><a href="">Project</a></li>
+                <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addProject">Project</a></li>
               </ul>
             </div>
           </div>
@@ -95,5 +86,6 @@
         }
       });
     </script>
-  </body>
+</body>
+
 </html>

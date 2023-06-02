@@ -27,8 +27,22 @@ router.get("/:Iid/:Cid", async (req, res) => {
   try {
     const instructorId = req.params.Iid;
     const courseId = req.params.Cid;
-
     res.render("instructor/inner-course", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+// get project page
+router.get("/:uid/:cid/addProject", async (req, res) => {
+  try {
+    const instructorId = req.params.uid;
+    const courseId = req.params.cid;
+    res.render("instructor/addProject", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
     });
