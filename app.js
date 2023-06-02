@@ -4,14 +4,10 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
-import path from "path";
-const __dirname = path.resolve();
-
 //Routes
 import registrationRouter from "./routes/registration.js";
 import adminRouter from "./routes/admin.js";
 import instructorRouter from "./routes/instructor.js";
-import studentRouter from "./routes/student.js"
 //Schema
 import UserModel from "./models/user.js";
 //Middlewares
@@ -36,7 +32,7 @@ app.use(fileUpload());
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/instructor", instructorAuth, instructorRouter);
-app.use("/student" , studentAuth , studentRouter)
+
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
     user: await UserModel.findById(req.params.id),
