@@ -44,7 +44,8 @@
                         <%=project.title %>
                       </p>
                       <p>Number of students: <%=project.studentsPerTeam %> student</p>
-                      <p>Go to <a href="/Instructor/<% courses.instructorId %>/<%=project.id %>/project">Project</a></p>
+                      <p>Go to <a
+                          href="/Instructor/<% course.instructorId %>/<%=project.course.id %>/project">course</a></p>
                     </div>
                     <% });%>
                 </section>

@@ -45,4 +45,16 @@ router.post("/:id/:cid", async (req, res) => {
   }
 });
 
+router.get("/Instructor/:id/:pid", (req, res) => {
+  const projectID = req.params.pid;
+  projectModel
+    .findById(projectID)
+    .then((result) => {
+      res.render("instructor/project", { project: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 export default router;
