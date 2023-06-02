@@ -12,15 +12,13 @@ const ProjectSchema = new Schema(
     },
     CourseId: {
       type: mongoose.Schema.Types.ObjectId,
+      unique:true,
     },
     numberOfStudentsPerTeam: {
       type: Number,
       default: 0,
     },
-    availableForUsers: {
-      type: Boolean,
-      default: false,
-    },
+    
     teamLeader: {
       type: String,
       default: "",
