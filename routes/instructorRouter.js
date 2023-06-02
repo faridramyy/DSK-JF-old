@@ -64,16 +64,23 @@ router.post("/:id/:cid", async (req, res) => {
 router.get("/:id/:cid/:sid/add", async (req, res) => {
   const courseId = req.params.cid;
   const studentId = req.params.sid;
-
   const course = await courseModel.findById(courseId);
 
   try {
     if (course) {
-      course.students.push(studentId);
-      await course.save();
-      console.log("Students added to the course successfully.");
+      let availableStudent = course.students.includes(studentId);
+      console.log(availableStudent);
+
+      if (!availableStudent) {
+        course.students.push(studentId);
+        await course.save();
+        console.log("Students added to the course successfully.");
+        res.render("instructor/home", { availableStudent });
+      } else {
+        console.log("Student already exists");
+      }
     } else {
-      console.log("Course not found.error");
+      console.log("Course not found.");
     }
   } catch (err) {
     res.status(500).json({ err: true });
