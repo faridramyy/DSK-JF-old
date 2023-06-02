@@ -9,10 +9,7 @@ const CourseSchema = new Schema({
     type: String,
     default: 0,
   },
-  courseId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required:true,
-  },
+  
   numberOfStudents: {
     type: Number,
     default: 0,
@@ -20,22 +17,24 @@ const CourseSchema = new Schema({
   instructorId: {
     type: mongoose.Schema.Types.ObjectId,
   },
-  availableForUsers:{
+  availableForUsers: {
     type: Boolean,
     default: false,
   },
-  student: {
-    type: [mongoose.Schema.Types.ObjectId],
-    default: [],
-  },
+  students: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student",
+    },
+  ],
   coverPic: {
     type: String,
     default: "/img/defaultCover.jpg",
   },
-  assignedProject:{
+  assignedProject: {
     type: Boolean,
-    default:false,
-  }
+    default: false,
+  },
 });
 
 const course = model("Course", CourseSchema);

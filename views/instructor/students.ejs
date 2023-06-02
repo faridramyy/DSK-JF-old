@@ -15,55 +15,9 @@
     <!-- My Courses section  -->
     <%- include("./nav.ejs") %>
     <main>
-      <!-- h1 or h2 ?  -->
-      <section>
-        <h1>My Courses</h1>
-        <% if(courses){ %>
-        <div class="courses-container">
-          <% courses.forEach(course=> {%>
-          <div class="course-card">
-            <img src="<%=course.coverPic %>" alt="course 1" />
-            <p class="name"><%=course.title %></p>
-            <p>Enrolled <%=course.numberOfStudents%> student</p>
-            <p>
-              Go to
-              <a href="/Instructor/<%=course.instructorId%>/<%=course.id %>"
-                >course</a
-              >
-            </p>
-          </div>
-          <% });%>
-        </div>
-        <% } else {%>
-        <p>No Available courses</p>
-        <% } %>
-      </section>
-      <!-- My Projects section -->
-      <section>
-        <h1>My Projects</h1>
-        <% if(projects){ %>
-        <div class="projects-container">
-          <% projects.forEach(project=> {%>
-          <div class="project-card">
-            <img src="<%=project.coverPic %>" alt="course 1" />
-            <p class="name"><%=project.title %></p>
-            <p>
-              Number of students: <%=project.numberOfStudentsPerTeam %> students
-            </p>
-            <p>
-              Go to
-              <a href="/Instructor/<%=instructorId %>/<%=project.id %>/project"
-                >project</a
-              >
-            </p>
-          </div>
-          <% });%> <% } else {%>
-          <p>No Available Projects</p>
-          <% } %>
-        </div>
-      </section>
-      
+        
     </main>
+   
 
     <!-- footer  -->
     <footer>

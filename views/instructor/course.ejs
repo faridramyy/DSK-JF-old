@@ -33,6 +33,49 @@
             </li>
             <li id="add-project-btn" onclick="projectForm()">+Add Project</li>
           </ul>
+          <!-- temp section student  -->
+      <section>
+        <% if (students.length) {%>
+        <table>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Add</th>
+          </tr>
+
+          <% students.forEach(item=> {%>
+          <tr class="user" id="user">
+            <td>
+              <input type="checkbox" class="checkbox" />
+              <div class="right-and-wrong" style="display: none">
+                <i
+                  class="fa-solid fa-check"
+                  style="color: green; cursor: pointer"
+                ></i>
+                <i
+                  class="fa-solid fa-xmark"
+                  style="color: red; cursor: pointer"
+                ></i>
+              </div>
+            </td>
+            <td>
+              <div class="container">
+                <input type="text" value="<%= item.firstName +" "+ item.lastName
+                %>" readonly />
+              </div>
+            </td>
+            
+            <td class="<%= item.isBanned ? `banned` : `active` %>">
+              <span><%- item.isBanned ? "Baned" : "Active" %></span>
+            </td>
+            
+            <td><a href="/Instructor/<%= instructorId %>/<%=courseId %>/<%=item.id %>/add">add</a></td>
+            
+          </tr>
+          <%}); %>
+        </table>
+        <% } %>
+      </section>
           <!-- remove extra class -->
           <div class="add-material">
             <div class="add-material-form" id="material">
