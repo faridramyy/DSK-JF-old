@@ -58,12 +58,9 @@
                       <span><%- item.isBanned ? "Baned" : "Active" %></span>
                     </td>
 
-                    <td><a class="<%=availableStudent ? `remove` : `add` %>"
+                    <td><a
                         href="/Instructor/<%= instructorId %>/<%=courseId %>/<%=item.id %>/add"
                         onclick="addStudent()">add</a></td>
-                    <span>
-                      <%=availableStudent ? "remove" : "add" %>
-                    </span>
                   </tr>
                   <%}); %>
               </table>

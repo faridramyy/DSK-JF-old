@@ -3,21 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- nav css -->
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <!-- home css -->
     <link rel="stylesheet" href="/css/instructor/home.css" />
-
-    <title>Instructor Page</title>
+    <title>Home page</title>
   </head>
-
-  <body>
-    <!-- My Courses section  -->
+  <body data-userid="<%= user._id %>">
     <%- include("./nav.ejs") %>
     <main>
-      <!-- h1 or h2 ?  -->
+      <h1>My Courses</h1>
       <section>
-        <h1>My Courses</h1>
         <% if(courses){ %>
         <div class="courses-container">
           <% courses.forEach(course=> {%>
@@ -27,9 +38,7 @@
             <p>Enrolled <%=course.numberOfStudents%> student</p>
             <p>
               Go to
-              <a href="/Instructor/<%=course.instructorId%>/<%=course.id %>"
-                >course</a
-              >
+              <a href="/Instructor/<%=user._id%>/<%=course.id %>">course</a>
             </p>
           </div>
           <% });%>
@@ -38,90 +47,6 @@
         <p>No Available courses</p>
         <% } %>
       </section>
-      <!-- My Projects section -->
-      <section>
-        <h1>My Projects</h1>
-        <% if(projects){ %>
-        <div class="projects-container">
-          <% projects.forEach(project=> {%>
-          <div class="project-card">
-            <img src="<%=project.coverPic %>" alt="course 1" />
-            <p class="name"><%=project.title %></p>
-            <p>
-              Number of students: <%=project.numberOfStudentsPerTeam %> students
-            </p>
-            <p>
-              Go to
-              <a href="/Instructor/<%=instructorId %>/<%=project.id %>/project"
-                >project</a
-              >
-            </p>
-          </div>
-          <% });%> <% } else {%>
-          <p>No Available Projects</p>
-          <% } %>
-        </div>
-      </section>
-      
     </main>
-
-    <!-- footer  -->
-    <footer>
-      <div class="copywrite">
-        <p>Copyright @2023 All rights reserved</p>
-        <div class="pro-links">
-          <i class="fab fa-facebook-f"></i>
-          <i class="fab fa-instagram"></i>
-          <i class="fab fa-linkedin-in"></i>
-        </div>
-      </div>
-    </footer>
-
-    <!-- font-awesome  -->
-    <script
-      src="https://kit.fontawesome.com/0b0cd0c012.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <!-- profile-menu -->
-    <script>
-      let menu = document.getElementById("profileMenu");
-
-      function showMenu() {
-        menu.classList.toggle("active-list");
-      }
-      document.addEventListener("click", function (e) {
-        if (
-          menu.classList.contains("active-list") &&
-          !menu.contains(e.target) &&
-          !document.getElementById("profilePic").contains(e.target)
-        ) {
-          menu.classList.remove("active-list");
-        }
-      });
-    </script>
-
-    <!-- nav on scroll -->
-    <script>
-      onscroll = () => {
-        if (window.scrollY > 5) {
-          document.getElementById("nav").classList.add("scroll");
-        } else {
-          document.getElementById("nav").classList.remove("scroll");
-        }
-      };
-    </script>
-
-    <!-- search -->
-    <script>
-      const search = document.querySelector(".search");
-      const btn = document.querySelector(".btn");
-      const input = document.querySelector(".input");
-
-      btn.addEventListener("click", () => {
-        search.classList.toggle("active");
-        input.focus();
-      });
-    </script>
   </body>
 </html>

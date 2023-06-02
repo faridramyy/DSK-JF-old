@@ -7,18 +7,35 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
-    let courses = await courseModel.find({ instructorId: instructorId });
-    let projects = await projectModel.find();
+    const courses = await courseModel.find({ instructorId });
     res.render("instructor/home", {
+      user: await userModel.findById(instructorId),
       courses,
-      projects,
-      instructorId,
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get("/:id/:cid", async (req, res) => {
   try {
     const instructorId = req.params.id;

@@ -10,8 +10,7 @@ const __dirname = path.resolve();
 //Routes
 import registrationRouter from "./routes/registration.js";
 import adminRouter from "./routes/admin.js";
-import studentRouter from "./routes/studentRouter.js";
-import instructorRouter from "./routes/instructorRouter.js";
+import instructorRouter from "./routes/instructor.js";
 //Schema
 import UserModel from "./models/user.js";
 //Middlewares
@@ -33,11 +32,9 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.use(fileUpload());
 
-
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
-app.use("/student", studentRouter);
-app.use("/instructor", instructorRouter);
+app.use("/instructor", instructorAuth, instructorRouter);
 
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
