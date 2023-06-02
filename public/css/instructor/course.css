@@ -93,7 +93,7 @@
 
 /* project */
 .add-project-form{
-  /* display: none; */
+  display: none;
 }
 .add-project-form form {
   /* max-width: 300px; */

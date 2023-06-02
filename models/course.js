@@ -11,6 +11,7 @@ const CourseSchema = new Schema({
   },
   courseId: {
     type: mongoose.Schema.Types.ObjectId,
+    required:true,
   },
   numberOfStudents: {
     type: Number,
@@ -31,6 +32,10 @@ const CourseSchema = new Schema({
     type: String,
     default: "/img/defaultCover.jpg",
   },
+  assignedProject:{
+    type: Boolean,
+    default:false,
+  }
 });
 
 const course = model("Course", CourseSchema);
