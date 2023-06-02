@@ -37,6 +37,35 @@ router.get("/:Iid/:Cid", async (req, res) => {
   }
 });
 
+
+// get link page
+router.get("/:uid/:cid/addLink", async (req, res) => {
+  try {
+    const instructorId = req.params.uid;
+    const courseId = req.params.cid;
+    res.render("instructor/addLink", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+// get submission page
+router.get("/:uid/:cid/addSubmission", async (req, res) => {
+  try {
+    const instructorId = req.params.uid;
+    const courseId = req.params.cid;
+    res.render("instructor/addSubmission", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 // get project page
 router.get("/:uid/:cid/addProject", async (req, res) => {
   try {
@@ -51,6 +80,7 @@ router.get("/:uid/:cid/addProject", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+
 
 //////////////////////////////////////////////////////////////////////////////////
 router.post("/:id/:cid", async (req, res) => {

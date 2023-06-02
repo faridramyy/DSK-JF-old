@@ -22,13 +22,41 @@
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/instructor/nav.css" />
     <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+    <link rel="stylesheet" href="/css/instructor/addProject.css" />
+
     <title><%= course.title %></title>
   </head>
+
   <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
     <%- include("./nav.ejs") %>
     <main>
       <%- include("./inner-course-header.ejs") %>
-      <section class="display">display all course content</section>
+      <section class="display">
+        <div class="add-project">
+          <div class="add-project-form" id="project">
+            <form action="" method="post">
+              <fieldset>
+                <legend><span class="number">1</span> Project Info</legend>
+
+                <label for="title">Submission title:</label>
+                <input type="text" id="title" name="title" />
+
+                <label for="deadline">Deadline:</label>
+                <input type="date" id="deadline" name="deadline" />
+              </fieldset>
+              <fieldset>
+                <legend><span class="number">2</span> Project details</legend>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"></textarea>
+              </fieldset>
+
+              <button type="submit" id="submit">Submit</button>
+              <button type="clear" id="clear">Clear</button>
+            </form>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- editable title -->
