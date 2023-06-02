@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- toastify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/instructor/nav.css" />
+    <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+    <link rel="stylesheet" href="/css/instructor/addProject.css" />
+
+    <title>
+        <%= course.title %>
+    </title>
+</head>
+
+<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+    <%- include("./nav.ejs") %>
+        <main>
+            <%- include("./inner-course-header.ejs") %>
+                <section class="display">
+                    <div class="add-project">
+                        <div class="add-project-form" id="project">
+                            <form action="" method="post">
+                                <fieldset>
+                                    <legend><span class="number">1</span> File Info</legend>
+
+                                    <label for="name">File name:</label>
+                                    <input type="text" id="name" name="name" />
+
+                                </fieldset>
+                                <fieldset>
+                                    <legend><span class="number">2</span> File details</legend>
+
+                                    <label for="filePath">file path:</label>
+                                    <input type="file" id="filePath" name="filePath">
+
+                                </fieldset>
+
+                                <button type="submit" id="submit">Submit</button>
+                                <button type="clear" id="clear">Clear</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+        </main>
+
+        <!-- editable title -->
+        <script>
+            function adjustInputWidth() {
+                const input = document.getElementById("title");
+                input.style.width = (input.value.length + 1) * 19 + "px";
+            }
+
+            function editTitle() {
+                const courseTitle = document.getElementById("title");
+                if (courseTitle.hasAttribute("readonly")) {
+                    courseTitle.removeAttribute("readonly");
+                    courseTitle.style.borderBottom = "1px solid black";
+                } else {
+                    courseTitle.setAttribute("readonly", "true");
+                    courseTitle.style.borderBottom = "none";
+                }
+            }
+        </script>
+
+        <script>
+            const menu2 = document.getElementById("menu");
+            const newUserBtn = document.getElementById("add");
+
+            newUserBtn.addEventListener("click", () => {
+                menu2.classList.toggle("activee");
+            });
+
+            document.addEventListener("dblclick", function (e) {
+                if (
+                    menu2.classList.contains("activee") &&
+                    !menu2.contains(e.target) &&
+                    !newUserBtn.contains(e.target)
+                ) {
+                    menu2.classList.remove("activee");
+                    document.getElementById("form").reset();
+                }
+            });
+        </script>
+</body>
+
+</html>
