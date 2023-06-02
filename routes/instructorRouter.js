@@ -18,8 +18,7 @@ router.get("/:id/:cid", async (req, res) => {
     const instructorId = req.params.id;
     const courseId = req.params.cid;
     const students = await courseModel.find({ courseId: courseId });
-    res.render("instructor/course", { instructorId, courseId,students });
-
+    res.render("instructor/course", { instructorId, courseId, students });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -27,18 +26,27 @@ router.get("/:id/:cid", async (req, res) => {
 });
 
 router.post("/:id/:cid", async (req, res) => {
+  const CourseId = req.params.cid;
   const { title, deadline, description, numberOfStudentsPerTeam, noOfPhases } =
     req.body;
+
   try {
+    if (await projectModel.findOne({ CourseId }))
+      return res
+        .status(409)
+        .json({ errMsg: "You can't add another project in this course" });
+    //code 409 for conflict
     const newProject = new projectModel({
       title,
       deadline,
+      CourseId,
       description,
       numberOfStudentsPerTeam,
       noOfPhases,
     });
-   
+
     newProject.save();
+    console.log("saved successfully");
   } catch (err) {
     res.status(500).json({ err: true });
     console.log(err);

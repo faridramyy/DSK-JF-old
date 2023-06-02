@@ -10,10 +10,7 @@ const TeamSchema = new Schema(
       type: Number,
       default: 0,
     },
-    availableForUsers: {
-      type: Boolean,
-      default: false,
-    },
+    
     teamLeader: {
       type: mongoose.Schema.Types.ObjectId,
       default: [],
