@@ -30,8 +30,12 @@ const userSchema = new Schema(
       required: true,
     },
     birthdayDate: {
-      type: String,
+      type: Date,
       default: "2003-12-22",
+    },
+    phoneNumber: {
+      type :String , 
+      default:"1234567890" ,
     },
     gpa: {
       type: Number,
