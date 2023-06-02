@@ -4,6 +4,7 @@ import courseModel from "../models/course.js";
 import courseLinkModel from "../models/courseLink.js";
 import courseFileModel from "../models/courseFile.js";
 import courseSubmissionModel from "../models/courseSubmission.js";
+import courseProjectModel from "../models/courseProject.js";
 import path from "path";
 const __dirname = path.resolve();
 const router = express.Router();
@@ -170,6 +171,38 @@ router.get("/:Iid/:Cid/addProject", async (req, res) => {
   } catch (error) {
     console.log(err);
     res.status(500).json({ err: true });
+  }
+});
+
+router.post("/addProject", async (req, res) => {
+  const {
+    title,
+    description,
+    numberOfStudentsPerTeam,
+    deadline,
+    numberOfPhases,
+    courseID,
+  } = req.body;
+
+  try {
+    const newProject = new courseProjectModel({
+      title,
+      description,
+      numberOfStudentsPerTeam,
+      deadline,
+      numberOfPhases,
+    });
+
+    newProject.save();
+
+    const course = await courseModel.findById(courseID);
+    course.projects.push(newProject._id);
+    course.save();
+
+    res.status(200).json({ msg: "done" });
+  } catch (err) {
+    res.status(500).json({ err: true });
+    console.log(err);
   }
 });
 
