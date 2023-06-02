@@ -1,8 +1,12 @@
 import express from "express";
 import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
-import projectModel from "../models/courseProject.js";
-
+import courseLinkModel from "../models/courseLink.js";
+import courseFileModel from "../models/courseFile.js";
+import courseSubmissionModel from "../models/courseSubmission.js";
+import courseProjectModel from "../models/courseProject.js";
+import path from "path";
+const __dirname = path.resolve();
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
@@ -39,10 +43,10 @@ router.get("/:Iid/:Cid", async (req, res) => {
 });
 
 // get link page
-router.get("/:uid/:cid/addLink", async (req, res) => {
+router.get("/:Iid/:Cid/addLink", async (req, res) => {
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addLink", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -52,11 +56,28 @@ router.get("/:uid/:cid/addLink", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-// get file page
-router.get("/:uid/:cid/addFile", async (req, res) => {
+
+router.post("/addlink", async (req, res) => {
+  const { name, link, courseID } = req.body;
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const newCourseLink = new courseLinkModel({ name, link });
+    newCourseLink.save();
+
+    const course = await courseModel.findById(courseID);
+    course.links.push(newCourseLink._id);
+    course.save();
+    res.status(200).json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+// get file page
+router.get("/:Iid/:Cid/addFile", async (req, res) => {
+  try {
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addFile", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -66,11 +87,47 @@ router.get("/:uid/:cid/addFile", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+
+router.post("/addFile/:id", async (req, res) => {
+  if (req.files) {
+    const file = req.files.file;
+    const filename = file.name;
+    const filePath = `${__dirname}/public/upload/files/${filename}`;
+
+    file.mv(filePath, async (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ err: true });
+      } else {
+        try {
+          const newFile = new courseFileModel({
+            filePath: `/upload/images/${filename}`,
+          });
+          newFile.save();
+
+          const course = await courseModel.findById(req.params.id);
+          course.files.push(newFile._id);
+          course.save();
+
+          console.log("file updated successfully.");
+          res.json({ msg: "done" });
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ err: true });
+        }
+      }
+    });
+  } else {
+    console.log("No file received.");
+    res.status(400).json({ err: true });
+  }
+});
+
 // get submission page
-router.get("/:uid/:cid/addSubmission", async (req, res) => {
+router.get("/:Iid/:Cid/addSubmission", async (req, res) => {
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addSubmission", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -80,11 +137,33 @@ router.get("/:uid/:cid/addSubmission", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-// get project page
-router.get("/:uid/:cid/addProject", async (req, res) => {
+
+router.post("/addSubmission", async (req, res) => {
+  const { title, deadLine, description, courseID } = req.body;
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const newcourseSubmission = new courseSubmissionModel({
+      title,
+      deadLine,
+      description,
+    });
+    newcourseSubmission.save();
+
+    const course = await courseModel.findById(courseID);
+    course.submissions.push(newcourseSubmission._id);
+    course.save();
+
+    res.status(200).json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+// get project page
+router.get("/:Iid/:Cid/addProject", async (req, res) => {
+  try {
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addProject", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -96,43 +175,15 @@ router.get("/:uid/:cid/addProject", async (req, res) => {
 });
 // post project page
 router.post("/:uid/:cid/addProject", async (req, res) => {
-  const CourseId = req.params.cid;
+  const courseId = req.params.cid;
   const {
     title,
-    deadline,
     description,
     numberOfStudentsPerTeam,
+    deadline,
     numberOfPhases,
+    courseID,
   } = req.body;
-  try {
-    const found = await projectModel.find({ CourseId });
-    console.log(found);
-    if (found)
-      return res
-        .status(409)
-        .json({ errMsg: "You can't add another project in this course" });
-    //code 409 for conflict
-    const newProject = new projectModel({
-      title,
-      deadline,
-      CourseId,
-      description,
-      numberOfStudentsPerTeam,
-      numberOfPhases,
-    });
-    newProject.save();
-    console.log("saved successfully");
-  } catch (err) {
-    res.status(500).json({ err: true });
-    console.log(err);
-  }
-});
-
-//////////////////////////////////////////////////////////////////////////////////
-router.post("/:id/:cid", async (req, res) => {
-  const CourseId = req.params.cid;
-  const { title, deadline, description, numberOfStudentsPerTeam, noOfPhases } =
-    req.body;
 
   try {
     if (await projectModel.findOne({ CourseId }))
@@ -143,69 +194,24 @@ router.post("/:id/:cid", async (req, res) => {
     const newProject = new projectModel({
       title,
       deadline,
-      CourseId,
+      courseId,
       description,
       numberOfStudentsPerTeam,
-      noOfPhases,
+      deadline,
+      numberOfPhases,
     });
 
     newProject.save();
-    console.log("saved successfully");
+
+    const course = await courseModel.findById(courseID);
+    course.projects.push(newProject._id);
+    course.save();
+
+    res.status(200).json({ msg: "done" });
   } catch (err) {
     res.status(500).json({ err: true });
     console.log(err);
   }
-});
-
-router.get("/:id/:cid/:sid/add", async (req, res) => {
-  const courseId = req.params.cid;
-  const studentId = req.params.sid;
-  const course = await courseModel.findById(courseId);
-
-  try {
-    if (course) {
-      let availableStudent = course.students.includes(studentId);
-      console.log(availableStudent);
-
-      if (!availableStudent) {
-        course.students.push(studentId);
-        await course.save();
-        console.log("Students added to the course successfully.");
-        res.render("instructor/home", { availableStudent });
-      } else {
-        console.log("Student already exists");
-      }
-    } else {
-      console.log("Course not found.");
-    }
-  } catch (err) {
-    res.status(500).json({ err: true });
-    console.log(err);
-  }
-});
-
-router.get("/:id/:pid/project", (req, res) => {
-  const projectID = req.params.pid;
-  projectModel
-    .findById(projectID)
-    .then((result) => {
-      res.render("instructor/project", { project: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-router.get("/Instructor/:id/:pid", (req, res) => {
-  const projectID = req.params.pid;
-  projectModel
-    .findById(projectID)
-    .then((result) => {
-      res.render("instructor/project", { project: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 });
 
 export default router;

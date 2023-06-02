@@ -167,7 +167,7 @@
 
           const data = await res.json();
           if (data.msg) location.reload();
-          else if (data.err) location.assign("/error");
+          else location.assign("/error");
         } catch (err) {
           console.log(err);
           location.assign("/error");
@@ -181,6 +181,7 @@
 
       form2.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const errorMsg = validateForm(form2);
         if (errorMsg) {
           return Toastify({
@@ -204,13 +205,14 @@
                 email: document.getElementById("email").value,
                 firstName: document.getElementById("firstName").value,
                 lastName: document.getElementById("lastName").value,
+                birthdayDate: document.getElementById("inputBirthday").value,
               }),
             }
           );
           const data = await res.json();
           if (data.msg) {
             return Toastify({
-              text: "updtaed successfully ",
+              text: "updated successfully ",
               duration: 3000,
               gravity: "top",
               close: false,

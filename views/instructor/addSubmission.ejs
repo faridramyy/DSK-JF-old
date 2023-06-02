@@ -34,25 +34,31 @@
       <section class="display">
         <div class="add-project">
           <div class="add-project-form" id="project">
-            <form action="" method="post">
+            <form id="form">
               <fieldset>
-                <legend><span class="number">1</span> Project Info</legend>
+                <legend><span class="number">1</span> Submission Info</legend>
 
-                <label for="title">Submission title:</label>
-                <input type="text" id="title" name="title" />
+                <label for="name">Submission title:</label>
+                <input type="text" id="name" />
 
                 <label for="deadline">Deadline:</label>
-                <input type="date" id="deadline" name="deadline" />
+                <input type="date" id="deadline" />
               </fieldset>
               <fieldset>
-                <legend><span class="number">2</span> Project details</legend>
+                <legend>
+                  <span class="number">2</span> Submission details
+                </legend>
 
                 <label for="description">Description:</label>
-                <textarea id="description" name="description"></textarea>
+                <textarea
+                  id="description"
+                  name="description"
+                  style="resize: none; height: 150px;"
+                ></textarea>
               </fieldset>
 
               <button type="submit" id="submit">Submit</button>
-              <button type="clear" id="clear">Clear</button>
+              <button type="reset" id="clear">Clear</button>
             </form>
           </div>
         </div>
@@ -94,6 +100,40 @@
         ) {
           menu2.classList.remove("activee");
           document.getElementById("form").reset();
+        }
+      });
+    </script>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", async () => {
+        try {
+          const res = await fetch("/instructor/addSubmission", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: document.getElementById("name").value,
+              deadLine: document.getElementById("deadline").value,
+              description: document.getElementById("description").value,
+              courseID: "<%= course._id %>",
+            }),
+          });
+
+          const data = await res.json();
+          if (data.msg) {
+            return Toastify({
+              text: "added successfully ",
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "green",
+            }).showToast();
+            location.reload();
+          } else location.assign("/error");
+        } catch (err) {
+          console.log(err);
+          location.assign("/error");
         }
       });
     </script>
