@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
     <!-- font-awesome -->
     <link
       rel="stylesheet"
@@ -25,26 +26,30 @@
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- style sheets  -->
+    <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/admin/settings.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
-    <title>Admin-Settings</title>
+    <link rel="stylesheet" href="/css/admin/settings.css" />
+    <title>Settings</title>
   </head>
-
-  <body>
+  <body data-userid="<%= user._id %>">
     <%- include("./nav.ejs") %>
-    <main data-userid="<%=user._id%>">
+    <main>
       <div class="container-xl px-4 mt-4">
         <nav class="nav nav-borders">
           <li><a class="nav-link active" href="#">Profile</a></li>
-          <li><a class="nav-link" href="/admin/security">Security</a></li>
           <li>
-            <a class="nav-link" href="/admin/notifications">Notifications</a>
+            <a class="nav-link" href="/admin/<%= user._id %>/security"
+              >Security</a
+            >
+          </li>
+          <li>
+            <a class="nav-link" href="/admin/<%= user._id %>/notifications"
+              >Notifications</a
+            >
           </li>
         </nav>
         <hr class="mt-0 mb-4" />
-        <!-- ------------------------ -->
         <div class="row">
           <div class="col-xl-4">
             <div class="card mb-4 mb-xl-0">
@@ -112,15 +117,6 @@
                   </div>
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
-                      <label class="small mb-1" for="Phone">Phone number</label>
-                      <input
-                        class="form-control"
-                        id="Phone"
-                        type="tel"
-                        value="<%= user.phoneNumber%>"
-                      />
-                    </div>
-                    <div class="col-md-6">
                       <label class="small mb-1" for="inputBirthday"
                         >Birthday</label
                       >
@@ -146,62 +142,5 @@
         </div>
       </div>
     </main>
-    <!-- form validation and update data  -->
-    <script type="module">
-      import { validateForm } from "/js/formValidation.js";
-      const form = document.getElementById("form");
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        const errorMsg = validateForm(form);
-        if (errorMsg) {
-          return Toastify({
-            text: errorMsg,
-            duration: 3000,
-            gravity: "top",
-            close: false,
-            backgroundColor: "red",
-          }).showToast();
-        }
-
-        try {
-          const res = await fetch("/admin/settings", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              firstName: document.getElementById("firstName").value,
-              lastName: document.getElementById("lastName").value,
-              email: document.getElementById("email").value,
-              phoneNumber: document.getElementById("Phone").value,
-              birthdayDate: document.getElementById("inputBirthday").value,
-            }),
-          });
-
-          const data = await res.json();
-          if (data.msg) {
-            Toastify({
-              text: "Updated Successfully",
-              duration: 3000,
-              gravity: "top",
-              close: false,
-              backgroundColor: "green",
-            }).showToast();
-          }else if(data.errMsg){
-            Toastify({
-              text: data.errMsg,
-              duration: 3000,
-              gravity: "top",
-              close: false,
-              backgroundColor: "red",
-            }).showToast();
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    </script>
   </body>
 </html>

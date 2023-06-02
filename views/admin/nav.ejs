@@ -1,33 +1,33 @@
 <nav class="navbarx">
   <ul class="navbar-navx">
     <li class="logox">
-      <a href="/admin" class="nav-linkx">
+      <a href="/admin/<%=user.id %>" class="nav-linkx">
         <span class="link-textx logo-textx">Admin</span>
       </a>
     </li>
     <li class="nav-itemx">
-      <a href="/admin" class="nav-linkx">
+      <a href="/admin/<%=user.id %>" class="nav-linkx">
         <i class="fa-solid fa-chart-column"></i>
         <span class="link-textx">Dashboard</span>
       </a>
     </li>
 
     <li class="nav-itemx">
-      <a href="/admin/users" class="nav-linkx">
+      <a href="/admin/<%=user.id %>/users" class="nav-linkx">
         <i class="fa-solid fa-user-graduate"></i>
         <span class="link-textx">Users</span>
       </a>
     </li>
 
     <li class="nav-itemx">
-      <a href="/admin/courses" class="nav-linkx">
+      <a href="/admin/<%=user.id %>/courses" class="nav-linkx">
         <i class="fa-solid fa-book"></i>
         <span class="link-textx">Courses</span>
       </a>
     </li>
 
     <li class="nav-itemx">
-      <a href="/admin/settings" class="nav-linkx">
+      <a href="/admin/<%=user.id %>/settings" class="nav-linkx">
         <i class="fa-solid fa-gear"></i>
         <span class="link-textx">Settings</span>
       </a>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
     <!-- font-awesome -->
     <link
       rel="stylesheet"
@@ -19,26 +20,38 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- style sheets  -->
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/admin/security.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/admin/security.css" />
     <title>Security</title>
   </head>
-
-  <body>
+  <body data-userid="<%= user._id %>">
     <%- include("./nav.ejs") %>
     <main>
       <div class="container-xl px-4 mt-4">
-
         <nav class="nav nav-borders">
-          <li><a class="nav-link" href="/admin/settings">Profile</a></li>
+          <li>
+            <a class="nav-link" href="/admin/<%= user._id %>/settings"
+              >Profile</a
+            >
+          </li>
           <li><a class="nav-link active" href="#">Security</a></li>
-          <li><a class="nav-link" href="/admin/notifications">Notifications</a></li>
+          <li>
+            <a class="nav-link" href="/admin/<%= user._id %>/notifications"
+              >Notifications</a
+            >
+          </li>
         </nav>
 
         <hr class="mt-0 mb-4" />
-        
+
         <div class="row">
           <div class="containerAll">
             <div class="col-xl-8">
@@ -46,17 +59,6 @@
                 <h1 class="card-header">Privacy and security</h1>
                 <div class="card-body">
                   <form id="UpdateProfile_Form">
-                    <div class="mb-3">
-                      <label class="small mb-1" for="Username"
-                        >Change Username (Changing your username can have
-                        unintended side effects.)</label
-                      >
-                      <br />
-                      <button class="change_username" type="submit">
-                        Change username
-                      </button>
-                      <span id="errorUsername" class="error"></span>
-                    </div>
                     <div class="row gx-3 mb-3">
                       <div class="col-md-6">
                         <label class="small mb-1" for="First Name"
@@ -70,19 +72,6 @@
                       </div>
                     </div>
                     <div class="row gx-3 mb-3">
-                      <div class="col-md-6">
-                        <label class="small mb-1" for="Email Address"
-                          >Change Email address</label
-                        >
-                        <input
-                          class="form-control"
-                          id="Email Address"
-                          type="email"
-                          placeholder="Enter your new email address"
-                          value=""
-                        />
-                        <span id="erroremail" class="error"></span>
-                      </div>
                       <div class="col-md-6">
                         <label class="small mb-1" for="Current Password"
                           >Current Password</label
@@ -130,7 +119,7 @@
                       <button class="btn btn-primary" type="submit">
                         Save changes
                       </button>
-                      <button class="btn clear_btn" type="clear">Clear</button>
+                      <button class="btn clear_btn" type="reset">Clear</button>
                     </div>
                   </form>
                 </div>
@@ -140,92 +129,5 @@
         </div>
       </div>
     </main>
-    <script>
-      // global variables (for our form validations)
-
-      const userName = document.getElementById("Username");
-      const myForm = document.getElementById("UpdateProfile_Form");
-      const email = document.getElementById("Email Address");
-      // Passwords variables
-
-      const curPassword = document.getElementById("Current Password");
-      const newPassword = document.getElementById("New Password");
-      const conPassword = document.getElementById("Confirm Password");
-
-      //Show input error messages
-      function showError(input, message) {
-        const formControl = input.parentElement;
-        formControl.className = "form-control error";
-        const span = formControl.querySelector("span");
-        span.innerText = message;
-      }
-
-      //show success color
-      function showSucces(input) {
-        const formControl = input.parentElement;
-        formControl.className = "form-control success";
-      }
-
-      //check email is valid
-      function checkEmail(input) {
-        const re =
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(input.value.trim())) {
-          showSucces(input);
-        } else {
-          showError(input, "Email is not invalid");
-        }
-      }
-
-      //checkRequired fields
-      function checkRequired(inputArr) {
-        inputArr.forEach(function (input) {
-          if (input.value.trim() === "") {
-            showError(input, `${getFieldName(input)} is required`);
-          } else {
-            showSucces(input);
-          }
-        });
-      }
-
-      //check input Length
-      function checkLength(input, min, max) {
-        if (input.value.length < min) {
-          showError(
-            input,
-            `${getFieldName(input)} must be at least ${min} characters`
-          );
-        } else if (input.value.length > max) {
-          showError(
-            input,
-            `${getFieldName(input)} must be les than ${max} characters`
-          );
-        } else {
-          showSucces(input);
-        }
-      }
-
-      //get FieldName
-      function getFieldName(input) {
-        return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-      }
-
-      // check passwords match
-      function checkPasswordMatch(input1, input2) {
-        if (input1.value !== input2.value) {
-          showError(input2, "Passwords do not match!");
-        }
-      }
-
-      myForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        checkRequired([email, curPassword, newPassword, conPassword]);
-        checkLength(userName, 4, 15);
-        checkLength(lastName, 4, 15);
-        checkLength(newPassword, 8, 25);
-        checkEmail(email);
-        checkPasswordMatch(newPassword, conPassword);
-      });
-    </script>
   </body>
 </html>

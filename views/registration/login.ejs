@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
     <!-- font-awesome -->
     <link
       rel="stylesheet"
@@ -12,22 +13,23 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- my-style -->
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/registration/login.css" />
-    <title>Log in</title>
+    <!-- style sheets  -->
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="stylesheet" href="css/registration/login.css" />
+    <title>Login</title>
   </head>
   <body>
     <main>
       <div class="container">
         <div class="title">
-          <div class="notAllowed">
-            <%=notAllowed ? "You are not allowed to enter the Admin Page" : ""%>
-          </div>
+          <p style="color: red; text-align: center; margin-bottom: 10px">
+            <%=notAllowed ? "You are not allowed to access this Page" :""%>
+          </p>
           <h1>Welcome back</h1>
           <h2>Log in!</h2>
         </div>
-        <form method="POST" id="form" action="/login/post">
+
+        <form id="form">
           <div>
             <label for="username">Username : </label>
             <input type="text" id="username" name="username" />
@@ -41,10 +43,15 @@
           </div>
 
           <a href="/forgetpassword" class="forgetpassword">Forget Password ?</a>
+
           <p style="color: red" id="error"></p>
+
           <button type="submit" class="btn sign-in">Sign in</button>
+
           <a href="/signup" class="sign-up"> Don't have an account ? Sign up</a>
+
           <p class="or">or</p>
+
           <div class="social">
             <button class="btn google">
               <i class="fab fa-google"></i> Google
@@ -56,9 +63,7 @@
         </form>
       </div>
     </main>
-    <!-- eye -->
     <script src="js/registration/eye.js"></script>
-
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
 
@@ -67,6 +72,7 @@
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+
         const errorMsg = validateForm(form);
         if (errorMsg) return (error.innerHTML = errorMsg);
 
@@ -85,11 +91,12 @@
           const data = await res.json();
 
           if (data.errMsg) error.innerHTML = data.errMsg;
-          else if (data.err) location.assign("/error");
-          else if (data.user.role === "admin") location.assign(`/admin`);
-          else location.assign(`/${data.user.role}/${data.user._id}`);
+          else if (data.user)
+            location.assign(`/${data.user.role}/${data.user._id}`);
+          else location.assign("/error");
         } catch (err) {
           console.log(err);
+          location.assign("/error");
         }
       });
     </script>

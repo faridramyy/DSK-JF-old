@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 //Routes
-import registrationRouter from "./routes/registrationRouter.js";
-import adminRouter from "./routes/adminRouter.js";
+import registrationRouter from "./routes/registration.js";
+import adminRouter from "./routes/admin.js";
 import studentRouter from "./routes/studentRouter.js";
 import instructorRouter from "./routes/instructorRouter.js";
 //Schema
@@ -39,25 +39,16 @@ app.get("/gotbanned/:id", async (req, res) => {
   });
 });
 
-app.get("/chat", (req, res) => {
-  res.render("chat");
-});
-
-app.get("/error", (req, res) => {
-  res.render("error");
-});
 // Handle 404 (Not Found)
 app.use((req, res) => {
   res.status(404).send("404");
 });
 
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+
 mongoose
   .connect(process.env.mongooDbUrl)
-  .then(() => {
-    app.listen(port, () => {
-      console.log(
-        `Example app listening on port ${port} and connected to Database`
-      );
-    });
-  })
+  .then(() => console.log("connected to Database"))
   .catch(() => console.log(`Couldn't connect to Database`));

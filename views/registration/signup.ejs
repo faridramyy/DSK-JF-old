@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
     <!-- font-awesome -->
     <link
       rel="stylesheet"
@@ -12,6 +13,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- style sheets  -->
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/registration/signup.css" />
     <title>Sign up</title>
@@ -85,7 +87,7 @@
         if (errorMsg) return (error.innerHTML = errorMsg);
 
         try {
-          const res = await fetch("/student/settings", {
+          const res = await fetch("/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -102,10 +104,12 @@
           const data = await res.json();
 
           if (data.errMsg) error.innerHTML = data.errMsg;
-          else if (data.err) location.assign("/error");
-          else location.assign(`/${data.user.role}/${data.user._id}`);
+          else if (data.user)
+            location.assign(`/${data.user.role}/${data.user._id}`);
+          else location.assign("/error");
         } catch (err) {
           console.log(err);
+          location.assign("/error");
         }
       });
     </script>
