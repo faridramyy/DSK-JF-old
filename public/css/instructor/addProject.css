@@ -1,0 +1,149 @@
+/* project */
+
+.add-project-form form {
+  max-width: 50%;
+  margin: 10px auto;
+
+  padding: 10px 20px;
+  margin-top: 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+}
+
+.add-project-form input[type="text"],
+.add-project-form input[type="time"],
+.add-project-form input[type="file"],
+.add-project-form input[type="date"],
+.add-project-form textarea,
+.add-project-form select {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  font-size: 16px;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+  margin-bottom: 30px;
+}
+
+.add-project-form input[type="radio"],
+.add-project-form input[type="checkbox"] {
+  margin: 0 4px 8px 0;
+}
+
+.add-project-form select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+.add-project-form #submit {
+  padding: 19px 39px 18px 39px;
+  display: inline-block;
+  color: #fff;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 45%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.add-project-form #submit :hover {
+  padding: 19px 39px 18px 39px;
+  color: #fff;
+  background-color: #005a1b;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 50%;
+  border: 1px solid #005a1b;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.add-project-form #clear {
+  padding: 19px 39px 18px 39px;
+  color: #fff;
+  background-color: #c01010;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 45%;
+  border: 1px solid #c01010;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  margin: 0 0 10px 20px;
+  cursor: pointer;
+}
+.add-project-form #clear :hover {
+  padding: 19px 39px 18px 39px;
+  color: #fff;
+  background-color: #005a1b;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 50%;
+  border: 1px solid #005a1b;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.add-project-form fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+.add-project-form legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.add-project-form label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.add-project-form label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.add-project-form .number {
+  background-color: #5fcf80;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+}
+.add-project-form.show {
+  display: block;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+@media screen and (min-width: 480px) {
+  form {
+    max-width: 480px;
+  }
+}
