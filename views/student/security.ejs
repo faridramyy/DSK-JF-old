@@ -18,10 +18,10 @@
     <main>
         <div class="container-xl px-4 mt-4">
             <nav class="nav nav-borders">
-                <li><a class="nav-link" href="/student/settings">Profile</a></li>
+                <li><a class="nav-link" href="/student/<%= user._id %>/settings">Profile</a></li>
                 <li><a class="nav-link active" href="#">Security</a></li>
                 <li>
-                    <a class="nav-link" href="/student/notifications">Notifications</a>
+                    <a class="nav-link" href="/student/<%= user._id %>/notifications">Notifications</a>
                 </li>
             </nav>
             <hr class="mt-0 mb-4" />

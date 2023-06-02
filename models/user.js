@@ -33,6 +33,10 @@ const userSchema = new Schema(
       type: String,
       default: "2003-12-22",
     },
+    phoneNumber: {
+      type :String , 
+      default:"1234567890" ,
+    },
     gpa: {
       type: Number,
       default: null,

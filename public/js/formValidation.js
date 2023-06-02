@@ -40,14 +40,15 @@ function passwordValidation(input) {
 }
 
 export function validateForm(form) {
-  // return false; //turn off validation
+  //return false; //turn off validation
   let errorMessage;
   let pwd;
   for (let input of Array.from(form.elements)) {
     if (
       input.value === "" &&
       input.type !== "submit" &&
-      input.type !== "reset"
+      input.type !== "reset" &&
+      input.hasAttribute("name")
     ) {
       errorMessage = camelcaseToNormalString(input.name);
       errorMessage = capitalizeFirstLetter(errorMessage);

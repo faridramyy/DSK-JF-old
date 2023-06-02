@@ -58,7 +58,7 @@
               <div class="card mb-4">
                 <h1 class="card-header">Privacy and security</h1>
                 <div class="card-body">
-                  <form id="UpdateProfile_Form">
+                  <form id="form">
                     <div class="row gx-3 mb-3">
                       <div class="col-md-6">
                         <label class="small mb-1" for="First Name"
@@ -73,46 +73,40 @@
                     </div>
                     <div class="row gx-3 mb-3">
                       <div class="col-md-6">
-                        <label class="small mb-1" for="Current Password"
+                        <label class="small mb-1" for="currentPassword"
                           >Current Password</label
                         >
                         <input
                           class="form-control"
-                          id="Current Password"
-                          type="Password"
-                          name="Current Password"
+                          id="currentPassword"
+                          type="text"
+                          name="currentPassword"
                           placeholder="Enter your Current Password"
-                          value=""
                         />
-                        <span id="errorCurPassword" class="error"></span>
                       </div>
                       <div class="col-md-6">
-                        <label class="small mb-1" for="New Password"
+                        <label class="small mb-1" for="password"
                           >New Password</label
                         >
                         <input
                           class="form-control"
-                          id="New Password"
+                          id="password"
                           type="Password"
-                          name="New Password"
+                          name="password"
                           placeholder="Enter your New Password"
-                          value=""
                         />
-                        <span id="errorNewPassword" class="error"></span>
                       </div>
                       <div class="col-md-6">
-                        <label class="small mb-1" for="Confirm Password"
+                        <label class="small mb-1" for="confirmPassword"
                           >Confirm Password</label
                         >
                         <input
                           class="form-control"
-                          id="ConfirmPassword"
+                          id="confirmPassword"
                           type="Password"
-                          name="Confirm Password"
+                          name="confirmPassword"
                           placeholder="Confirm your New Password"
-                          value=""
                         />
-                        <span id="errorConPassword" class="error"></span>
                       </div>
                     </div>
                     <div class="btns">
@@ -129,5 +123,64 @@
         </div>
       </div>
     </main>
+
+    <script type="module">
+      import { validateForm } from "/js/formValidation.js";
+      const form = document.getElementById("form");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        console.log("ayhaga2");
+        const errorMsg = validateForm(form);
+        if (errorMsg) {
+          return Toastify({
+            text: errorMsg,
+            duration: 3000,
+            gravity: "top",
+            close: false,
+            backgroundColor: "red",
+          }).showToast();
+        }
+
+        try {
+          const res = await fetch(
+            "/admin/<%= user._id %>/security/updatedata",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                currentPassword:
+                  document.getElementById("currentPassword").value,
+                password: document.getElementById("password").value,
+              }),
+            }
+          );
+          const data = await res.json();
+          if (data.msg) {
+            return Toastify({
+              text: "updated successfully ",
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "green",
+            }).showToast();
+            location.reload();
+          } else if (data.errMsg) {
+            return Toastify({
+              text: data.errMsg,
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "red",
+            }).showToast();
+          } else location.assign("/error");
+        } catch (err) {
+          console.log(err);
+          location.assign("/error");
+        }
+      });
+    </script>
   </body>
 </html>
