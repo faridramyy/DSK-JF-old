@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
     <!-- font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <!-- toastify -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
@@ -18,101 +24,142 @@
     <link rel="stylesheet" href="/css/instructor/inner-course.css" />
     <link rel="stylesheet" href="/css/instructor/addProject.css" />
 
-    <title>
-        <%= course.title %>
-    </title>
-</head>
+    <title><%= course.title %></title>
+  </head>
 
-<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+  <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
     <%- include("./nav.ejs") %>
-        <main>
-            <%- include("./inner-course-header.ejs") %>
-            <section class="display">
-                <div class="add-project">
-                    <div class="add-project-form" id="project">
-                        <form action="" method="post">
-                            <fieldset>
-                                <legend><span class="number">1</span> Project Info</legend>
+    <main>
+      <%- include("./inner-course-header.ejs") %>
+      <section class="display">
+        <div class="add-project">
+          <div class="add-project-form" id="project">
+            <form id="form">
+              <fieldset>
+                <legend><span class="number">1</span> Project Info</legend>
 
-                                <label for="title">Project title:</label>
-                                <input type="text" id="title" name="title" />
+                <label for="title">Project title:</label>
+                <input type="text" id="name" />
 
-                                <label for="Deadline">Deadline:</label>
-                                <input type="date" id="deadline" name="deadline" />
-                            </fieldset>
-                            <fieldset>
-                                <legend><span class="number">2</span> Project details</legend>
+                <label for="Deadline">Deadline:</label>
+                <input type="date" id="deadline" name="deadline" />
+              </fieldset>
+              <fieldset>
+                <legend><span class="number">2</span> Project details</legend>
 
-                                <label for="description">Description:</label>
-                                <textarea id="description" name="description"></textarea>
-                                <div>
-                                    <label for="numberOfStudentsPerTeam">Number of team members:</label>
-                                    <select name="numberOfStudentsPerTeam" id="numberOfStudentsPerTeam">
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label for="noOfPhases">Number of phases:</label>
-                                    <select name="noOfPhases" id="noOfPhases">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-
-                                <label>Rquirments file:</label>
-                                <input type="file" name="requirementsFile" />
-                            </fieldset>
-
-                            <button type="submit" id="submit">Submit</button>
-                            <button type="clear" id="clear">Clear</button>
-                        </form>
-                    </div>
+                <label for="description">Description:</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  style="resize: none; height: 150px"
+                ></textarea>
+                <div>
+                  <label for="numberOfStudentsPerTeam"
+                    >Number of team members:</label
+                  >
+                  <select
+                    name="numberOfStudentsPerTeam"
+                    id="numberOfStudentsPerTeam"
+                  >
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                 </div>
-            </section>
-        </main>
+                <div>
+                  <label for="noOfPhases">Number of phases:</label>
+                  <select name="noOfPhases" id="noOfPhases">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+              </fieldset>
 
-        <!-- editable title -->
-        <script>
-            function adjustInputWidth() {
-                const input = document.getElementById("title");
-                input.style.width = (input.value.length + 1) * 19 + "px";
-            }
+              <button type="submit" id="submit">Submit</button>
+              <button type="reset" id="clear">Clear</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
 
-            function editTitle() {
-                const courseTitle = document.getElementById("title");
-                if (courseTitle.hasAttribute("readonly")) {
-                    courseTitle.removeAttribute("readonly");
-                    courseTitle.style.borderBottom = "1px solid black";
-                } else {
-                    courseTitle.setAttribute("readonly", "true");
-                    courseTitle.style.borderBottom = "none";
-                }
-            }
-        </script>
+    <!-- editable title -->
+    <script>
+      function adjustInputWidth() {
+        const input = document.getElementById("title");
+        input.style.width = (input.value.length + 1) * 19 + "px";
+      }
 
-        <script>
-            const menu2 = document.getElementById("menu");
-            const newUserBtn = document.getElementById("add");
+      function editTitle() {
+        const courseTitle = document.getElementById("title");
+        if (courseTitle.hasAttribute("readonly")) {
+          courseTitle.removeAttribute("readonly");
+          courseTitle.style.borderBottom = "1px solid black";
+        } else {
+          courseTitle.setAttribute("readonly", "true");
+          courseTitle.style.borderBottom = "none";
+        }
+      }
+    </script>
 
-            newUserBtn.addEventListener("click", () => {
-                menu2.classList.toggle("activee");
-            });
+    <script>
+      const menu2 = document.getElementById("menu");
+      const newUserBtn = document.getElementById("add");
 
-            document.addEventListener("dblclick", function (e) {
-                if (
-                    menu2.classList.contains("activee") &&
-                    !menu2.contains(e.target) &&
-                    !newUserBtn.contains(e.target)
-                ) {
-                    menu2.classList.remove("activee");
-                    document.getElementById("form").reset();
-                }
-            });
-        </script>
-</body>
+      newUserBtn.addEventListener("click", () => {
+        menu2.classList.toggle("activee");
+      });
 
+      document.addEventListener("dblclick", function (e) {
+        if (
+          menu2.classList.contains("activee") &&
+          !menu2.contains(e.target) &&
+          !newUserBtn.contains(e.target)
+        ) {
+          menu2.classList.remove("activee");
+          document.getElementById("form").reset();
+        }
+      });
+    </script>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", async () => {
+        try {
+          const res = await fetch("/instructor/addProject", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: document.getElementById("name").value,
+              description: document.getElementById("description").value,
+              numberOfStudentsPerTeam: document.getElementById(
+                "numberOfStudentsPerTeam"
+              ).value,
+              deadline: document.getElementById("deadline").value,
+              numberOfPhases: document.getElementById("noOfPhases").value,
+              courseID: "<%= course._id %>",
+            }),
+          });
+
+          const data = await res.json();
+          if (data.msg) {
+            return Toastify({
+              text: "added successfully ",
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "green",
+            }).showToast();
+            location.reload();
+          } else location.assign("/error");
+        } catch (err) {
+          console.log(err);
+          location.assign("/error");
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -11,10 +11,6 @@ const courseProjectSchema = new Schema(
       type: String,
       default: "",
     },
-    CourseId: {
-      type: mongoose.Schema.Types.ObjectId,
-      unique: true,
-    },
     numberOfStudentsPerTeam: {
       type: Number,
       default: 0,
@@ -27,7 +23,6 @@ const courseProjectSchema = new Schema(
       type: Number,
       default: 1,
     },
-    files: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
     teams: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
   },
   { timestamps: true }
