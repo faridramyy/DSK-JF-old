@@ -1,48 +1,37 @@
 import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 
-const ProjectSchema = new Schema(
+const courseProjectSchema = new Schema(
   {
     title: {
       type: String,
+      require: true,
     },
     description: {
       type: String,
-      default: 0,
+      default: "",
     },
     CourseId: {
       type: mongoose.Schema.Types.ObjectId,
-      unique:true,
+      unique: true,
     },
     numberOfStudentsPerTeam: {
       type: Number,
       default: 0,
     },
-    
-    teamLeader: {
-      type: String,
-      default: "",
-    },
-    coverPic: {
-      type: String,
-      default: "/img/defaultCover.jpg",
-    },
     deadline: {
-      type: Date,
+      type: String,
       require: true,
     },
-    noOfPhases: {
+    numberOfPhases: {
       type: Number,
       default: 1,
     },
-    requirementsFile: {
-      type: String,
-      default:"aaa"
-      // required: true,
-    },
+    files: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
+    teams: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
   },
   { timestamps: true }
 );
 
-const Project = model("Project", ProjectSchema);
-export default Project;
+const courseProject = model("courseProject", courseProjectSchema);
+export default courseProject;

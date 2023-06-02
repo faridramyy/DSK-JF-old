@@ -1,13 +1,17 @@
 import express from "express";
-import courseModel from "../models/course.js";
-import projectModel from "../models/project.js";
 import userModel from "../models/user.js";
+import courseModel from "../models/course.js";
+
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
-    const courses = await courseModel.find({ instructorId });
+    const courses = await courseModel.find({
+      instructorId,
+      availableForUsers: true,
+    });
+
     res.render("instructor/home", {
       user: await userModel.findById(instructorId),
       courses,
@@ -18,35 +22,19 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-router.get("/:id/:cid", async (req, res) => {
+//get inner-courses
+router.get("/:Iid/:Cid", async (req, res) => {
   try {
-    const instructorId = req.params.id;
-    const courseId = req.params.cid;
-    //const course=await courseModel.findById({})
-    //const currCourse = await courseModel.find({ courseId: courseId });
-    let students = await userModel.find({ role: "student" });
-    res.render("instructor/course", { instructorId, courseId, students });
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
+
+    res.render("instructor/inner-course", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.log(err);
+    res.status(500).json({ err: true });
   }
 });
 

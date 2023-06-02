@@ -4,7 +4,6 @@
   display: flex;
   margin-bottom: 20px;
   margin-top: 20px;
-  border: 1px solid red;
 }
 .courses-container::-webkit-scrollbar {
   display: none;
@@ -36,4 +35,9 @@
 }
 .course-card a {
   color: black;
+}
+.no-data{
+  text-align: center;
+  margin-top: 100px;
+  user-select: none;
 }

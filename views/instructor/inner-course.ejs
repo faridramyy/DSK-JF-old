@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/instructor/nav.css" />
+    <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+    <title><%= course.title %></title>
+  </head>
+  <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+    <%- include("./nav.ejs") %>
+    <main>
+      <section>
+        <div class="title">
+          <div>
+            <input
+              type="text"
+              id="title"
+              value="<%= course.title %>"
+              oninput="adjustInputWidth()"
+              readonly
+            />
+            <i class="fa-solid fa-pencil pencil" onclick="editTitle()"></i>
+          </div>
+          <div class="menu-container">
+            <button class="btn add" id="add">+ Add / Edit</button>
+            <div class="menu" id="menu">
+              <div>
+                <input type="radio" name="material" id="link"/>
+                <label for="link">link</label>
+              </div>
+              <div>
+                <input type="radio" name="material" id="file" />
+                <label for="file">File</label>
+              </div>
+              <div style="white-space: nowrap">
+                <input type="radio" name="material" id="submition" />
+                <label for="submition">Submition</label>
+              </div>
+              <div style="white-space: nowrap">
+                <input type="radio" name="material" id="project" />
+                <label for="project">Project</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="main">
+         <div class="link">
+
+         </div>
+         <div class="file">
+          add file
+         </div>
+         <div class="submition">
+          add submition
+         </div>
+      </section>
+    </main>
+
+    <!-- editable title -->
+    <script>
+      function adjustInputWidth() {
+        const input = document.getElementById("title");
+        input.style.width = (input.value.length + 1) * 19 + "px";
+      }
+
+      function editTitle() {
+        const courseTitle = document.getElementById("title");
+        if (courseTitle.hasAttribute("readonly")) {
+          courseTitle.removeAttribute("readonly");
+          courseTitle.style.borderBottom = "1px solid black";
+        } else {
+          courseTitle.setAttribute("readonly", "true");
+          courseTitle.style.borderBottom = "none";
+        }
+      }
+    </script>
+
+    <script>
+      const menu2 = document.getElementById("menu");
+      const newUserBtn = document.getElementById("add");
+
+      newUserBtn.addEventListener("click", () => {
+        menu2.classList.toggle("activee");
+      });
+
+      document.addEventListener("dblclick", function (e) {
+        if (
+          menu2.classList.contains("activee") &&
+          !menu2.contains(e.target) &&
+          !newUserBtn.contains(e.target)
+        ) {
+          menu2.classList.remove("activee");
+          document.getElementById("form").reset();
+        }
+      });
+    </script>
+  </body>
+</html>
