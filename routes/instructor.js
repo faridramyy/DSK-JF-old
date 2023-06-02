@@ -2,7 +2,9 @@ import express from "express";
 import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
 import courseLinkModel from "../models/courseLink.js";
-
+import courseFileModel from "../models/courseFile.js";
+import path from "path";
+const __dirname = path.resolve();
 const router = express.Router();
 
 router.get("/:id", async (req, res) => {
@@ -38,6 +40,21 @@ router.get("/:Iid/:Cid", async (req, res) => {
   }
 });
 
+// get link page
+router.get("/:Iid/:Cid/addLink", async (req, res) => {
+  try {
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
+    res.render("instructor/addLink", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
 router.post("/addlink", async (req, res) => {
   const { name, link, courseID } = req.body;
   try {
@@ -49,21 +66,6 @@ router.post("/addlink", async (req, res) => {
     course.save();
     res.status(200).json({ msg: "done" });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: true });
-  }
-});
-
-// get link page
-router.get("/:Iid/:Cid/addLink", async (req, res) => {
-  try {
-    const instructorId = req.params.Iid;
-    const courseId = req.params.Cid;
-    res.render("instructor/addLink", {
-      user: await userModel.findById(instructorId),
-      course: await courseModel.findById(courseId),
-    });
-  } catch (error) {
     console.log(err);
     res.status(500).json({ err: true });
   }
@@ -81,6 +83,41 @@ router.get("/:Iid/:Cid/addFile", async (req, res) => {
   } catch (error) {
     console.log(err);
     res.status(500).json({ err: true });
+  }
+});
+
+router.post("/addFile/:id", async (req, res) => {
+  if (req.files) {
+    const file = req.files.file;
+    const filename = file.name;
+    const filePath = `${__dirname}/public/upload/files/${filename}`;
+
+    file.mv(filePath, async (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ err: true });
+      } else {
+        try {
+          const newFile = new courseFileModel({
+            filePath: `/upload/images/${filename}`,
+          });
+          newFile.save();
+
+          const course = await courseModel.findById(req.params.id);
+          course.files.push(newFile._id);
+          course.save();
+
+          console.log("file updated successfully.");
+          res.json({ msg: "done" });
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ err: true });
+        }
+      }
+    });
+  } else {
+    console.log("No file received.");
+    res.status(400).json({ err: true });
   }
 });
 

@@ -167,7 +167,7 @@
 
           const data = await res.json();
           if (data.msg) location.reload();
-          else if (data.err) location.assign("/error");
+          else location.assign("/error");
         } catch (err) {
           console.log(err);
           location.assign("/error");

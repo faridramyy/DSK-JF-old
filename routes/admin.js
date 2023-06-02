@@ -1,8 +1,8 @@
 import express from "express";
 import userModel from "../models/user.js";
-const router = express.Router();
 import path from "path";
 const __dirname = path.resolve();
+const router = express.Router();
 
 router.get("/:id", async (req, res) => {
   res.render("admin/dashboard", {
