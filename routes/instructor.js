@@ -1,6 +1,7 @@
 import express from "express";
 import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
+import courseLinkModel from "../models/courseLink.js";
 
 const router = express.Router();
 
@@ -32,6 +33,22 @@ router.get("/:Iid/:Cid", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+router.post("/addlink", async (req, res) => {
+  const { name, link, courseID } = req.body;
+  try {
+    const newCourseLink = new courseLinkModel({ name, link });
+    newCourseLink.save();
+
+    const course = await courseModel.findById(courseID);
+    course.links.push(newCourseLink._id);
+    course.save();
+    res.status(200).json({ msg: "done" });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
   }
