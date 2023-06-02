@@ -1,3 +1,6 @@
+.add-project-form{
+  display: none;
+}
 .add-project form {
   max-width: 300px;
   margin: 10px auto;
@@ -133,8 +136,8 @@ label.light {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
   border-radius: 100%;
 }
-.add-project.show {
-  display: none;
+.add-project-form.show {
+  display: block;
 }
 
 body::-webkit-scrollbar {

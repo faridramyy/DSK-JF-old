@@ -27,21 +27,26 @@
               +Add Material
             </li>
             <li id="add-project-btn" onclick="projectForm()">+Add Project</li>
-            <li id="add-activity-btn" onclick="activityForm()">
+            <!-- <li id="add-activity-btn" onclick="activityForm()">
               +Add Activity
-            </li>
+            </li> -->
           </ul>
+          <!-- remove extra class -->
           <div class="add-material">
             <div class="add-material-form" id="material">
               <form action="post">
                 <div>
                   <label for="type" class="form-label">Choose the type of Material:</label>
                   <input type="radio" name="type" id="links" onchange="linkInput()" />
-                  <label for="">Link</label>
+                  <label for="links">Link</label>
                   <input type="radio" name="type" id="document" onchange="documentInput()" />
-                  <label for="">Document</label>
-                  <input type="radio" name="type" id="submissions" onchange="submissionInput()" />
-                  <label for="">Submissions</label>
+                  <label for="document">Document</label>
+                  <!-- add the course and project with the deadline  -->
+                  <input type="radio" name="type" id="deadlines" onchange="submissionInput()" />
+                  <label for="deadlines">Deadlines</label>
+                  <!-- ---------------- -->
+                  <input type="radio" name="type" id="assignments" onchange="assignmentInput()" />
+                  <label for="assignments">Assignments</label>
                 </div>
                 <div>
                   <label for="title" class="form-label">Material Title:</label>
@@ -185,6 +190,7 @@
       function projectForm() {
         document.getElementById("project").classList.add("show");
         document.getElementById("material").classList.remove("show");
+        console.log(document.getElementById("project"));
 
         document.getElementById("add-project-btn").classList.add("active");
         document.getElementById("add-material-btn").classList.remove("active");
