@@ -38,6 +38,7 @@ router.get("/:Iid/:Cid", async (req, res) => {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////
 router.post("/:id/:cid", async (req, res) => {
   const CourseId = req.params.cid;
   const { title, deadline, description, numberOfStudentsPerTeam, noOfPhases } =
