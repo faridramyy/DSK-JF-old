@@ -29,7 +29,7 @@ const CourseSchema = new Schema({
   ],
   coverPic: {
     type: String,
-    default: "/img/defaultCover.jpg",
+    default: "/img/default/defaultCover.jpg",
   },
   assignedProject: {
     type: Boolean,
