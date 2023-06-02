@@ -37,12 +37,11 @@ router.get("/:Iid/:Cid", async (req, res) => {
   }
 });
 
-
 // get link page
-router.get("/:uid/:cid/addLink", async (req, res) => {
+router.get("/:Iid/:Cid/addLink", async (req, res) => {
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addLink", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -52,11 +51,12 @@ router.get("/:uid/:cid/addLink", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+
 // get submission page
-router.get("/:uid/:cid/addSubmission", async (req, res) => {
+router.get("/:Iid/:Cid/addSubmission", async (req, res) => {
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addSubmission", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
@@ -66,11 +66,12 @@ router.get("/:uid/:cid/addSubmission", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+
 // get project page
-router.get("/:uid/:cid/addProject", async (req, res) => {
+router.get("/:Iid/:Cid/addProject", async (req, res) => {
   try {
-    const instructorId = req.params.uid;
-    const courseId = req.params.cid;
+    const instructorId = req.params.Iid;
+    const courseId = req.params.Cid;
     res.render("instructor/addProject", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
