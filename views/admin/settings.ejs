@@ -55,23 +55,32 @@
             <div class="card mb-4 mb-xl-0">
               <div class="card-header">Profile Picture</div>
               <div class="card-body text-center">
-                <form>
+                <form id="form1" enctype="multipart/form-data">
                   <label for="fileToUpload">
                     <div
                       class="profile-pic"
-                      style="background-image: url(<%=user.profilePic %>)"
+                      style="background-image: url(<%= user.profilePic %>)"
                     ></div>
                   </label>
-                  <input type="File" id="fileToUpload" />
+                  <input
+                    type="file"
+                    name="file"
+                    id="fileToUpload"
+                    accept="image/png,image/gif,image/jpeg , image/jpg"
+                  />
+                  <div class="small font-italic text-muted mb-4">
+                    JPG or PNG no larger than 5 MB
+                  </div>
+                  <div class="button-container">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      id="upload-new-image"
+                    >
+                      Upload new image
+                    </button>
+                  </div>
                 </form>
-                <div class="small font-italic text-muted mb-4">
-                  JPG or PNG no larger than 5 MB
-                </div>
-                <div class="button-container">
-                  <button class="btn btn-primary" id="upload-new-image">
-                    Upload new image
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -142,5 +151,28 @@
         </div>
       </div>
     </main>
+
+    <script>
+      document.getElementById("form1").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const fileToUpload = document.getElementById("fileToUpload").files[0];
+          const formData = new FormData();
+          formData.append("file", fileToUpload);
+
+          const res = await fetch("/admin/settings/changepp/<%= user._id %>", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await res.json();
+          if (data.msg) location.reload();
+          else if (data.err) location.assign("/error");
+        } catch (err) {
+          console.log(err);
+          location.assign("/error");
+        }
+      });
+    </script>
   </body>
 </html>

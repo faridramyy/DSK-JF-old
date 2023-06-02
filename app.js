@@ -3,6 +3,10 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+import path from "path";
+const __dirname = path.resolve();
+
 //Routes
 import registrationRouter from "./routes/registration.js";
 import adminRouter from "./routes/admin.js";
@@ -27,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set("view engine", "ejs");
+app.use(fileUpload());
+
 
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
