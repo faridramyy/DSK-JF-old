@@ -13,5 +13,5 @@ const otpSchema = new Schema({
   },
 });
 
-const Otp = model("Otp", otpSchema);
-export default Otp;
+const otp = model("otp", otpSchema);
+export default otp;

@@ -1,7 +1,7 @@
 import mongoose, { model } from "mongoose";
 const { Schema } = mongoose;
 
-const UserSchema = new Schema(
+const userSchema = new Schema(
   {
     role: {
       type: String,
@@ -25,10 +25,6 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
     },
-    phoneNumber: {
-      type: String,
-      default: "",
-    },
     password: {
       type: String,
       required: true,
@@ -43,7 +39,7 @@ const UserSchema = new Schema(
     },
     profilePic: {
       type: String,
-      default: "/img/defaultPP.png",
+      default: "/img/default/defaultPP.png",
     },
     verifyEmail: {
       type: Boolean,
@@ -77,5 +73,5 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model("User", UserSchema);
-export default User;
+const user = model("user", userSchema);
+export default user;
