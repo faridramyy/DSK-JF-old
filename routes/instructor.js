@@ -37,7 +37,7 @@ router.get("/:Iid/:Cid", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
-    console.log(err);
+    console.log(error);
     res.status(500).json({ err: true });
   }
 });
@@ -173,8 +173,9 @@ router.get("/:Iid/:Cid/addProject", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-
-router.post("/addProject", async (req, res) => {
+// post project page
+router.post("/:uid/:cid/addProject", async (req, res) => {
+  const courseId = req.params.cid;
   const {
     title,
     description,
@@ -185,8 +186,15 @@ router.post("/addProject", async (req, res) => {
   } = req.body;
 
   try {
-    const newProject = new courseProjectModel({
+    if (await projectModel.findOne({ CourseId }))
+      return res
+        .status(409)
+        .json({ errMsg: "You can't add another project in this course" });
+    //code 409 for conflict
+    const newProject = new projectModel({
       title,
+      deadline,
+      courseId,
       description,
       numberOfStudentsPerTeam,
       deadline,
