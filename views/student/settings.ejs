@@ -102,111 +102,107 @@
                     <div class="col-md-6">
                       <label class="small mb-1" for="lastName">Last name</label>
                       <input
-                      class="form-control"
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      value="<%= user.lastName%>"
-                    />
+                        class="form-control"
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        value="<%= user.lastName%>"
+                      />
                     </div>
                     <div class="mb-3">
                       <label class="small mb-1" for="email"
                         >Email address</label
                       >
                       <input
-                      class="form-control"
-                      id="email"
-                      name="email"
-                      type="text"
-                      value="<%= user.email%>"
-                    />
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        type="text"
+                        value="<%= user.email%>"
+                      />
                     </div>
                   </div>
-                
-                <div class="row gx-3 mb-3">
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="phoneNumber">Phone number</label>
-                    <input
-                      class="form-control"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      type="tel"
-                      placeholder="Enter your phone number"
-                      value="<%= user.phoneNumber %>"
-                    />
+
+                  <div class="row gx-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="phoneNumber"
+                        >Phone number</label
+                      >
+                      <input
+                        class="form-control"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        value="<%= user.phoneNumber %>"
+                      />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="birthdayDate"
+                        >Birthday</label
+                      >
+                      <input
+                        class="form-control"
+                        id="birthdayDate"
+                        name="birthdayDate"
+                        type="date"
+                        value="<%= user.birthdayDate %>"
+                      />
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <label class="small mb-1" for="birthdayDate"
-                      >Birthday</label
-                    >
-                    <input
-                      class="form-control"
-                      id="birthdayDate"
-                      name="birthdayDate"
-                      type="date"
-                      value="<%= user.birthdayDate %>"
-                    />
+                  <div class="row gx-3 mb-3">
+                    <p>Social Accounts</p>
+                    <div class="col-md-6 social-media">
+                      <i class="fa-brands fa-facebook"></i>
+                      <input
+                        class="form-control"
+                        id="facebook"
+                        type="text"
+                        placeholder="Link to Facebook"
+                        value="<%= user.facebook %>"
+                      />
+                    </div>
+
+                    <div class="col-md-6 social-media">
+                      <i class="fa-brands fa-linkedin"></i>
+                      <input
+                        class="form-control"
+                        id="linkedin"
+                        type="text"
+                        placeholder="Link to LinkedIn"
+                        value="<%= user.linkedin %>"
+                      />
+                    </div>
+
+                    <div class="col-md-6 social-media">
+                      <i class="fa-brands fa-github"></i>
+                      <input
+                        class="form-control"
+                        id="github"
+                        type="text"
+                        placeholder="Link to Github"
+                        value="<%= user.github %>"
+                      />
+                    </div>
+
+                    <div class="col-md-6 social-media">
+                      <i class="fa-brands fa-twitter"></i>
+                      <input
+                        class="form-control"
+                        id="twitter"
+                        type="text"
+                        placeholder="Link to Twitter"
+                        value="<%= user.Twitter %>"
+                      />
+                    </div>
                   </div>
-                  <button class="btn btn-primary" id="saveBtn" type="submit">
-                    Save changes
-                  </button>
+                  <div class="btns">
+                    <button class="btn btn-primary" id="saveBtn" type="submit">
+                      Save changes
+                    </button>
+                    <button class="btn clear_btn" type="button">Clear</button>
+                  </div>
                 </form>
-                </div>
-                <div class="row gx-3 mb-3">
-                  <p>Social Accounts</p>
-                  <div class="col-md-6 social-media">
-                    <i class="fa-brands fa-facebook"></i>
-                    <input
-                      class="form-control"
-                      id="facebook"
-                      name="faceBook"
-                      type="text"
-                      placeholder="Link to Facebook"
-                      value="<%= user.facebook %>"
-                    />
-                  </div>
-
-                  <div class="col-md-6 social-media">
-                    <i class="fa-brands fa-linkedin"></i>
-                    <input
-                      class="form-control"
-                      id="linkedin"
-                      name="linkedIn"
-                      type="text"
-                      placeholder="Link to LinkedIn"
-                      value="<%= user.linkedin %>"
-                    />
-                  </div>
-
-                  <div class="col-md-6 social-media">
-                    <i class="fa-brands fa-github"></i>
-                    <input
-                      class="form-control"
-                      id="github"
-                      name="gitHub"
-                      type="text"
-                      placeholder="Link to Github"
-                      value="<%= user.github %>"
-                    />
-                  </div>
-
-                  <div class="col-md-6 social-media">
-                    <i class="fa-brands fa-twitter"></i>
-                    <input
-                      class="form-control"
-                      id="twitter"
-                      name="twitter"
-                      type="text"
-                      placeholder="Link to Twitter"
-                      value="<%= user.Twitter %>"
-                    />
-                  </div>
-                </div>
-                <div class="btns">
-                
-                  <button class="btn clear_btn" type="button">Clear</button>
-                </div>
-          
               </div>
             </div>
           </div>
@@ -270,7 +266,7 @@
                 firstName: document.getElementById("firstName").value,
                 lastName: document.getElementById("lastName").value,
                 birthdayDate: document.getElementById("birthdayDate").value,
-                phoneNumber: document.getElementById("phoneNumber").value ,
+                phoneNumber: document.getElementById("phoneNumber").value,
               }),
             }
           );

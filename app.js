@@ -8,6 +8,7 @@ import fileUpload from "express-fileupload";
 import registrationRouter from "./routes/registration.js";
 import adminRouter from "./routes/admin.js";
 import instructorRouter from "./routes/instructor.js";
+import studnetRouter from "./routes/student.js";
 //Schema
 import UserModel from "./models/user.js";
 //Middlewares
@@ -32,6 +33,7 @@ app.use(fileUpload());
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/instructor", instructorAuth, instructorRouter);
+app.use("/student", studentAuth, studnetRouter);
 
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
