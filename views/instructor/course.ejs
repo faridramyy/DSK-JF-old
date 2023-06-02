@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- nav css -->
-    <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <!-- inner-course css -->
-    <link rel="stylesheet" href="/css/instructor/course.css" />
-    <title>Instructor course</title>
-  </head>
 
-  <body>
-    <%- include("./nav.ejs") %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- nav css -->
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <!-- inner-course css -->
+  <link rel="stylesheet" href="/css/instructor/course.css" />
+  <title>Instructor course</title>
+
+</head>
+
+<body>
+  <%- include("./nav.ejs") %>
     <main>
       <section>
         <div class="my-course">
-          <input
-            type="text"
-            name="title"
-            class="title"
-            id="title"
-            value="Course Title"
-            readonly
-          />
+          <input type="text" name="title" class="title" id="title" value="Course Title" readonly />
           <i class="fa-solid fa-pencil" onclick="editTitle()"></i>
         </div>
         <div class="course">
@@ -34,95 +29,66 @@
             <li id="add-project-btn" onclick="projectForm()">+Add Project</li>
           </ul>
           <!-- temp section student  -->
-      <section>
-        <% if (students.length) {%>
-        <table>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Add</th>
-          </tr>
+          <section>
+            <% if (students.length) {%>
+              <table>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Add</th>
+                </tr>
 
-          <% students.forEach(item=> {%>
-          <tr class="user" id="user">
-            <td>
-              <input type="checkbox" class="checkbox" />
-              <div class="right-and-wrong" style="display: none">
-                <i
-                  class="fa-solid fa-check"
-                  style="color: green; cursor: pointer"
-                ></i>
-                <i
-                  class="fa-solid fa-xmark"
-                  style="color: red; cursor: pointer"
-                ></i>
-              </div>
-            </td>
-            <td>
-              <div class="container">
-                <input type="text" value="<%= item.firstName +" "+ item.lastName
+                <% students.forEach(item=> {%>
+                  <tr class="user" id="user">
+                    <td>
+                      <input type="checkbox" class="checkbox" />
+                      <div class="right-and-wrong" style="display: none">
+                        <i class="fa-solid fa-check" style="color: green; cursor: pointer"></i>
+                        <i class="fa-solid fa-xmark" style="color: red; cursor: pointer"></i>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="container">
+                        <input type="text" value="<%= item.firstName +" "+ item.lastName
                 %>" readonly />
-              </div>
-            </td>
-            
-            <td class="<%= item.isBanned ? `banned` : `active` %>">
-              <span><%- item.isBanned ? "Baned" : "Active" %></span>
-            </td>
-            
-            <td><a href="/Instructor/<%= instructorId %>/<%=courseId %>/<%=item.id %>/add">add</a></td>
-            
-          </tr>
-          <%}); %>
-        </table>
-        <% } %>
-      </section>
+                      </div>
+                    </td>
+
+                    <td class="<%= item.isBanned ? `banned` : `active` %>">
+                      <span><%- item.isBanned ? "Baned" : "Active" %></span>
+                    </td>
+
+                    <td><a class="<%=availableStudent ? `remove` : `add` %>"
+                        href="/Instructor/<%= instructorId %>/<%=courseId %>/<%=item.id %>/add"
+                        onclick="addStudent()">add</a></td>
+                    <span>
+                      <%=availableStudent ? "remove" : "add" %>
+                    </span>
+                  </tr>
+                  <%}); %>
+              </table>
+              <% } %>
+          </section>
           <!-- remove extra class -->
           <div class="add-material">
             <div class="add-material-form" id="material">
               <form action="post">
                 <div>
-                  <label for="type" class="form-label"
-                    >Choose the type of Material:</label
-                  >
-                  <input
-                    type="radio"
-                    name="type"
-                    id="links"
-                    onchange="linkInput()"
-                  />
+                  <label for="type" class="form-label">Choose the type of Material:</label>
+                  <input type="radio" name="type" id="links" onchange="linkInput()" />
                   <label for="links">Link</label>
-                  <input
-                    type="radio"
-                    name="type"
-                    id="document"
-                    onchange="documentInput()"
-                  />
+                  <input type="radio" name="type" id="document" onchange="documentInput()" />
                   <label for="document">Document</label>
                   <!-- add the course and project with the deadline  -->
-                  <input
-                    type="radio"
-                    name="type"
-                    id="deadlines"
-                    onchange="submissionInput()"
-                  />
+                  <input type="radio" name="type" id="deadlines" onchange="submissionInput()" />
                   <label for="deadlines">Deadlines</label>
                   <!-- ---------------- -->
-                  <input
-                    type="radio"
-                    name="type"
-                    id="assignments"
-                    onchange="assignmentInput()"
-                  />
+                  <input type="radio" name="type" id="assignments" onchange="assignmentInput()" />
                   <label for="assignments">Assignments</label>
                 </div>
                 <div>
                   <label for="title" class="form-label">Material Title:</label>
-                  <input
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Enter The Title here"
-                  />
+                  <input type="text" name="" id="" placeholder="Enter The Title here" />
                 </div>
                 <div>
                   <label for="content" class="form-label">Content:</label>
@@ -134,10 +100,7 @@
           </div>
           <div class="add-project">
             <div class="add-project-form" id="project">
-              <form
-                action="/instructor/<%= instructorId %>/<%=courseId %>"
-                method="post"
-              >
+              <form action="/instructor/<%= instructorId %>/<%=courseId %>" method="post">
                 <fieldset>
                   <legend><span class="number">1</span> Project Info</legend>
 
@@ -153,13 +116,8 @@
                   <label for="description">Description:</label>
                   <textarea id="description" name="description"></textarea>
                   <div>
-                    <label for="numberOfStudentsPerTeam"
-                      >Number of team members:</label
-                    >
-                    <select
-                      name="numberOfStudentsPerTeam"
-                      id="numberOfStudentsPerTeam"
-                    >
+                    <label for="numberOfStudentsPerTeam">Number of team members:</label>
+                    <select name="numberOfStudentsPerTeam" id="numberOfStudentsPerTeam">
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
@@ -189,10 +147,7 @@
     </main>
 
     <!-- font-awesome -->
-    <script
-      src="https://kit.fontawesome.com/0b0cd0c012.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
 
     <!-- profile menu -->
     <script>
@@ -285,5 +240,9 @@
         document.getElementById("add-activity-btn").classList.add("active");
       }
     </script>
-  </body>
+    <!-- for adding a student -->
+
+    </script>
+</body>
+
 </html>
