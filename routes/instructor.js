@@ -1,6 +1,7 @@
 import express from "express";
 import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
+import projectModel from "../models/courseProject.js";
 
 const router = express.Router();
 
@@ -95,7 +96,7 @@ router.get("/:uid/:cid/addProject", async (req, res) => {
 });
 // post project page
 router.post("/:uid/:cid/addProject", async (req, res) => {
-  const courseId = req.params.cid;
+  const CourseId = req.params.cid;
   const {
     title,
     deadline,
@@ -104,7 +105,9 @@ router.post("/:uid/:cid/addProject", async (req, res) => {
     numberOfPhases,
   } = req.body;
   try {
-    if (await projectModel.findOne({ CourseId }))
+    const found = await projectModel.find({ CourseId });
+    console.log(found);
+    if (found)
       return res
         .status(409)
         .json({ errMsg: "You can't add another project in this course" });
@@ -112,7 +115,7 @@ router.post("/:uid/:cid/addProject", async (req, res) => {
     const newProject = new projectModel({
       title,
       deadline,
-      courseId,
+      CourseId,
       description,
       numberOfStudentsPerTeam,
       numberOfPhases,
