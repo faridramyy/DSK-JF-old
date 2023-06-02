@@ -37,13 +37,26 @@ router.get("/:Iid/:Cid", async (req, res) => {
   }
 });
 
-
 // get link page
 router.get("/:uid/:cid/addLink", async (req, res) => {
   try {
     const instructorId = req.params.uid;
     const courseId = req.params.cid;
     res.render("instructor/addLink", {
+      user: await userModel.findById(instructorId),
+      course: await courseModel.findById(courseId),
+    });
+  } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+// get file page
+router.get("/:uid/:cid/addFile", async (req, res) => {
+  try {
+    const instructorId = req.params.uid;
+    const courseId = req.params.cid;
+    res.render("instructor/addFile", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
     });
@@ -80,7 +93,37 @@ router.get("/:uid/:cid/addProject", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-
+// post project page
+router.post("/:uid/:cid/addProject", async (req, res) => {
+  const courseId = req.params.cid;
+  const {
+    title,
+    deadline,
+    description,
+    numberOfStudentsPerTeam,
+    numberOfPhases,
+  } = req.body;
+  try {
+    if (await projectModel.findOne({ CourseId }))
+      return res
+        .status(409)
+        .json({ errMsg: "You can't add another project in this course" });
+    //code 409 for conflict
+    const newProject = new projectModel({
+      title,
+      deadline,
+      courseId,
+      description,
+      numberOfStudentsPerTeam,
+      numberOfPhases,
+    });
+    newProject.save();
+    console.log("saved successfully");
+  } catch (err) {
+    res.status(500).json({ err: true });
+    console.log(err);
+  }
+});
 
 //////////////////////////////////////////////////////////////////////////////////
 router.post("/:id/:cid", async (req, res) => {
