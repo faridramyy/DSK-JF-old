@@ -29,7 +29,27 @@ router.get("/:id/settings", async (req, res) => {
   });
 });
 
-
+router.post("/:id/settings/updatedata", async (req, res) => {
+  const userid = req.params.id;
+  const { firstName, lastName, email } = req.body;
+  try {
+    if ( await userModel.findOne({ email, _id: { $ne: userid } })
+    )
+      return res.status(409).json({ errMsg: "Email is Taken" });
+    userModel
+      .findByIdAndUpdate(userid, { firstName, lastName, email })
+      .then(() => {
+        return res.status(200).json({ msg: "done" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ err: true });
+      });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 
 router.post("/settings/changepp/:id", async (req, res) => {
   if (req.files) {
@@ -50,8 +70,8 @@ router.post("/settings/changepp/:id", async (req, res) => {
           });
           console.log("Profile picture updated successfully.");
           res.json({ msg: "done" });
-        } catch (error) {
-          console.log(error);
+        } catch (err) {
+          console.log(err);
           res.status(500).json({ err: true });
         }
       }
@@ -61,7 +81,6 @@ router.post("/settings/changepp/:id", async (req, res) => {
     res.status(400).json({ err: true });
   }
 });
-
 
 router.get("/:id/security", async (req, res) => {
   res.render("admin/security", {

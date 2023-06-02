@@ -89,7 +89,7 @@
             <div class="card mb-4">
               <div class="card-header">Account Details</div>
               <div class="card-body">
-                <form id="form">
+                <form id="form2">
                   <div class="row gx-3 mb-3">
                     <div class="col-md-6">
                       <label class="small mb-1" for="firstName"
@@ -168,6 +168,64 @@
           const data = await res.json();
           if (data.msg) location.reload();
           else if (data.err) location.assign("/error");
+        } catch (err) {
+          console.log(err);
+          location.assign("/error");
+        }
+      });
+    </script>
+
+    <script type="module">
+      import { validateForm } from "/js/formValidation.js";
+      const form2 = document.getElementById("form2");
+
+      form2.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const errorMsg = validateForm(form2);
+        if (errorMsg) {
+          return Toastify({
+            text: errorMsg,
+            duration: 3000,
+            gravity: "top",
+            close: false,
+            backgroundColor: "red",
+          }).showToast();
+        }
+
+        try {
+          const res = await fetch(
+            "/admin/<%= user._id %>/settings/updatedata",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: document.getElementById("email").value,
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+              }),
+            }
+          );
+          const data = await res.json();
+          if (data.msg) {
+            return Toastify({
+              text: "updtaed successfully ",
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "green",
+            }).showToast();
+            location.reload();
+          } else if (data.errMsg) {
+            return Toastify({
+              text: data.errMsg,
+              duration: 3000,
+              gravity: "top",
+              close: false,
+              backgroundColor: "red",
+            }).showToast();
+          } else location.assign("/error");
         } catch (err) {
           console.log(err);
           location.assign("/error");
