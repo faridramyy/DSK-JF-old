@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- style sheets -->
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+  <title>
+    <%= course.title %>
+  </title>
+</head>
+
+<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+  <%- include("./nav.ejs") %>
+    <main>
+      <%- include("./inner-course-header.ejs") %>
+        <section class="display">
+
+          <!-- link -->
+          <div class="my-links">
+            <h2>Links</h2>
+            <% if (links) { %>
+              <% links.forEach(link=> { %>
+                <div>
+                  <!-- fix the path  -->
+                  <a href="<%=link.link %>" target="_blank">
+                    <%=link.name %>
+                  </a>
+                  <button class="deleteLink" data-linkid="<%=link._id %>">Delete Link</button>
+                </div>
+                <% }); %>
+                  <% } else{%>
+                    <p>no links</p>
+                    <% } %>
+          </div>
+
+          <!-- file -->
+          <div class="my-files">
+            <h2>Files:</h2>
+            <% if (files) { %>
+              <% files.forEach(file=> { %>
+                <div>
+                  <a href="<%= file.filePath %>" download>file</a>
+                  <button class="deleteFile" data-fileid="<%=file._id %>">Delete File</button>
+                </div>
+                <% }); %>
+                  <% } else{%>
+                    <p>no files</p>
+                    <% } %>
+          </div>
+
+          <!-- submissions -->
+          <div class="my-submissions">
+            <h2>Submissions:</h2>
+            <% if (submissions) { %>
+              <% submissions.forEach(submission=> { %>
+                <div>
+                  <h3>
+                    <%= submission.title %>
+                  </h3>
+                  <p>Description: <%= submission.description %>
+                  </p>
+                  <p>Deadline: <%= submission.deadline %>
+                  </p>
+                  <!-- Display other project properties here -->
+                </div>
+                <% }); %>
+                  <% } else{%>
+                    <p>no files</p>
+                    <% } %>
+          </div>
+
+
+          <!-- projects  -->
+          <div class="my-projects">
+            <h2>Projects</h2>
+            <% if (projects) { %>
+              <% projects.forEach(project=> { %>
+                <div>
+                  <h3>
+                    <%= project.title %>
+                  </h3>
+                  <p>Description: <%= project.description %>
+                  </p>
+                </div>
+                <% }); %>
+                  <% } else{%>
+                    <p>no projects</p>
+                    <% } %>
+          </div>
+        </section>
+    </main>
+
+    <!-- editable title -->
+    <script>
+      function adjustInputWidth() {
+        const input = document.getElementById("title");
+        input.style.width = (input.value.length + 1) * 19 + "px";
+      }
+
+      function editTitle() {
+        const courseTitle = document.getElementById("title");
+        if (courseTitle.hasAttribute("readonly")) {
+          courseTitle.removeAttribute("readonly");
+          courseTitle.style.borderBottom = "1px solid black";
+        } else {
+          courseTitle.setAttribute("readonly", "true");
+          courseTitle.style.borderBottom = "none";
+        }
+      }
+    </script>
+
+    <script>
+      const menu2 = document.getElementById("menu");
+      const newUserBtn = document.getElementById("add");
+
+      newUserBtn.addEventListener("click", () => {
+        menu2.classList.toggle("activee");
+      });
+
+      document.addEventListener("dblclick", function (e) {
+        if (
+          menu2.classList.contains("activee") &&
+          !menu2.contains(e.target) &&
+          !newUserBtn.contains(e.target)
+        ) {
+          menu2.classList.remove("activee");
+          document.getElementById("form").reset();
+        }
+      });
+    </script>
+    <!-- Delete Link  -->
+    <script>
+      const deleteLink = document.getElementsByClassName("deleteLink");
+      Array.from(deleteLink).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          console.log(b.dataset.linkid);
+          const linkId = b.dataset.linkid;
+          try {
+            const res = await fetch("/instructor/<%=course._id%>/deleteLink/" + linkId, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (data.msg) {
+              Toastify({
+                text: "removed Successfully",
+                duration: 3000,
+                gravity: "top",
+                close: false,
+                backgroundColor: "green",
+              }).showToast();
+              location.reload();
+            } else if (data.err) location.assign("/error");
+          } catch (err) {
+            console.log(err)
+            location.assign("/error");
+          }
+        });
+      });
+    </script>
+    <!-- Delete Files  -->
+    <script>
+      const deleteFile = document.getElementsByClassName("deleteFile");
+      Array.from(deleteFile).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const fileId = b.dataset.fileid;
+          console.log(b.dataset.fileid);
+          try {
+            const res = await fetch("/instructor/<%=course._id%>/deleteFile/" + fileId, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (data.msg) {
+              Toastify({
+                text: "removed Successfully",
+                duration: 3000,
+                gravity: "top",
+                close: false,
+                backgroundColor: "green",
+              }).showToast();
+              location.reload();
+            } else if (data.err) location.assign("/error");
+          } catch (err) {
+            console.log(err)
+            location.assign("/error");
+          }
+        });
+      });
+    </script>
+</body>
+
+</html>

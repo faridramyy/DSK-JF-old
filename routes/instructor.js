@@ -17,7 +17,8 @@ router.get("/:id", async (req, res) => {
       instructorId,
       availableForUsers: true,
     });
-
+    console.log("XXXXXXX");
+    console.log(courses);
     res.render("instructor/home", {
       user: await userModel.findById(instructorId),
       courses,
@@ -367,7 +368,7 @@ router.post("/:uid/:cid/addProject", async (req, res) => {
   } = req.body;
 
   try {
-    if (await projectModel.findOne({ CourseId }))
+    if (await projectModel.findOne({ courseId }))
       return res
         .status(409)
         .json({ errMsg: "You can't add another project in this course" });
