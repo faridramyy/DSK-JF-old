@@ -13,6 +13,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
     <!-- toastify -->
     <link
       rel="stylesheet"
@@ -23,6 +25,7 @@
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/courses.css" />
+    <link rel="stylesheet" href="/css/chatGPT.css" />
     <title>Admin-Users</title>
   </head>
   <body data-userid="<%= user._id %>">
@@ -30,6 +33,7 @@
     <main>
       <h1>Courses</h1>
       <p>Welcome admin</p>
+      <%- include("../chatGPT.ejs") %>
     </main>
   </body>
 </html>

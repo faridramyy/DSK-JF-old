@@ -1,0 +1,69 @@
+<section class="chatx">
+  <button class="chat-btnx">
+    <i class="material-icons"> comment </i>
+  </button>
+  <div class="chat-popupx">
+    <div class="chat-areax"></div>
+    <div class="input-areax">
+      <input type="text" />
+      <button class="submit"><i class="material-icons"> send</i></button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const apiKey = "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";
+  async function sendMessage(message) {
+    const response = await fetch(
+      "https://api.openai.com/v1/chat/completions", //Api endpoint url
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`, //This header is used for authentication and authorizing access to the ChatGPT API.
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo", // or any other model you prefer
+          messages: [
+            { role: "system", content: "You are" }, //This is the initial system message to set the context for the conversation
+            { role: "user", content: message },
+          ],
+        }),
+      }
+    );
+    const data = await response.json();
+    return data.choices[0].message.content;
+  }
+
+  //start chat
+  const popup = document.querySelector(".chat-popupx");
+  const chatBtn = document.querySelector(".chat-btnx");
+  const submitBtn = document.querySelector(".submit");
+  const chatArea = document.querySelector(".chat-areax");
+  const inputElm = document.querySelector(".input-areax input");
+
+  chatBtn.addEventListener("click", () => {
+    popup.classList.toggle("show");
+  });
+
+  submitBtn.addEventListener("click", async () => {
+    let userInput = inputElm.value;
+
+    let temp = `<div class="out-msgx">
+                <span class="my-msgx">${userInput}</span>
+                <img src="<%= user.profilePic %>" class="avatarx">
+                </div>`;
+
+    chatArea.insertAdjacentHTML("beforeend", temp);
+    inputElm.value = "";
+
+    let chatGptMessage = await sendMessage(userInput);
+    let temp2 = `<div class="income-msgx">
+                <img src="/img/default/chatgpt.jpg" class="avatarx">
+                <span class="msgx">${chatGptMessage}</span>
+                </div>`;
+
+    chatArea.insertAdjacentHTML("beforeend", temp2);
+  });
+  //end chat
+</script>
