@@ -13,8 +13,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    />
     <!-- toastify -->
     <link
       rel="stylesheet"
@@ -67,15 +69,19 @@
       <% if (course.length>0) {%>
       <section class="courses">
         <% course.forEach(c=> { %>
-        <article>
-          <div class="image">
-            <img src="<%= c.coverPic %>" alt="cover picture" />
-          </div>
 
-          <div class="article-body">
-            <h2><%= c.title %></h2>
-          </div>
-        </article>
+        <a id="anchor" href="/admin/<%= user._id%>/courses/courseInner/<%= c._id %>">
+          <article>
+            <div class="image">
+              <img src="<%= c.coverPic %>" alt="cover picture" />
+            </div>
+
+            <div class="article-body">
+              <h2><%= c.title %></h2>
+            </div>
+          </article>
+        </a>
+
         <% })} else {%>
         <div><p>no courses to show</p></div>
         <% }%>
@@ -138,7 +144,7 @@
         });
         // << End >> form Validation
       </script>
-            <%- include("../chatGPT.ejs") %>
+      <%- include("../chatGPT.ejs") %>
     </main>
   </body>
 </html>
