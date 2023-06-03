@@ -1,5 +1,6 @@
-import express from "express";
+import express, { json } from "express";
 import userModel from "../models/user.js";
+import courseModel from "../models/course.js";
 import path from "path";
 import bcrypt from "bcrypt";
 import { createPublicKey } from "crypto";
@@ -10,6 +11,81 @@ router.get("/:id", async (req, res) => {
     user: await userModel.findById(req.params.id),
   });
 });
+router.get("/:id/courses", async (req, res) => {
+  let instructors = await userModel.find({ role: "Instructor" });
+  let course = await courseModel.find();
+
+  res.render("admin/courses", {
+    user: await userModel.findById(req.params.id),
+    dirname: __dirname,
+    instructors,
+    course,
+  });
+});
+
+router.post("/courses", async (req, res) => {
+  const { title, numberOfStudents, instructorId } = req.body;
+  try {
+    const newCourse = new courseModel({
+      title,
+      numberOfStudents,
+      instructorId,
+    });
+    newCourse.save();
+
+    res.json({ msg: "done" });
+  } catch (err) {
+    res.status(500).json({ err: true });
+  }
+});
+
+router.get("/:id/courses/courseInner/:Cid", async (req, res) => {
+  const courseId = req.params.Cid;
+  let course = await courseModel.findById(courseId);
+  let Arrayofstudents = course.students;
+  let instructor = await userModel.findById(course.instructorId);
+  let students = await userModel.find({ role: "student" });
+  console.log(Arrayofstudents);
+  res.render("admin/courseInner", {
+    user: await userModel.findById(req.params.id),
+    dirname: __dirname,
+    course,
+    instructor,
+    students,
+    Arrayofstudents,
+  });
+});
+
+router.put("/courses/courseInner/addstudent", async (req, res) => {
+  console.log("wasal");
+  const { courseId, studentid } = req.body;
+  try {
+    let course = await courseModel.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+    let arrayOfStudents = course.students;
+    arrayOfStudents.push(studentid);
+    course.students = arrayOfStudents;
+    await course.save();
+    res.json({ msg: "done" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
+// router.put("/courses/courseInner/addstudent", async (req, res) => {
+//   console.log("wasal");
+//   const { courseId, studnetid } = req.body;
+//   let course = await courseModel.findById(courseId);
+//   let Arrayofstudents = course.students;
+//   Arrayofstudents.push(studnetid);
+//   course.students = Arrayofstudents; 
+//   course.save();
+//   res.json({ msg: "done" });
+// });
+
 
 router.get("/:id/users", async (req, res) => {
   const page = req.query.p || 0;

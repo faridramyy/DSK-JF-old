@@ -3,7 +3,7 @@ import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
 import courseLinkModel from "../models/courseLink.js";
 import courseFileModel from "../models/courseFile.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import courseSubmissionModel from "../models/courseSubmission.js";
 import courseProjectModel from "../models/courseProject.js";
 import path from "path";
@@ -45,7 +45,6 @@ router.get("/:id/settings", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-
 
 router.post("/:id/settings/updatedata", async (req, res) => {
   const userid = req.params.id;
@@ -135,14 +134,11 @@ router.post("/:id/security/updatedata", async (req, res) => {
   }
 });
 
-
 // get inner-courses
 router.get("/:Iid/:Cid", async (req, res) => {
   try {
     const instructorId = req.params.Iid;
     const courseId = req.params.Cid;
-
-    
 
     const courseProject = await courseModel
       .findById(courseId)
@@ -188,7 +184,7 @@ router.get("/:Iid/:Cid/addLink", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
-
+// add link
 router.post("/addlink", async (req, res) => {
   const { name, link, courseID } = req.body;
   try {
@@ -199,6 +195,24 @@ router.post("/addlink", async (req, res) => {
     course.links.push(newCourseLink._id);
     course.save();
     res.status(200).json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+// delete link
+router.delete("/:cid/deleteLink/:lid", async (req, res) => {
+  const linkId = req.params.lid;
+  try {
+    // Delete link from courseLinkModel
+    await courseLinkModel.findByIdAndDelete(linkId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { links: linkId },
+    });
+
+    res.json({ msg: "done" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
@@ -215,6 +229,24 @@ router.get("/:Iid/:Cid/addFile", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+// delete file
+router.delete("/:cid/deleteFile/:fid", async (req, res) => {
+  const fileId = req.params.fid;
+  try {
+    // Delete link from courseLinkModel
+    await courseFileModel.findByIdAndDelete(fileId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { files: fileId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
   }
@@ -290,6 +322,23 @@ router.post("/addSubmission", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+// delete file
+router.delete("/:cid/deleteSubmission/:sid", async (req, res) => {
+  const submissionId = req.params.sid;
+  try {
+    // Delete link from courseLinkModel
+    await courseSubmissionModel.findByIdAndDelete(submissionId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { submissions: submissionId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 
 // get project page
 router.get("/:Iid/:Cid/addProject", async (req, res) => {
@@ -345,7 +394,23 @@ router.post("/:uid/:cid/addProject", async (req, res) => {
     console.log(err);
   }
 });
+// delete Project
+router.delete("/:cid/deleteProject/:pid", async (req, res) => {
+  const projectId = req.params.pid;
+  try {
+    // Delete link from courseLinkModel
+    await courseProjectModel.findByIdAndDelete(projectId);
 
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { projects: projectId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 
 router.get("/:id/settings", async (req, res) => {
   res.render("instructor/settings", {
@@ -435,6 +500,5 @@ router.get("/:id/notifications", async (req, res) => {
     user: await userModel.findById(req.params.id),
   });
 });
-
 
 export default router;

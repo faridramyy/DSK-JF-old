@@ -13,8 +13,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    />
     <!-- toastify -->
     <link
       rel="stylesheet"
@@ -33,7 +35,63 @@
     <main>
       <h1>Courses</h1>
       <p>Welcome admin</p>
-      <%- include("../chatGPT.ejs") %>
     </main>
-  </body>
+</body>
+
 </html>
+
+<script type="module">
+  const menu = document.getElementById("addNewCourse");
+  const newCourseBtn = document.getElementById("newCourseBtn");
+
+  newCourseBtn.addEventListener("click", () => {
+    menu.classList.toggle("activee");
+  });
+
+  document.addEventListener("dblclick", function (e) {
+    if (
+      menu.classList.contains("activee") &&
+      !menu.contains(e.target) &&
+      !newCourseBtn.contains(e.target)
+    ) {
+      menu.classList.remove("activee");
+      document.getElementById("form").reset();
+    }
+  });
+
+  // << Start >> form Validation
+  import { validateForm } from "../js/formValidation.js";
+  const form = document.getElementById("form");
+  const error = document.getElementById("error");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    error.style.color = "red";
+    const errorMsg = validateForm(form);
+    if (errorMsg) return (error.innerHTML = errorMsg);
+
+    try {
+      const res = await fetch("/admin/courses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: document.getElementById("courseName").value,
+          numberOfStudents: document.getElementById("numOfStudents").value,
+          instructorId:
+            document.getElementById("instructorName").options[
+              document.getElementById("instructorName").selectedIndex
+            ].dataset.instructorid,
+        }),
+      });
+      const data = await res.json();
+      if (data.msg) {
+        error.style.color = "green";
+        error.innerHTML = "Added";
+      } else if (data.err) location.assign("/error");
+    } catch (err) {
+      location.assign("/error");
+    }
+  });
+  // << End >> form Validation
+</script>
