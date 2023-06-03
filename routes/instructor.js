@@ -135,14 +135,38 @@ router.post("/:id/security/updatedata", async (req, res) => {
   }
 });
 
-//get inner-courses
+
+// get inner-courses
 router.get("/:Iid/:Cid", async (req, res) => {
   try {
     const instructorId = req.params.Iid;
     const courseId = req.params.Cid;
+
+    
+
+    const courseProject = await courseModel
+      .findById(courseId)
+      .populate("projects");
+    const projects = courseProject.projects;
+
+    const courseLinks = await courseModel.findById(courseId).populate("links");
+    const links = courseLinks.links;
+
+    const courseSubmissions = await courseModel
+      .findById(courseId)
+      .populate("submissions");
+    const submissions = courseSubmissions.submissions;
+
+    const courseFiles = await courseModel.findById(courseId).populate("files");
+    const files = courseFiles.files;
+
     res.render("instructor/inner-course", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
+      projects,
+      links,
+      submissions,
+      files,
     });
   } catch (error) {
     console.log(error);

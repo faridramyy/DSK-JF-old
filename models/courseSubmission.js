@@ -13,7 +13,7 @@ const courseSubmissionSchema = new Schema({
     type: String,
     default:""
   },
-  deadLine: {
+  deadline: {
     type: String,
   },
 });
