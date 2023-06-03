@@ -356,7 +356,8 @@ router.get("/:Iid/:Cid/addProject", async (req, res) => {
   }
 });
 // post project page
-router.post("/:uid/:cid/addProject", async (req, res) => {
+router.post("/addProject", async (req, res) => {
+  console.log("xxxxxxxxxxxxxxxxx");
   const courseId = req.params.cid;
   const {
     title,
@@ -500,6 +501,23 @@ router.get("/:id/notifications", async (req, res) => {
   res.render("instructor/notifications", {
     user: await userModel.findById(req.params.id),
   });
+});
+
+router.get("/:id/:cid/viewall", async (req, res) => {
+  const courseId = req.params.cid;
+  try {
+    const course = await courseModel.findById(courseId).populate("students");
+    const students = course.students;
+    console.log(students);
+    res.render("instructor/viewAll", {
+      user: await userModel.findById(req.params.id),
+      course: course,
+      students: students
+    });
+  } catch (err) {
+    res.status(500).json({ error: true });
+    console.log(err);
+  }
 });
 
 export default router;
