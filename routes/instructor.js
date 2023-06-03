@@ -394,6 +394,23 @@ router.post("/:uid/:cid/addProject", async (req, res) => {
     console.log(err);
   }
 });
+// delete Project
+router.delete("/:cid/deleteProject/:pid", async (req, res) => {
+  const projectId = req.params.pid;
+  try {
+    // Delete link from courseLinkModel
+    await courseProjectModel.findByIdAndDelete(projectId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { projects: projectId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 
 router.get("/:id/settings", async (req, res) => {
   res.render("instructor/settings", {
