@@ -11,6 +11,22 @@ router.get("/:id", async (req, res) => {
     user: await userModel.findById(req.params.id),
   });
 });
+router.get("/:id/courses/courseInner/:Cid", async (req, res) => {
+  const courseId = req.params.Cid;
+  console.log(courseId);
+  let course = await courseModel.findById();
+  let instructor = await userModel.findById(courseId);
+  console.log("course title : ");
+  console.log(course.title);
+  console.log(instructor);
+  res.render("admin/courseInner", {
+    user: await userModel.findById(req.params.id),
+    dirname: __dirname,
+    course,
+    courseId,
+    instructor,
+  });
+});
 
 router.get("/:id/users", async (req, res) => {
   const page = req.query.p || 0;
