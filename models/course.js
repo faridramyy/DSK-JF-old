@@ -16,20 +16,33 @@ const CourseSchema = new Schema({
   },
   instructorId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
   },
   availableForUsers: {
     type: Boolean,
     default: false,
   },
-  students: [{ type: mongoose.Schema.Types.ObjectId }],
+  students: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   coverPic: {
     type: String,
     default: "/img/default/defaultCover.jpg",
   },
-  links: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
-  files: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
-  submissions: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
-  projects: [{ type: mongoose.Schema.Types.ObjectId, default: [] }],
+  links: [
+    { type: mongoose.Schema.Types.ObjectId, default: [], ref: "courseLink" },
+  ],
+  files: [
+    { type: mongoose.Schema.Types.ObjectId, default: [], ref: "courseFile" },
+  ],
+  submissions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      default: [],
+      ref: "courseSubmission",
+    },
+  ],
+  projects: [
+    { type: mongoose.Schema.Types.ObjectId, default: [], ref: "courseProject" },
+  ],
 });
 
 const course = model("Course", CourseSchema);

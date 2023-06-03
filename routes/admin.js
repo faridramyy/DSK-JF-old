@@ -13,9 +13,47 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:id/users", async (req, res) => {
+  const page = req.query.p || 0;
+  const usersPerPage = 10;
+  let userss = await userModel.find();
+  const usersLength = userss.length;
+
+  let users = await userModel
+    .find()
+    .skip(page * usersPerPage)
+    .limit(usersPerPage);
+
   res.render("admin/users", {
     user: await userModel.findById(req.params.id),
+    users,
+    usersLength,
+    usersPerPage,
   });
+});
+
+router.put("/users/ban/:id", async (req, res) => {
+  const userID = req.params.id;
+  await userModel
+    .findById(userID)
+    .then((user) => {
+      user.isBanned = !user.isBanned; // Toggle the value of isBanned
+      user.save();
+      res.json({ msg: "done" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.delete("/users/delete/:id", async (req, res) => {
+  await userModel
+    .findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.json({ msg: "done" });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 router.get("/:id/courses", async (req, res) => {
