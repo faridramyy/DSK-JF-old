@@ -32,9 +32,17 @@ router.get("/:Iid/:Cid", async (req, res) => {
   try {
     const instructorId = req.params.Iid;
     const courseId = req.params.Cid;
+
+    const course = await courseModel.findById(courseId).populate("projects");
+    console.log(course.projects); // Verify the projects array is populated
+
+    const projectTitles = course.projects.map((project) => project.title);
+    console.log(projectTitles); // Display the titles of the projects
+
     res.render("instructor/inner-course", {
       user: await userModel.findById(instructorId),
       course: await courseModel.findById(courseId),
+      projectTitles: projectTitles, // Pass the project titles to the view
     });
   } catch (error) {
     console.log(error);
