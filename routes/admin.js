@@ -40,6 +40,18 @@ router.post("/courses", async (req, res) => {
   }
 });
 
+router.get("/:id/courses/courseInner/:Cid", async (req, res) => {
+  const courseId = req.params.Cid;
+  let course = await courseModel.findById(courseId);
+  let instructor = await userModel.findById(course.instructorId);
+  res.render("admin/courseInner", {
+    user: await userModel.findById(req.params.id),
+    dirname: __dirname,
+    course,
+    instructor , 
+  });
+});
+
 router.get("/:id/users", async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 10;
