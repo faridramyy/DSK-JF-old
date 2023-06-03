@@ -8,14 +8,17 @@
           <li><a href="/student">Home</a></li>
           <li><a href="/student/courses">Courses</a></li>
           <li class="dropdown">
-            <a href="" class="dropbtn"
-              >My Courses <i class="fas fa-caret-down"></i
-            ></a>
+            <a href="" class="dropbtn">My Courses <i class="fas fa-caret-down"></i></a>
             <div class="dropdown-content">
-              <a href="">Course 1</a>
-              <a href="#">Course 2</a>
-              <a href="#">Course 3</a>
+              <% if (courses) { %>
+                <% courses.forEach((course)=> { %>
+                  <a href="<%= user._id %>/<%= course._id %>/courseInner">
+                    <%= course.title %>
+                  </a>
+                  <% }); %>
+                    <% } %>
             </div>
+
           </li>
         </ul>
         <div class="search">
@@ -28,12 +31,7 @@
         <!-- Replace with your notifications icon -->
       </div>
       <div class="profile">
-        <img
-          src="/img/defaultPP.png"
-          alt="user image"
-          onclick="showMenu()"
-          id="profilePic"
-        />
+        <img src="/img/defaultPP.png" alt="user image" onclick="showMenu()" id="profilePic" />
         <div class="list" id="profileMenu">
           <ul>
             <li><a href="/student/settings">Manage your account</a></li>

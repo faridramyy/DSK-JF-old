@@ -35,13 +35,15 @@ header {
   pointer-events: all;
   opacity: 1;
   transform: translateY(0);
+  
 }
 .add-new-course div {
   margin: 3px;
   display: flex;
   justify-content: space-between;
 }
-.add-new-course div input ,#instructorName{
+.add-new-course div input,
+#instructorName {
   border: none;
   border-bottom: 1px solid rgb(76, 139, 240);
   padding: 5px;
@@ -53,7 +55,7 @@ header {
   outline: none;
   border-bottom: 3px solid rgb(76, 139, 240);
 }
-#instructorName{
+#instructorName {
   width: 173px;
 }
 #submit {
