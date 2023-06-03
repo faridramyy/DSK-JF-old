@@ -17,6 +17,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/couresInner.css" />
 
@@ -43,6 +44,43 @@
   <body>
     <%- include("./nav.ejs") %>
     <main>
+      <header>
+        <h1>Courses</h1>
+        <button class="new-course btn" id="newCourseBtn">+ Add student</button>
+      </header>
+
+      <section class="add-new-course" id="addNewCourse">
+        <p style="color: red" id="error"></p>
+        <form method="post" id="form">
+          <div>
+            <label for="Course's Name"
+              >Course's Name : <%= course.title %>
+            </label>
+          </div>
+          <div>
+            <label for="Number of students"
+              >Number of students: <%= course.numberOfStudents%>
+            </label>
+          </div>
+          <div>
+            <label for="username">Student's name :</label>
+            <select id="studentName" name="studentName">
+              <% if (students){ %> <% students.forEach(student => { %> <% if (!
+              Arrayofstudents.includes(student._id)){ %>
+              <option data-studentid="<%= student._id %>">
+                <%= student.firstName %> <%= student.lastName %>
+              </option>
+              <% }});} %>
+            </select>
+          </div>
+          <div>
+            <button data-studentid="<%= students._id%>" class="btn" id="submit">
+              Add
+            </button>
+          </div>
+        </form>
+      </section>
+
       <section id="course-inner">
         <div class="overview">
           <img class="course-img" src="<%= course.coverPic %>" alt="" />
@@ -90,5 +128,58 @@
         </section>
       </section>
     </main>
+    <script type="module">
+      const menu = document.getElementById("addNewCourse");
+      const newCourseBtn = document.getElementById("newCourseBtn");
+
+      newCourseBtn.addEventListener("click", () => {
+        menu.classList.toggle("activee");
+      });
+
+      document.addEventListener("dblclick", function (e) {
+        if (
+          menu.classList.contains("activee") &&
+          !menu.contains(e.target) &&
+          !newCourseBtn.contains(e.target)
+        ) {
+          menu.classList.remove("activee");
+          document.getElementById("form").reset();
+        }
+      });
+
+      // << Start >> form Validation
+      import { validateForm } from "/js/formValidation.js";
+      const form = document.getElementById("form");
+      const error = document.getElementById("error");
+      const button = document.getElementById("submit");
+      const data = button.getAttribute('data-studentid');
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        error.style.color = "red";
+        const errorMsg = validateForm(form);
+        if (errorMsg) return (error.innerHTML = errorMsg);
+
+        try {
+          const res = await fetch("/courses/courseInner/addstudent", {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              courseId: "<%= course._id %>",
+              studnetid: data,
+            }),
+          });
+          const data = await res.json();
+          if (data.msg) {
+            error.style.color = "green";
+            error.innerHTML = "Added";
+            location.reload();
+          } else if (data.err) location.assign("/error");
+        } catch (err) {
+          location.assign("/error");
+        }
+      });
+      // << End >> form Validation
+    </script>
   </body>
 </html>
