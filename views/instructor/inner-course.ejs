@@ -37,7 +37,7 @@
                   <a href="<%=link.link %>" target="_blank">
                     <%=link.name %>
                   </a>
-                  <button class="removebtn" data-linkid="<%=link._id %>">Delete Link</button>
+                  <button class="deleteLink" data-linkid="<%=link._id %>">Delete Link</button>
                 </div>
                 <% }); %>
                   <% } else{%>
@@ -52,6 +52,7 @@
               <% files.forEach(file=> { %>
                 <div>
                   <a href="<%= file.filePath %>" download>file</a>
+                  <button class="deleteFile" data-fileid="<%=file._id %>">Delete File</button>
                 </div>
                 <% }); %>
                   <% } else{%>
@@ -139,16 +140,44 @@
         }
       });
     </script>
-    <!-- remove btn  -->
+    <!-- Delete Link  -->
     <script>
-      const removebtn = document.getElementsByClassName("removebtn");
-      Array.from(removebtn).forEach((b) => {
+      const deleteLink = document.getElementsByClassName("deleteLink");
+      Array.from(deleteLink).forEach((b) => {
         b.addEventListener("click", async (e) => {
           console.log(b.dataset.linkid);
           const linkId = b.dataset.linkid;
-
           try {
-            const res = await fetch("/instructor/<%=course._id%>/delete/" + linkId, {
+            const res = await fetch("/instructor/<%=course._id%>/deleteLink/" + linkId, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (data.msg) {
+              Toastify({
+                text: "removed Successfully",
+                duration: 3000,
+                gravity: "top",
+                close: false,
+                backgroundColor: "green",
+              }).showToast();
+              location.reload();
+            } else if (data.err) location.assign("/error");
+          } catch (err) {
+            console.log(err)
+            location.assign("/error");
+          }
+        });
+      });
+    </script>
+    <!-- Delete Files  -->
+    <script>
+      const deleteFile = document.getElementsByClassName("deleteFile");
+      Array.from(deleteFile).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const fileId = b.dataset.fileid;
+          console.log(b.dataset.fileid);
+          try {
+            const res = await fetch("/instructor/<%=course._id%>/deleteFile/" + fileId, {
               method: "DELETE",
             });
             const data = await res.json();

@@ -201,7 +201,7 @@ router.post("/addlink", async (req, res) => {
   }
 });
 // delete link
-router.delete("/:cid/delete/:lid", async (req, res) => {
+router.delete("/:cid/deleteLink/:lid", async (req, res) => {
   const linkId = req.params.lid;
   try {
     // Delete link from courseLinkModel
@@ -229,6 +229,24 @@ router.get("/:Iid/:Cid/addFile", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
+
+// delete file
+router.delete("/:cid/deleteFile/:fid", async (req, res) => {
+  const fileId = req.params.fid;
+  try {
+    // Delete link from courseLinkModel
+    await courseFileModel.findByIdAndDelete(fileId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { files: fileId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
   }
