@@ -81,7 +81,6 @@ router.get("/:id/courses/:Cid", async (req, res) => {
 // });
 
 router.get("/:cid/addStudent/:sid", async (req, res) => {
-  console.log("XXXXXXXXXXXXX");
   const courseId = req.params.cid;
   const studentId = req.params.sid;
   try {
@@ -94,6 +93,12 @@ router.get("/:cid/addStudent/:sid", async (req, res) => {
         course.students.push(studentId);
         course.numberOfStudents++; // Increment the number of students
         await course.save();
+
+        // Save the course in the user's courses array
+        const user = await userModel.findById(studentId);
+        user.courses.push(courseId);
+        await user.save();
+
         console.log("Student added to the course successfully.");
         // res.render("admin/courseInner");
       } else {
@@ -107,7 +112,6 @@ router.get("/:cid/addStudent/:sid", async (req, res) => {
     console.log(err);
   }
 });
-
 
 router.get("/:id/users", async (req, res) => {
   const page = req.query.p || 0;
@@ -170,16 +174,16 @@ router.post("/:id/settings/updatedata", async (req, res) => {
   const { firstName, lastName, email, birthdayDate } = req.body;
   try {
     if (await userModel.findOne({ email, _id: { $ne: userid } }))
-    return res.status(409).json({ errMsg: "Email is Taken" });
+      return res.status(409).json({ errMsg: "Email is Taken" });
     userModel
-    .findByIdAndUpdate(userid, { firstName, lastName, email, birthdayDate })
-    .then(() => {
-      return res.status(200).json({ msg: "done" });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ err: true });
-    });
+      .findByIdAndUpdate(userid, { firstName, lastName, email, birthdayDate })
+      .then(() => {
+        return res.status(200).json({ msg: "done" });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({ err: true });
+      });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
@@ -191,7 +195,7 @@ router.post("/settings/changepp/:id", async (req, res) => {
     const file = req.files.file;
     const filename = file.name;
     const filePath = `${__dirname}/public/upload/images/${filename}`;
-    
+
     file.mv(filePath, async (err) => {
       if (err) {
         console.log(err);
@@ -228,8 +232,8 @@ router.post("/:id/security/updatedata", async (req, res) => {
   try {
     const user = await userModel.findById(userid);
     if (!(await bcrypt.compare(currentPassword, user.password)))
-    return res.status(401).json({ errMsg: "Wrong current password" });
-    
+      return res.status(401).json({ errMsg: "Wrong current password" });
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     user.password = hashedPassword;

@@ -7,20 +7,66 @@ import bcrypt from "bcrypt";
 import path from "path";
 const __dirname = path.resolve();
 
+// router.get("/:id", async (req, res) => {
+//   const userId = req.params.id;
+//   try {
+//     const user = await userModel.findById(userId).populate("courses");
+//     console.log(user);
+
+//     if (user !== null && user.courses) {
+//       const courses = user.courses;
+//       const populatedCourses = await courseModel.populate(courses, {
+//         path: "students",
+//       });
+//       console.log(populatedCourses);
+
+//       const courseTitles = populatedCourses.map((course) => course.title);
+//       console.log(courseTitles);
+
+//       res.render("student/home", {
+//         user: user,
+//         courses: populatedCourses,
+//         courseTitles: courseTitles,
+//       });
+//     } else {
+//       console.log("User or courses not found.");
+//       res.status(404).send("User or courses not found.");
+//     }
+//   } catch (err) {
+//     res.status(500).json({ error: true });
+//     console.log(err);
+//   }
+// });
+
 router.get("/:id", async (req, res) => {
-  const studentId = req.params.id;
-  const courses = await courseModel.find({
-    students: { $elemMatch: { _id: studentId } },
-  });
+  const userId = req.params.id;
+  try {
+    const user = await userModel.findById(userId).populate("courses");
+    console.log(user);
 
-  console.log("MMMMMMMMMM");
-  console.log(courses);
-  console.log("MMMMMMMMMM");
+    if (user !== null && user.courses) {
+      const courses = user.courses;
+      const populatedCourses = await courseModel.populate(courses, {
+        path: "students",
+      });
+      console.log(populatedCourses);
 
-  res.render("student/home", {
-    user: await userModel.findById(req.params.id),
-    courses,
-  });
+      const courseTitles = populatedCourses.map((course) => course.title);
+      console.log(courseTitles);
+
+      res.render("student/home", {
+        user: user,
+        courses: populatedCourses,
+        courseTitles: courseTitles,
+      });
+    } else {
+      console.log("User or courses not found.");
+      res.status(404).send("User or courses not found.");
+    }
+  } catch (err) {
+    res.status(500).json({ error: true });
+    console.log(err);
+  }
 });
 
 router.get("/:id/:cid", async (req, res) => {

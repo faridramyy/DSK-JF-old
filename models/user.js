@@ -34,8 +34,8 @@ const userSchema = new Schema(
       default: "2003-12-22",
     },
     phoneNumber: {
-      type :String , 
-      default:"1234567890" ,
+      type: String,
+      default: "1234567890",
     },
     gpa: {
       type: Number,
@@ -56,6 +56,7 @@ const userSchema = new Schema(
     courses: {
       type: [mongoose.Schema.Types.ObjectId],
       default: [],
+      ref: "Course",
     },
     facebook: {
       type: String,
