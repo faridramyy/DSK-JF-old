@@ -4,6 +4,77 @@ course
     padding: 0;
     box-sizing: border-box;
   }
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .new-course {
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: rgb(32, 101, 209);
+    box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
+  }
+  .add-new-course {
+    top: 70px;
+    right: 80px;
+    position: absolute;
+    background-color: #eee;
+    width: fit-content;
+    padding: 6px 16px;
+    box-shadow: rgba(83, 89, 100, 0.24) 0px 8px 16px 0px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100px);
+    transition: 0.3s;
+    text-align: center;
+    z-index: 999;
+  }
+  #error {
+    margin: 10px;
+  }
+  .add-new-course.activee {
+    pointer-events: all;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .add-new-course div {
+    margin: 3px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .add-new-course div input ,#instructorName{
+    border: none;
+    border-bottom: 1px solid rgb(76, 139, 240);
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 5px 3px;
+    transition: 0.1s;
+  }
+  .add-new-course div input:focus {
+    outline: none;
+    border-bottom: 3px solid rgb(76, 139, 240);
+  }
+  #instructorName{
+    width: 173px;
+  }
+  #submit {
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: rgb(45, 182, 27);
+    box-shadow: rgba(38, 209, 32, 0.24) 0px 8px 16px 0px;
+  }
+  form div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+  }
   #course {
     padding: 8vw 8vw 8vw 8vw;
     text-align: center;
