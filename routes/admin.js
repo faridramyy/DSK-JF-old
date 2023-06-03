@@ -4,6 +4,7 @@ import courseModel from "../models/course.js";
 import path from "path";
 import bcrypt from "bcrypt";
 import { createPublicKey } from "crypto";
+import { countReset } from "console";
 const __dirname = path.resolve();
 const router = express.Router();
 router.get("/:id", async (req, res) => {
@@ -91,6 +92,7 @@ router.get("/:cid/addStudent/:sid", async (req, res) => {
       console.log(availableStudent);
       if (!availableStudent) {
         course.students.push(studentId);
+        course.numberOfStudents++; // Increment the number of students
         await course.save();
         console.log("Student added to the course successfully.");
         // res.render("admin/courseInner");
@@ -105,6 +107,7 @@ router.get("/:cid/addStudent/:sid", async (req, res) => {
     console.log(err);
   }
 });
+
 
 router.get("/:id/users", async (req, res) => {
   const page = req.query.p || 0;
