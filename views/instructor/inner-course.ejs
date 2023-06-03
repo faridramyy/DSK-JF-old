@@ -72,6 +72,8 @@
                   <p>Description: <%= submission.description %>
                   </p>
                   <p>Deadline: <%= submission.deadline %>
+                    <button class="deleteSubmission" data-submissionid="<%=submission._id %>">Delete Submission</button>
+
                   </p>
                   <!-- Display other project properties here -->
                 </div>
@@ -178,6 +180,35 @@
           console.log(b.dataset.fileid);
           try {
             const res = await fetch("/instructor/<%=course._id%>/deleteFile/" + fileId, {
+              method: "DELETE",
+            });
+            const data = await res.json();
+            if (data.msg) {
+              Toastify({
+                text: "removed Successfully",
+                duration: 3000,
+                gravity: "top",
+                close: false,
+                backgroundColor: "green",
+              }).showToast();
+              location.reload();
+            } else if (data.err) location.assign("/error");
+          } catch (err) {
+            console.log(err)
+            location.assign("/error");
+          }
+        });
+      });
+    </script>
+    <!-- Delete Submissions  -->
+    <script>
+      const deleteSubmissions = document.getElementsByClassName("deleteSubmission");
+      Array.from(deleteSubmissions).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const submissionId = b.dataset.submissionid;
+          console.log(b.dataset.submissionid);
+          try {
+            const res = await fetch("/instructor/<%=course._id%>/deleteSubmission/" + submissionId, {
               method: "DELETE",
             });
             const data = await res.json();

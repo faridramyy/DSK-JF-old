@@ -322,6 +322,23 @@ router.post("/addSubmission", async (req, res) => {
     res.status(500).json({ err: true });
   }
 });
+// delete file
+router.delete("/:cid/deleteSubmission/:sid", async (req, res) => {
+  const submissionId = req.params.sid;
+  try {
+    // Delete link from courseLinkModel
+    await courseSubmissionModel.findByIdAndDelete(submissionId);
+
+    // Remove linkId from links array in courseModel
+    await courseModel.findByIdAndUpdate(req.params.cid, {
+      $pull: { submissions: submissionId },
+    });
+    res.json({ msg: "done" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ err: true });
+  }
+});
 
 // get project page
 router.get("/:Iid/:Cid/addProject", async (req, res) => {
