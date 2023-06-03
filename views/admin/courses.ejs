@@ -77,60 +77,73 @@
               </article>
             </a>
 
+            <% }); %>
+        </section>
+        <% } else { %>
+          <div>
+            <p>no courses to show</p>
+          </div>
+          <% } %>
+
+            <script type="module">
+              const menu = document.getElementById("addNewCourse");
+              const newCourseBtn = document.getElementById("newCourseBtn");
+
+              newCourseBtn.addEventListener("click", () => {
+                menu.classList.toggle("activee");
+              });
+
+              document.addEventListener("dblclick", function (e) {
+                if (
+                  menu.classList.contains("activee") &&
+                  !menu.contains(e.target) &&
+                  !newCourseBtn.contains(e.target)
+                ) {
+                  menu.classList.remove("activee");
+                  document.getElementById("form").reset();
+                }
+              });
+
+              // << Start >> form Validation
+              import { validateForm } from "/js/formValidation.js";
+              const form = document.getElementById("form");
+              const error = document.getElementById("error");
+
+              form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                error.style.color = "red";
+                const errorMsg = validateForm(form);
+                if (errorMsg) return (error.innerHTML = errorMsg);
+
+                try {
+                  const res = await fetch("/admin/courses", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      title: document.getElementById("courseName").value,
+                      numberOfStudents:
+                        document.getElementById("numOfStudents").value,
+                      instructorId:
+                        document.getElementById("instructorName").options[
+                          document.getElementById("instructorName").selectedIndex
+                        ].dataset.instructorid,
+                    }),
+                  });
+                  const data = await res.json();
+                  if (data.msg) {
+                    error.style.color = "green";
+                    error.innerHTML = "Added";
+                    location.reload();
+                  } else if (data.err) location.assign("/error");
+                } catch (err) {
+                  location.assign("/error");
+                }
+              });
+        // << End >> form Validation
+            </script>
+            <%- include("../chatGPT.ejs") %>
+    </main>
+</body>
+
 </html>
-
-<script type="module">
-  const menu = document.getElementById("addNewCourse");
-  const newCourseBtn = document.getElementById("newCourseBtn");
-
-  newCourseBtn.addEventListener("click", () => {
-    menu.classList.toggle("activee");
-  });
-
-  document.addEventListener("dblclick", function (e) {
-    if (
-      menu.classList.contains("activee") &&
-      !menu.contains(e.target) &&
-      !newCourseBtn.contains(e.target)
-    ) {
-      menu.classList.remove("activee");
-      document.getElementById("form").reset();
-    }
-  });
-
-  // << Start >> form Validation
-  import { validateForm } from "../js/formValidation.js";
-  const form = document.getElementById("form");
-  const error = document.getElementById("error");
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    error.style.color = "red";
-    const errorMsg = validateForm(form);
-    if (errorMsg) return (error.innerHTML = errorMsg);
-
-    try {
-      const res = await fetch("/admin/courses", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: document.getElementById("courseName").value,
-          numberOfStudents: document.getElementById("numOfStudents").value,
-          instructorId:
-            document.getElementById("instructorName").options[
-              document.getElementById("instructorName").selectedIndex
-            ].dataset.instructorid,
-        }),
-      });
-      const data = await res.json();
-      if (data.msg) {
-        error.style.color = "green";
-        error.innerHTML = "Added";
-      } else if (data.err) location.assign("/error");
-    } catch (err) {
-      location.assign("/error");
-    }
-  });
-  // << End >> form Validation
-</script>
