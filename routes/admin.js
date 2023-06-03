@@ -5,7 +5,6 @@ import bcrypt from "bcrypt";
 import { createPublicKey } from "crypto";
 const __dirname = path.resolve();
 const router = express.Router();
-
 router.get("/:id", async (req, res) => {
   res.render("admin/dashboard", {
     user: await userModel.findById(req.params.id),
@@ -30,7 +29,6 @@ router.get("/:id/users", async (req, res) => {
     usersPerPage,
   });
 });
-
 router.put("/users/ban/:id", async (req, res) => {
   const userID = req.params.id;
   await userModel
@@ -74,16 +72,16 @@ router.post("/:id/settings/updatedata", async (req, res) => {
   const { firstName, lastName, email, birthdayDate } = req.body;
   try {
     if (await userModel.findOne({ email, _id: { $ne: userid } }))
-      return res.status(409).json({ errMsg: "Email is Taken" });
+    return res.status(409).json({ errMsg: "Email is Taken" });
     userModel
-      .findByIdAndUpdate(userid, { firstName, lastName, email, birthdayDate })
-      .then(() => {
-        return res.status(200).json({ msg: "done" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json({ err: true });
-      });
+    .findByIdAndUpdate(userid, { firstName, lastName, email, birthdayDate })
+    .then(() => {
+      return res.status(200).json({ msg: "done" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err: true });
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ err: true });
@@ -95,7 +93,7 @@ router.post("/settings/changepp/:id", async (req, res) => {
     const file = req.files.file;
     const filename = file.name;
     const filePath = `${__dirname}/public/upload/images/${filename}`;
-
+    
     file.mv(filePath, async (err) => {
       if (err) {
         console.log(err);
@@ -132,8 +130,8 @@ router.post("/:id/security/updatedata", async (req, res) => {
   try {
     const user = await userModel.findById(userid);
     if (!(await bcrypt.compare(currentPassword, user.password)))
-      return res.status(401).json({ errMsg: "Wrong current password" });
-
+    return res.status(401).json({ errMsg: "Wrong current password" });
+    
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
     user.password = hashedPassword;
@@ -148,6 +146,44 @@ router.post("/:id/security/updatedata", async (req, res) => {
 router.get("/:id/notifications", async (req, res) => {
   res.render("admin/notifications", {
     user: await userModel.findById(req.params.id),
+  });
+});
+
+router.get("/:id/users", async (req, res) => {
+  const page = req.query.p || 0;
+  const usersPerPage = 10;
+  const searchQuery = req.query.q.toLowerCase();
+
+  // Create a regular expression to perform case-insensitive search
+  const regexQuery = new RegExp(searchQuery, "i");
+
+  // Count the total number of matching users
+  const usersLength = await userModel.countDocuments({
+    $or: [
+      { username: regexQuery },
+      { email: regexQuery },
+      { role: regexQuery },
+    ],
+  });
+
+  // Retrieve the users based on the search query, skip and limit based on pagination
+  let users = await userModel
+    .find({
+      $or: [
+        { username: regexQuery },
+        { email: regexQuery },
+        { role: regexQuery },
+      ],
+    })
+    .skip(page * usersPerPage)
+    .limit(usersPerPage);
+
+  res.render("admin/users", {
+    user: await userModel.findById(req.params.id),
+    users,
+    usersLength,
+    usersPerPage,
+    searchQuery,
   });
 });
 
