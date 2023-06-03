@@ -1,88 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-    <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- toastify -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- style sheets -->
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <link rel="stylesheet" href="/css/instructor/inner-course.css" />
-    <link rel="stylesheet" href="/css/instructor/addProject.css" />
 
-    <title><%= course.title %></title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- style sheets -->
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+  <link rel="stylesheet" href="/css/instructor/addProject.css" />
 
-  <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
-    <%- include("./nav.ejs") %>
+  <title>
+    <%= course.title %>
+  </title>
+</head>
+
+<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+  <%- include("./nav.ejs") %>
     <main>
       <%- include("./inner-course-header.ejs") %>
-      <section class="display">
-        <div class="add-project">
-          <div class="add-project-form" id="project">
-            <form id="form">
-              <fieldset>
-                <legend><span class="number">1</span> Project Info</legend>
+        <section class="display">
+          <div class="add-project">
+            <div class="add-project-form" id="project">
+              <form id="form">
+                <fieldset>
+                  <legend><span class="number">1</span> Project Info</legend>
 
-                <label for="title">Project title:</label>
-                <input type="text" id="name" />
+                  <label for="title">Project title:</label>
+                  <input type="text" id="name" />
 
-                <label for="Deadline">Deadline:</label>
-                <input type="date" id="deadline" name="deadline" />
-              </fieldset>
-              <fieldset>
-                <legend><span class="number">2</span> Project details</legend>
+                  <label for="Deadline">Deadline:</label>
+                  <input type="date" id="deadline" name="deadline" />
+                </fieldset>
+                <fieldset>
+                  <legend><span class="number">2</span> Project details</legend>
 
-                <label for="description">Description:</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  style="resize: none; height: 150px"
-                ></textarea>
-                <div>
-                  <label for="numberOfStudentsPerTeam"
-                    >Number of team members:</label
-                  >
-                  <select
-                    name="numberOfStudentsPerTeam"
-                    id="numberOfStudentsPerTeam"
-                  >
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="noOfPhases">Number of phases:</label>
-                  <select name="noOfPhases" id="noOfPhases">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-              </fieldset>
+                  <label for="description">Description:</label>
+                  <textarea id="description" name="description" style="resize: none; height: 150px"></textarea>
+                  <div>
+                    <label for="numberOfStudentsPerTeam">Number of team members:</label>
+                    <select name="numberOfStudentsPerTeam" id="numberOfStudentsPerTeam">
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="noOfPhases">Number of phases:</label>
+                    <select name="noOfPhases" id="noOfPhases">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                    </select>
+                  </div>
+                </fieldset>
 
-              <button type="submit" id="submit">Submit</button>
-              <button type="reset" id="clear">Clear</button>
-            </form>
+                <button type="submit" id="submit">Submit</button>
+                <button type="reset" id="clear">Clear</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <a class="returnToCourse" href="/instructor/<%= user._id %>/<%= course.id %>"><i
+            class="fa-solid fa-backward"></i>
+          Return to
+          course</a>
     </main>
 
     <!-- editable title -->
@@ -161,5 +152,6 @@
         }
       });
     </script>
-  </body>
+</body>
+
 </html>

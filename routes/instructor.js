@@ -37,7 +37,7 @@ router.get("/:Iid/:Cid", async (req, res) => {
       course: await courseModel.findById(courseId),
     });
   } catch (error) {
-    console.log(err);
+    console.log(error);
     res.status(500).json({ err: true });
   }
 });

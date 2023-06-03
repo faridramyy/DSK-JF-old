@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-    <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <!-- toastify -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- style sheets -->
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/instructor/nav.css" />
-    <link rel="stylesheet" href="/css/instructor/inner-course.css" />
-    <link rel="stylesheet" href="/css/instructor/addProject.css" />
 
-    <title><%= course.title %></title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- style sheets -->
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/instructor/nav.css" />
+  <link rel="stylesheet" href="/css/instructor/inner-course.css" />
+  <link rel="stylesheet" href="/css/instructor/addProject.css" />
 
-  <body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
-    <%- include("./nav.ejs") %>
+  <title>
+    <%= course.title %>
+  </title>
+</head>
+
+<body data-userid="<%= user._id %>" data-courseid="<%= course._id %>">
+  <%- include("./nav.ejs") %>
     <main>
       <%- include("./inner-course-header.ejs") %>
-      <section class="display">
-        <div class="add-project">
-          <div class="add-project-form" id="project">
-            <form id="form">
-              <fieldset>
-                <legend><span class="number">1</span> Link Info</legend>
-                <label for="title">Link title:</label>
-                <input type="text" id="name" />
-              </fieldset>
-              <fieldset>
-                <legend><span class="number">2</span> Link details</legend>
-                <label for="link">Link:</label>
-                <input type="text" id="link" />
-              </fieldset>
-              <button type="submit" id="submit">Submit</button>
-              <button type="reset" id="clear">Clear</button>
-            </form>
+        <section class="display">
+          <div class="add-project">
+            <div class="add-project-form" id="project">
+              <form id="form">
+                <fieldset>
+                  <legend><span class="number">1</span> Link Info</legend>
+                  <label for="title">Link title:</label>
+                  <input type="text" id="name" />
+                </fieldset>
+                <fieldset>
+                  <legend><span class="number">2</span> Link details</legend>
+                  <label for="link">Link:</label>
+                  <input type="text" id="link" />
+                </fieldset>
+                <button type="submit" id="submit">Submit</button>
+                <button type="reset" id="clear">Clear</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <a class="returnToCourse" href="/instructor/<%= user._id %>/<%= course.id %>"><i
+            class="fa-solid fa-backward"></i>
+          Return to
+          course</a>
     </main>
 
     <!-- editable title -->
@@ -124,5 +124,6 @@
         }
       });
     </script>
-  </body>
+</body>
+
 </html>

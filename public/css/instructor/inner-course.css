@@ -76,3 +76,20 @@
 .display {
   margin-top: 20px;
 }
+
+.returnToHome {
+  position: absolute;
+  bottom: 2%;
+  left: 5%;
+  border-color: rgb(72, 0, 87);
+  color: rgb(106, 0, 112);
+  text-decoration: none;
+}
+.returnToCourse {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  border-color: rgb(32, 101, 209);
+  color: rgb(0, 43, 112);
+  text-decoration: none;
+}
