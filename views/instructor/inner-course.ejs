@@ -28,7 +28,70 @@
     <%- include("./nav.ejs") %>
     <main>
       <%- include("./inner-course-header.ejs") %>
-      <section class="display">display all course content</section>
+      <section class="display">
+
+        <!-- link -->
+        <div class="my-links">
+          <h2>Links</h2>
+          <% if (links) { %>
+            <% links.forEach(link => { %>
+              <div>
+                <!-- fix the path  -->
+               <a href="<%=link.link %>" target="_blank"><%=link.name %></a>
+              </div>
+            <% }); %>
+          <% } else{%>
+            <p>no links</p>
+            <% } %>
+        </div>
+
+        <!-- file -->
+        <div class="my-files">
+          <h2>Files:</h2>
+          <% if (files) { %>
+            <% files.forEach(file => { %>
+              <div>
+                <a href="<%= file.filePath %>" download>file</a>
+              </div>
+            <% }); %>
+          <% } else{%>
+            <p>no files</p>
+            <% } %>
+        </div>
+
+        <!-- submissions -->
+        <div class="my-submissions">
+          <h2>Submissions:</h2>
+          <% if (submissions) { %>
+            <% submissions.forEach(submission => { %>
+              <div>
+                <h3><%= submission.title %></h3>
+                <p>Description: <%= submission.description %></p>
+                <p>Deadline: <%= submission.deadline %></p>
+                <!-- Display other project properties here -->
+              </div>
+            <% }); %>
+          <% } else{%>
+            <p>no files</p>
+            <% } %>
+        </div>
+      
+
+        <!-- projects  -->
+        <div class="my-projects">
+          <h2>Projects</h2>
+          <% if (projects) { %>
+            <% projects.forEach(project => { %>
+              <div>
+                <h3><%= project.title %></h3>
+                <p>Description: <%= project.description %></p>
+              </div>
+            <% }); %>
+          <% } else{%>
+            <p>no projects</p>
+            <% } %>
+        </div>
+      </section>
     </main>
 
     <!-- editable title -->
