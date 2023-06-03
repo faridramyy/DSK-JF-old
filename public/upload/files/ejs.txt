@@ -26,6 +26,7 @@
     <main>
       <%- include("./inner-course-header.ejs") %>
         <section class="display">
+
           <!-- link -->
           <div class="my-links">
             <h2>Links</h2>
@@ -36,9 +37,7 @@
                   <a href="<%=link.link %>" target="_blank">
                     <%=link.name %>
                   </a>
-                  <button class="deleteLink" data-linkid="<%=link._id %>">
-                    Delete Link
-                  </button>
+                  <button class="deleteLink" data-linkid="<%=link._id %>">Delete Link</button>
                 </div>
                 <% }); %>
                   <% } else{%>
@@ -53,9 +52,7 @@
               <% files.forEach(file=> { %>
                 <div>
                   <a href="<%= file.filePath %>" download>file</a>
-                  <button class="deleteFile" data-fileid="<%=file._id %>">
-                    Delete File
-                  </button>
+                  <button class="deleteFile" data-fileid="<%=file._id %>">Delete File</button>
                 </div>
                 <% }); %>
                   <% } else{%>
@@ -74,11 +71,7 @@
                   </h3>
                   <p>Description: <%= submission.description %>
                   </p>
-                  <p>
-                    Deadline: <%= submission.deadline %>
-                      <button class="deleteSubmission" data-submissionid="<%=submission._id %>">
-                        Delete Submission
-                      </button>
+                  <p>Deadline: <%= submission.deadline %>
                   </p>
                   <!-- Display other project properties here -->
                 </div>
@@ -87,6 +80,7 @@
                     <p>no files</p>
                     <% } %>
           </div>
+
 
           <!-- projects  -->
           <div class="my-projects">
@@ -99,9 +93,6 @@
                   </h3>
                   <p>Description: <%= project.description %>
                   </p>
-                  <button class="deleteProject" data-projectid="<%=project._id %>">
-                    Delete Project
-                  </button>
                 </div>
                 <% }); %>
                   <% } else{%>
@@ -157,12 +148,9 @@
           console.log(b.dataset.linkid);
           const linkId = b.dataset.linkid;
           try {
-            const res = await fetch(
-              "/instructor/<%=course._id%>/deleteLink/" + linkId,
-              {
-                method: "DELETE",
-              }
-            );
+            const res = await fetch("/instructor/<%=course._id%>/deleteLink/" + linkId, {
+              method: "DELETE",
+            });
             const data = await res.json();
             if (data.msg) {
               Toastify({
@@ -175,7 +163,7 @@
               location.reload();
             } else if (data.err) location.assign("/error");
           } catch (err) {
-            console.log(err);
+            console.log(err)
             location.assign("/error");
           }
         });
@@ -189,12 +177,9 @@
           const fileId = b.dataset.fileid;
           console.log(b.dataset.fileid);
           try {
-            const res = await fetch(
-              "/instructor/<%=course._id%>/deleteFile/" + fileId,
-              {
-                method: "DELETE",
-              }
-            );
+            const res = await fetch("/instructor/<%=course._id%>/deleteFile/" + fileId, {
+              method: "DELETE",
+            });
             const data = await res.json();
             if (data.msg) {
               Toastify({
@@ -207,73 +192,7 @@
               location.reload();
             } else if (data.err) location.assign("/error");
           } catch (err) {
-            console.log(err);
-            location.assign("/error");
-          }
-        });
-      });
-    </script>
-    <!-- Delete Submissions  -->
-    <script>
-      const deleteSubmission =
-        document.getElementsByClassName("deleteSubmission");
-      Array.from(deleteSubmission).forEach((b) => {
-        b.addEventListener("click", async (e) => {
-          const submissionId = b.dataset.submissionid;
-          console.log(b.dataset.submissionid);
-          try {
-            const res = await fetch(
-              "/instructor/<%=course._id%>/deleteSubmission/" + submissionId,
-              {
-                method: "DELETE",
-              }
-            );
-            const data = await res.json();
-            if (data.msg) {
-              Toastify({
-                text: "removed Successfully",
-                duration: 3000,
-                gravity: "top",
-                close: false,
-                backgroundColor: "green",
-              }).showToast();
-              location.reload();
-            } else if (data.err) location.assign("/error");
-          } catch (err) {
-            console.log(err);
-            location.assign("/error");
-          }
-        });
-      });
-    </script>
-    <!-- Delete Project  -->
-    <script>
-      const deleteProject =
-        document.getElementsByClassName("deleteProject");
-      Array.from(deleteProject).forEach((b) => {
-        b.addEventListener("click", async (e) => {
-          const projectId = b.dataset.projectid;
-          console.log(b.dataset.projectid);
-          try {
-            const res = await fetch(
-              "/instructor/<%=course._id%>/deleteProject/" + projectId,
-              {
-                method: "DELETE",
-              }
-            );
-            const data = await res.json();
-            if (data.msg) {
-              Toastify({
-                text: "removed Successfully",
-                duration: 3000,
-                gravity: "top",
-                close: false,
-                backgroundColor: "green",
-              }).showToast();
-              location.reload();
-            } else if (data.err) location.assign("/error");
-          } catch (err) {
-            console.log(err);
+            console.log(err)
             location.assign("/error");
           }
         });

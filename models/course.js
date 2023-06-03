@@ -20,7 +20,7 @@ const CourseSchema = new Schema({
   },
   availableForUsers: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   students: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   coverPic: {
