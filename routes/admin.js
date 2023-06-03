@@ -1,5 +1,6 @@
 import express from "express";
 import userModel from "../models/user.js";
+import courseModel from "../models/course.js";
 import path from "path";
 import bcrypt from "bcrypt";
 import { createPublicKey } from "crypto";
@@ -10,6 +11,33 @@ router.get("/:id", async (req, res) => {
   res.render("admin/dashboard", {
     user: await userModel.findById(req.params.id),
   });
+});
+router.get("/:id/courses", async (req, res) => {
+  let instructors = await userModel.find({ role: "Instructor" });
+  let course = await courseModel.find();
+
+  res.render("admin/courses", {
+    user: await userModel.findById(req.params.id),
+    dirname: __dirname,
+    instructors,
+    course,
+  });
+});
+
+router.post("/courses", async (req, res) => {
+  const { title, numberOfStudents, instructorId } = req.body;
+  try {
+    const newCourse = new courseModel({
+      title,
+      numberOfStudents,
+      instructorId,
+    });
+    newCourse.save();
+
+    res.json({ msg: "done" });
+  } catch (err) {
+    res.status(500).json({ err: true });
+  }
 });
 
 router.get("/:id/users", async (req, res) => {
