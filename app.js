@@ -32,7 +32,7 @@ app.use(fileUpload());
 
 app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
-app.use("/instructor", instructorAuth, instructorRouter);
+app.use("/instructor", instructorRouter);
 app.use("/student", studentAuth, studnetRouter);
 
 app.get("/gotbanned/:id", async (req, res) => {

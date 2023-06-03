@@ -28,12 +28,11 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/instructor/home.css" />
     <link rel="stylesheet" href="/css/admin/settings.css" />
     <title>Settings</title>
   </head>
   <body data-userid="<%= user._id %>">
-    <%- include("./nav.ejs") %>
     <main>
       <div class="container-xl px-4 mt-4">
         <nav class="nav nav-borders">
@@ -160,7 +159,7 @@
           const formData = new FormData();
           formData.append("file", fileToUpload);
 
-          const res = await fetch("/admin/settings/changepp/<%= user._id %>", {
+          const res = await fetch("/instructor/settings/changepp/<%= user._id %>", {
             method: "POST",
             body: formData,
           });
