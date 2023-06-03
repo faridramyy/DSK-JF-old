@@ -47,7 +47,8 @@ export function validateForm(form) {
     if (
       input.value === "" &&
       input.type !== "submit" &&
-      input.type !== "reset"
+      input.type !== "reset" &&
+      input.hasAttribute("name")
     ) {
       errorMessage = camelcaseToNormalString(input.name);
       errorMessage = capitalizeFirstLetter(errorMessage);
