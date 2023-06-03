@@ -12,7 +12,7 @@
             <div class="dropdown-content">
               <% if (courses.length> 0) { %>
                 <% courses.forEach((course)=> { %>
-                  <a href="<%= user._id %>/<%= course._id %>/courseInner">
+                  <a href="<%= user._id %>/courseInner/<%= course._id %>">
                     <%=course.title %>
                   </a>
                   <% }); %>
