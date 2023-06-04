@@ -69,20 +69,79 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id/:cid", async (req, res) => {
-  const id = req.params.id;
-  const cid = req.params.cid;
-  const course = await courseModel.findOne({
-    students: { $elemMatch: { studentId: id } },
-  });
-  if (!course) {
-    // Course not found
-    return res.status(404).json({ errMsg: "Course not found" });
+// router.get("/:id/courseInner/:cid", async (req, res) => {
+//   const userId = req.params.id;
+//   const cid = req.params.cid;
+//   console.log(await courseModel.findById(req.params.cid));
+//   const user = await userModel.findById(userId).populate("courses");
+
+//   const course = await courseModel.findById(cid).populate('User');
+//   console.log(course.instructorId);
+//   // const instructorTitle = course.user.title;
+//   // console.log(instructorTitle);
+
+//   let populatedCourses = [];
+
+//   if (user !== null && user.courses) {
+//     const courses = user.courses;
+//     populatedCourses = await courseModel.populate(courses, {
+//       path: "students",
+//     });
+//   }
+
+//   res.render("student/courseInner", {
+//     user: await userModel.findById(req.params.id),
+//     course: await courseModel.findById(req.params.cid),
+//     courses: populatedCourses,
+//     // instructorTitle: instructorTitle,
+//   });
+// });
+router.get("/:id/courseInner/:cid", async (req, res) => {
+  const userId = req.params.id;
+  const courseId = req.params.cid;
+
+  console.log(await courseModel.findById(req.params.cid));
+  const user = await userModel.findById(userId).populate("courses");
+
+  const course = await courseModel.findById(courseId);
+  console.log(course.instructorId); // Assuming 'name' is the field that holds the instructor's name
+  const instructor = await userModel.findById(course.instructorId);
+  console.log(instructor.firstName);
+
+  const courseProject = await courseModel
+    .findById(courseId)
+    .populate("projects");
+  const projects = courseProject.projects;
+
+  const courseLinks = await courseModel.findById(courseId).populate("links");
+  const links = courseLinks.links;
+
+  const courseSubmissions = await courseModel
+    .findById(courseId)
+    .populate("submissions");
+  const submissions = courseSubmissions.submissions;
+
+  const courseFiles = await courseModel.findById(courseId).populate("files");
+  const files = courseFiles.files;
+
+  let populatedCourses = [];
+
+  if (user !== null && user.courses) {
+    const courses = user.courses;
+    populatedCourses = await courseModel.populate(courses, {
+      path: "students",
+    });
   }
 
   res.render("student/courseInner", {
     user: await userModel.findById(req.params.id),
-    course,
+    course: await courseModel.findById(req.params.cid),
+    courses: populatedCourses,
+    instructor,
+    links,
+    submissions,
+    files,
+    projects,
   });
 });
 

@@ -117,7 +117,7 @@ nav .items i:hover {
   justify-content: space-between;
   align-items: center;
   transition: 0.3s;
-  z-index: 99; 
+  z-index: 99;
 }
 .secondary-nav ul {
   list-style: none;
@@ -209,7 +209,7 @@ nav .items i:hover {
 }
 /* start of main */
 main {
-  padding: 9rem 15rem 0rem 15rem ;
+  padding: 9rem 15rem 0rem 15rem;
   height: 100vh;
 }
 /* course */

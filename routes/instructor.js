@@ -508,11 +508,13 @@ router.get("/:id/:cid/viewall", async (req, res) => {
   try {
     const course = await courseModel.findById(courseId).populate("students");
     const students = course.students;
+    console.log("RRRRRRRRRRRRRRr");
     console.log(students);
+    console.log("RRRRRRRRRRRRRRR");
     res.render("instructor/viewAll", {
       user: await userModel.findById(req.params.id),
       course: course,
-      students: students
+      students: students,
     });
   } catch (err) {
     res.status(500).json({ error: true });
