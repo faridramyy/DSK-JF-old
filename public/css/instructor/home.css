@@ -41,3 +41,32 @@ h1 {
 .course-card a:hover {
   text-decoration: underline;
 }
+
+/* Pagination */
+.pagination {
+  width: 90%;
+  position: fixed;
+  bottom: 3%;
+}
+.pagination ul {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+}
+.pagination ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  padding: 7px 7px;
+  text-decoration: none;
+  background-color: #eee;
+  color: black;
+  border-radius: 50%;
+}
+.pagination ul li a:hover {
+  background-color: #e2e2e2;
+}

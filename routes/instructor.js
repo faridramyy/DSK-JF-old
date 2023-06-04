@@ -13,15 +13,25 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
   try {
     const instructorId = req.params.id;
-    const courses = await courseModel.find({
-      instructorId,
-      availableForUsers: true,
-    });
-    console.log("XXXXXXX");
+    const page = req.query.p || 0;
+    const coursesPerPage = 3;
+    let coursess = await courseModel.find();
+    const coursesLength = coursess.length;
+
+    const courses = await courseModel
+      .find({
+        instructorId,
+        availableForUsers: true,
+      })
+      .skip(page * coursesPerPage)
+      .limit(coursesPerPage);
+    console.log("XXXXXXsssssX");
     console.log(courses);
     res.render("instructor/home", {
       user: await userModel.findById(instructorId),
       courses,
+      coursesLength,
+      coursesPerPage,
     });
   } catch (err) {
     console.log(err);
@@ -357,7 +367,6 @@ router.get("/:Iid/:Cid/addProject", async (req, res) => {
 });
 // post project page
 router.post("/addProject", async (req, res) => {
-  console.log("xxxxxxxxxxxxxxxxx");
   const courseId = req.params.cid;
   const {
     title,
@@ -508,9 +517,7 @@ router.get("/:id/:cid/viewall", async (req, res) => {
   try {
     const course = await courseModel.findById(courseId).populate("students");
     const students = course.students;
-    console.log("RRRRRRRRRRRRRRr");
     console.log(students);
-    console.log("RRRRRRRRRRRRRRR");
     res.render("instructor/viewAll", {
       user: await userModel.findById(req.params.id),
       course: course,
