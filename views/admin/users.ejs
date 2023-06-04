@@ -68,22 +68,11 @@
                 <label for="student">Student</label>
               </div>
               <div>
-                <input
-                  checked
-                  type="radio"
-                  id="instructor"
-                  name="role"
-                  value="Instructor"
-                />
+                <input checked type="radio" id="instructor" name="role" value="Instructor" />
                 <label for="instructor">Instructor</label><br />
               </div>
               <div>
-                <input
-                  type="radio"
-                  id="teachingAssistant"
-                  name="role"
-                  value="Teaching Assistant"
-                />
+                <input type="radio" id="teachingAssistant" name="role" value="Teaching Assistant" />
                 <label for="teachingAssistant">Teaching Assistant</label>
               </div>
             </div>
@@ -192,7 +181,7 @@
         <ul>
           <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
           <%for(let i=0; i < number; i++) { %>
-          <li><a value="<%=i+1 %>" href="users?p=<%=i%>"> <%=i+1 %> </a></li>
+          <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
           <% } %>
         </ul>
       </div>
@@ -268,6 +257,7 @@
         }
       });
     </script>
+
 
     <!-- create new user  -->
     <script type="module">

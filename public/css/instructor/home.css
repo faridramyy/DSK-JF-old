@@ -1,43 +1,72 @@
+h1 {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 40px;
+}
 
 .courses-container {
-  overflow-x: scroll;
-  display: flex;
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin: 3%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
 }
-.courses-container::-webkit-scrollbar {
-  display: none;
-}
+
 .course-card {
-  margin: 10px;
-  padding-bottom: 10px;
-  margin-left: 0;
-  width: 200px;
-  border: #e7e3e3 1px solid;
-  border-radius: 5px;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+}
+
+.course-card img {
+  border-radius: 6px;
+}
+
+.course-card .name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.course-card p {
+  margin-top: 5px;
+}
+
+.course-card a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.course-card a:hover {
+  text-decoration: underline;
+}
+
+/* Pagination */
+.pagination {
+  width: 90%;
+  position: fixed;
+  bottom: 3%;
+}
+.pagination ul {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+}
+.pagination ul li a {
+  display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-}
-.course-card img {
-  width: 200px;
-  padding: 0.5rem;
-}
-.course-card p {
-  font-size: 14px;
-  margin: 2px;
-}
-.course-card .name {
-  font-weight: 500;
-  font-size: 18px;
-}
-.course-card a {
+  font-size: 15px;
+  width: 30px;
+  height: 30px;
+  padding: 7px 7px;
+  text-decoration: none;
+  background-color: #eee;
   color: black;
+  border-radius: 50%;
 }
-.no-data{
-  text-align: center;
-  margin-top: 100px;
-  user-select: none;
+.pagination ul li a:hover {
+  background-color: #e2e2e2;
 }

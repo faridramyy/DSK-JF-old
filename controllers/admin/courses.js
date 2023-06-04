@@ -6,13 +6,21 @@ const __dirname = path.resolve();
 const courses_get = async (req, res) => {
   try {
     let instructors = await userModel.find({ role: "Instructor" });
-    let course = await courseModel.find();
-
+    const page = req.query.p || 0;
+    const coursesPerPage = 8;
+    let coursess = await courseModel.find();
+    const coursesLength = coursess.length;
+    const course = await courseModel
+      .find()
+      .skip(page * coursesPerPage)
+      .limit(coursesPerPage);
     res.render("admin/courses", {
       user: await userModel.findById(req.params.id),
       dirname: __dirname,
       instructors,
       course,
+      coursesLength,
+      coursesPerPage,
     });
   } catch (err) {
     console.log(err);

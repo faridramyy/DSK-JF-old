@@ -1,10 +1,17 @@
 header {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
+
+h1 {
+  text-align: center;
+  flex-grow: 1;
+}
+
 .new-course {
+  margin-left: 10px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -12,6 +19,7 @@ header {
   background-color: rgb(32, 101, 209);
   box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
 }
+
 .add-new-course {
   top: 70px;
   right: 80px;
@@ -35,7 +43,6 @@ header {
   pointer-events: all;
   opacity: 1;
   transform: translateY(0);
-  
 }
 .add-new-course div {
   margin: 3px;
@@ -72,22 +79,39 @@ form div:last-child {
   padding-top: 10px;
 }
 .courses {
-  margin-top: 20px;
-  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  justify-content: space-between;
 }
-article {
-  width: 200px;
-  background-color: #eee;
-  cursor: pointer;
+
+.card {
+  width: 300px;
+  margin-bottom: 20px;
+  margin-top: 25px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
-article .image img {
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.image img {
   width: 100%;
+  height: auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
-.article-body h2 {
-  width: 100%;
-  text-align: center;
+
+.article-body {
   padding: 10px;
+}
+
+.article-body h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
 }
