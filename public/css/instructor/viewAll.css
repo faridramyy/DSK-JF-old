@@ -1,140 +1,32 @@
-.profile {
-  display: inline-block;
-  /* flex-wrap: wrap; */
-  /* justify-content: flex-start; */
-  align-items: flex-start;
-  margin: 1em;
-  max-width: none;
-  width: calc(33.33% - 2em);
-  /* Adjust the width to fit 3 cards per row */
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  padding: 2em;
-}
-
-.profile figure {
-  margin-right: 20px;
-}
-
-.profile figure img {
-  max-width: 150px;
-  max-height: 150px;
-  border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0px 0px 20px rgba(21, 21, 21, 0.15);
-}
-
-.profile header h1 small {
-  display: inline-block;
-  clear: both;
-  font-size: 18px;
-  opacity: 0.6;
-}
-
-.profile main {
-  display: none;
-}
-
-.profile main dl {
-  display: inline-block;
+.profile-table {
   width: 100%;
+  border-collapse: collapse;
 }
 
-.profile main dl dt,
-.profile main dl dd {
-  float: left;
-  padding: 8px 5px;
-  margin: 0;
-  border-bottom: 1px solid lighten(21, 21, 21, 80);
+.profile-table th,
+.profile-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.profile main dl dt {
-  width: 50%;
-  padding-right: 10px;
+.profile-table th {
   font-weight: bold;
+  background-color: #f5f5f5;
 }
 
-.profile main dl dt:after {
-  content: ":";
+.profile-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.profile main dl dd {
-  width: 50%;
-}
-
-.toggle {
-  position: absolute;
-  background: #fff;
-  top: 30px;
-  left: 30px;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 24px;
-  text-align: center;
-  z-index: 20;
-  vertical-align: middle;
-  box-shadow: 0px 0px 10px rgba(21, 21, 21, 0.15);
-  cursor: pointer;
-  border-radius: 20px;
-  user-select: none;
-  transition: box-shadow 300ms ease;
-}
-
-.toggle:hover {
-  box-shadow: 0px 0px 10px rgba(21, 21, 21, 0.25);
-}
-
-.toggle main {
-  font-size: 16px;
-}
-
-.view_details {
-  position: absolute;
-  top: -5000px;
-  left: -5000px;
-}
-
-label {
-  display: block;
-  cursor: pointer;
-}
-
-@media screen and (min-width: 520px) {
-  .profile {
-    flex-direction: row;
-    max-width: none;
-  }
-
-  .profile figure {
-    margin-right: 20px;
-  }
-}
-/* Pagination */
-.pagination {
-  width: 90%;
-  position: fixed;
-  bottom: 3%;
-}
-.pagination ul {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  list-style: none;
-}
-.pagination ul li a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15px;
-  width: 30px;
-  height: 30px;
-  padding: 7px 7px;
-  text-decoration: none;
-  background-color: #eee;
-  color: black;
+.profile-table img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
-.pagination ul li a:hover {
-  background-color: #e2e2e2;
+
+.profile-table a {
+  color: #333;
+  margin-right: 5px;
 }

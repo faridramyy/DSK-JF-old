@@ -37,53 +37,54 @@
       <%- include("./inner-course-header.ejs") %>
         <section>
           <% if (students.length) { %>
-            <% students.forEach((student)=> { %>
-              <div class="profile">
-                <figure>
-                  <img src="<%= student.profilePic  %>" alt="" />
-                </figure>
-                <header>
-                  <h1>
-                    <%= student.firstName %>
-                      <%= student.lastName %>
-                  </h1>
-                </header>
-                <div class="toggle">
-                  <input type="checkbox" class="view_details" id="view_details">
-                  <label for="view_details" title="tap here to view full profile">☰</label>
-                </div>
-                <main>
-                  <dl>
-                    <dt>Full name</dt>
-                    <dd>
+            <table class="profile-table">
+              <thead>
+                <tr>
+                  <th>Profile Picture</th>
+                  <th>Name</th>
+                  <th>Full Name</th>
+                  <th>GPA</th>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>Social</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% students.forEach((student)=> { %>
+                  <tr>
+                    <td>
+                      <img src="<%= student.profilePic %>" alt="student image" width="50px" />
+                    </td>
+                    <td>
+                      <%= student.firstName %>
+                        <%= student.lastName %>
+                    </td>
+                    <td>
                       <%= student.firstName + " " + student.lastName %>
-                    </dd>
-                    <dt>gpa</dt>
-                    <dd>
+                    </td>
+                    <td>
                       <%= student.gpa %>
-                    </dd>
-                    <dt>email</dt>
-                    <dd>
+                    </td>
+                    <td>
                       <%= student.email %>
-                    </dd>
-                    <dt>username</dt>
-                    <dd>
+                    </td>
+                    <td>
                       <%= student.username %>
-                    </dd>
-                    <dt>Social</dt>
-                    <dd>
-                      <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                      <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-                    </dd>
-                  </dl>
-                </main>
-              </div>
-              <!-- end profile -->
-              <% }); %>
-                <% } else { %>
-                  <p>No students found.</p>
-                  <% } %>
+                    </td>
+                    <td>
+                      <a href="#">
+                        <%= student.github %>
+                      </a>
+                    </td>
+                  </tr>
+                  <% }); %>
+              </tbody>
+            </table>
+            <% } else { %>
+              <p>No students found.</p>
+              <% } %>
         </section>
+
         <div class="pagination">
           <ul>
             <% const number=Math.ceil(studentsLength / studentsPerPage) || 0 %>

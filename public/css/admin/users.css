@@ -121,10 +121,9 @@ th > div {
   padding: 20px;
   z-index: 999999px;
   width: fit-content;
-  
 }
-.filter-options label{
-white-space: nowrap;
+.filter-options label {
+  white-space: nowrap;
 }
 td,
 th {
@@ -132,6 +131,9 @@ th {
   text-align: left;
   padding: 10px;
   position: relative;
+}
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 .container {
   display: flex;
