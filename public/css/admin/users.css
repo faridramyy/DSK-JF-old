@@ -113,6 +113,19 @@ th > div {
   color: black;
   cursor: pointer;
 }
+.filter-options {
+  position: absolute;
+  top: -10px;
+  right: 120px;
+  background-color: #dddddd;
+  padding: 20px;
+  z-index: 999999px;
+  width: fit-content;
+  
+}
+.filter-options label{
+white-space: nowrap;
+}
 td,
 th {
   border-bottom: 1px solid #dddddd;

@@ -6,40 +6,13 @@ import nodemailer from "nodemailer";
 import userModel from "../models/user.js";
 import otpModel from "../models/otp.js";
 
+import login from "../controllers/registration/login.js";
+
 const router = express.Router();
 
-router.get("/login", (req, res) => {
-  const notAllowed = req.query.notAllowed || false;
-  res.render("registration/login", { notAllowed });
-});
+router.get("/login", login.login_get);
+router.post("/login", login.login_post);
 
-router.post("/login", async (req, res) => {
-  const { username, Password } = req.body;
-
-  try {
-    const founduser = await userModel.findOne({ username });
-
-    if (!founduser)
-      return res.status(401).json({ errMsg: "Username not found" });
-
-    if (!(await bcrypt.compare(Password, founduser.password)))
-      return res.status(401).json({ errMsg: "Wrong password" });
-
-    const token = jwt.sign({ user: founduser }, process.env.jwtSecretPhrase, {
-      expiresIn: 3 * 24 * 60 * 60, //3 days
-    });
-
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
-    });
-
-    return res.status(200).json({ user: founduser });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ err: true });
-  }
-});
 
 router.get("/signup", (req, res) => res.render("registration/signup"));
 
