@@ -514,19 +514,29 @@ router.get("/:id/notifications", async (req, res) => {
 
 router.get("/:id/:cid/viewall", async (req, res) => {
   const courseId = req.params.cid;
+  const page = req.query.p || 0;
+  const studentsPerPage = 3;
+  let studentss = await courseModel.find();
+  const studentsLength = studentss.length;
+
   try {
-    const course = await courseModel.findById(courseId).populate("students");
+    const course = await courseModel
+      .findById(courseId)
+      .populate("students")
+      .skip(page * studentsPerPage)
+      .limit(studentsPerPage);
     const students = course.students;
     console.log(students);
     res.render("instructor/viewAll", {
       user: await userModel.findById(req.params.id),
       course: course,
       students: students,
+      studentsLength,
+      studentsPerPage,
     });
   } catch (err) {
     res.status(500).json({ error: true });
     console.log(err);
   }
 });
-
 export default router;
