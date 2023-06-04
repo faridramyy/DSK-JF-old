@@ -19,6 +19,9 @@
     <title>Sign up</title>
   </head>
   <body>
+    <div class="progress" id="PreLoaderBar">
+      <div class="indeterminate"></div>
+    </div>
     <main>
       <div class="container">
         <div class="title">
@@ -73,7 +76,7 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- eye -->
     <script src="js/registration/eye.js"></script>
-
+    <!-- form validation and sending to backend -->
     <script type="module">
       import { validateForm } from "/js/formValidation.js";
 
@@ -112,6 +115,15 @@
           location.assign("/error");
         }
       });
+    </script>
+    <!-- processing bar -->
+    <script>
+      document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          console.log(document.readyState);
+          document.getElementById("PreLoaderBar").style.display = "none";
+        }
+      };
     </script>
   </body>
 </html>
