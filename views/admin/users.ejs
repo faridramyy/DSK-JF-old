@@ -89,7 +89,8 @@
         </section>
       </header>
       <section>
-        <% if (users.length) { %>
+        <section>
+          <% if (users.length) { %>
           <table>
             <tr>
               <th colspan="6">
@@ -102,71 +103,67 @@
                 <button class="filter">
                   <i class="fa-solid fa-filter"></i>
                 </button>
+                <div class="filter-options" style="display: none;">
+                  <label><input type="checkbox" value="student">Students</label>
+                  <label><input type="checkbox" value="instructor">Instructors</label>
+                  <label><input type="checkbox" value="teachingAssistant">Teaching Assistants</label>
+                </div>
               </th>
             </tr>
-            <tr>
-              <th></th>
-              <th>Profile</th>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-            <% users.forEach(item => {
-              if (item.role !== 'admin') { %>
-            <tr class="user">
-              <td>
-                <input type="checkbox" class="checkbox" />
-                <div class="right-and-wrong" style="display: none">
-                  <i class="fa-solid fa-check" style="color: green; cursor: pointer"></i>
-                  <i class="fa-solid fa-xmark" style="color: red; cursor: pointer"></i>
-                </div>
-              </td>
-              <td>
-                <div class="container">
-                  <img src="<%= item.profilePic %>" alt="profile picture" />
-                </div>
-              </td>
-              <td><%= item.firstName %> <%= item.lastName %></td>
-              <td><%= item.role %></td>
-              <td><%= item.email %></td>
-              <td class="<%= item.isBanned ? 'banned' : 'active' %>">
-                <span><%- item.isBanned ? 'Banned' : 'Active' %></span>
-              </td>
-              <td style="position: relative">
-                <button class="dots btn">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
+      <% users.forEach(item => {
+        if (item.role !== 'admin') { %>
+      <tr class="user">
+        <td>
+          <input type="checkbox" class="checkbox" />
+          <div class="right-and-wrong" style="display: none">
+            <i class="fa-solid fa-check" style="color: green; cursor: pointer"></i>
+            <i class="fa-solid fa-xmark" style="color: red; cursor: pointer"></i>
+          </div>
+        </td>
+        <td>
+          <div class="container">
+            <img src="<%= item.profilePic %>" alt="profile picture" />
+          </div>
+        </td>
+        <td><%= item.firstName %> <%= item.lastName %></td>
+        <td><%= item.role %></td>
+        <td><%= item.email %></td>
+        <td class="<%= item.isBanned ? 'banned' : 'active' %>">
+          <span><%- item.isBanned ? 'Banned' : 'Active' %></span>
+        </td>
+        <td style="position: relative">
+          <button class="dots btn">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <div class="options">
+            <ul data-userid="<%= item._id %>">
+              <li>
+                <button><i class="fa-solid fa-message"></i> Message</button>
+              </li>
+              <li>
+                <button class="editbtn">
+                  <i class="fa-solid fa-pencil edit"></i> Edit
                 </button>
-                <div class="options">
-                  <ul data-userid="<%= item._id %>">
-                    <li>
-                      <button><i class="fa-solid fa-message"></i> Message</button>
-                    </li>
-                    <li>
-                      <button class="editbtn">
-                        <i class="fa-solid fa-pencil edit"></i> Edit
-                      </button>
-                    </li>
-                    <li>
-                      <button class="removebtn">
-                        <i class="fa-solid fa-trash delete"></i>
-                        Remove
-                      </button>
-                    </li>
-                    <li>
-                      <button class="banbtn">
-                        <i class="fa-solid fa-ban ban"></i>
-                        <span><%- item.isBanned ? 'Unban' : 'Ban' %></span>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <% }
-            }); %>
-          </table>        
+              </li>
+              <li>
+                <button class="removebtn">
+                  <i class="fa-solid fa-trash delete"></i>
+                  Remove
+                </button>
+              </li>
+              <li>
+                <button class="banbtn">
+                  <i class="fa-solid fa-ban ban"></i>
+                  <span><%- item.isBanned ? 'Unban' : 'Ban' %></span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <% }
+      }); %>
+    </table>        
       </section>
       <% } else { %>
       <p class="no-data">No data found!</p>
@@ -175,7 +172,7 @@
         <ul>
           <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
           <%for(let i=0; i < number; i++) { %>
-          <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
+          <li><a value="<%=i+1 %>" href="users?p=<%=i%>"> <%=i+1 %> </a></li>
           <% } %>
         </ul>
       </div>
@@ -202,10 +199,15 @@
         }
       });
     </script>
-    <script>
+
+
+      <script>
   const searchInput = document.getElementById('search');
   const userRows = document.getElementsByClassName('user');
+  const filterButton = document.querySelector('.filter');
+  const filterOptions = document.querySelector('.filter-options');
 
+  // Event listener for search input
   searchInput.addEventListener('input', function() {
     const searchQuery = this.value.toLowerCase();
 
@@ -216,11 +218,33 @@
         userRows[i].style.display = '';
       } else {
         userRows[i].style.display = 'none';
-     
       }
     }
   });
+
+  // Event listener for filter button
+  filterButton.addEventListener('click', function() {
+    filterOptions.style.display = filterOptions.style.display === 'block' ? 'none' : 'block';
+  });
+
+  // Event listener for filter options
+  filterOptions.addEventListener('change', function() {
+    const selectedRoles = Array.from(this.querySelectorAll('input[type="checkbox"]:checked'))
+      .map(checkbox => checkbox.value);
+
+    for (let i = 0; i < userRows.length; i++) {
+      const role = userRows[i].getElementsByTagName('td')[3].textContent.toLowerCase();
+
+      if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
+        userRows[i].style.display = '';
+      } else {
+        userRows[i].style.display = 'none';
+      }
+    }
+  });
+
 </script>
+
 
   
     <!-- create new user  -->
