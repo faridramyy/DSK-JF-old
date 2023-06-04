@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    />
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/admin/nav.css" />
+    <link rel="stylesheet" href="/css/admin/courses.css" />
+    <link rel="stylesheet" href="/css/chatGPT.css" />
+    <title>Admin-Users</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-  <!-- font-awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
-  <!-- toastify -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <!-- style sheets -->
-  <link rel="stylesheet" href="/css/general.css" />
-  <link rel="stylesheet" href="/css/admin/nav.css" />
-  <link rel="stylesheet" href="/css/admin/courses.css" />
-  <link rel="stylesheet" href="/css/chatGPT.css" />
-  <title>Admin-Users</title>
-</head>
-
-<body data-userid="<%= user._id %>">
-  <%- include("./nav.ejs") %>
+  <body data-userid="<%= user._id %>">
+    <div class="progress" id="PreLoaderBar">
+      <div class="indeterminate"></div>
+    </div>
+    <%- include("./nav.ejs") %>
     <main>
       <header>
         <h1>Courses</h1>
@@ -39,16 +50,15 @@
             <input id="courseName" type="text" name="courseName" />
           </div>
 
+
           <div>
             <label for="username">Instructor's name :</label>
             <select id="instructorName" name="instructorName">
-              <% if (instructors){ %>
-                <% instructors.forEach(instructor=> { %>
-                  <option data-instructorId="<%= instructor._id %>">
-                    <%= instructor.firstName %>
-                  </option>
-                  <% });} %>
-                    <option data-instructorId="NULL">No Instructor</option>
+              <% if (instructors){ %> <% instructors.forEach(instructor=> { %>
+              <option data-instructorId="<%= instructor._id %>">
+                <%= instructor.firstName %>
+              </option>
+              <% });} %>
             </select>
           </div>
           <div>
@@ -58,8 +68,8 @@
       </section>
 
       <% if (course.length> 0) { %>
-        <section class="courses">
-          <% course.forEach(c=> { %>
+      <section class="courses">
+        <% course.forEach(c=> { %>
 
             <a id="anchor" href="/admin/<%= user._id %>/courses/<%= c._id %>">
               <article class="card">
@@ -95,59 +105,67 @@
               const menu = document.getElementById("addNewCourse");
               const newCourseBtn = document.getElementById("newCourseBtn");
 
-              newCourseBtn.addEventListener("click", () => {
-                menu.classList.toggle("activee");
-              });
+        newCourseBtn.addEventListener("click", () => {
+          menu.classList.toggle("activee");
+        });
 
-              document.addEventListener("dblclick", function (e) {
-                if (
-                  menu.classList.contains("activee") &&
-                  !menu.contains(e.target) &&
-                  !newCourseBtn.contains(e.target)
-                ) {
-                  menu.classList.remove("activee");
-                  document.getElementById("form").reset();
-                }
-              });
+        document.addEventListener("dblclick", function (e) {
+          if (
+            menu.classList.contains("activee") &&
+            !menu.contains(e.target) &&
+            !newCourseBtn.contains(e.target)
+          ) {
+            menu.classList.remove("activee");
+            document.getElementById("form").reset();
+          }
+        });
 
-              // << Start >> form Validation
-              import { validateForm } from "/js/formValidation.js";
-              const form = document.getElementById("form");
-              const error = document.getElementById("error");
+        // << Start >> form Validation
+        import { validateForm } from "/js/formValidation.js";
+        const form = document.getElementById("form");
+        const error = document.getElementById("error");
 
-              form.addEventListener("submit", async (e) => {
-                e.preventDefault();
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-                error.style.color = "red";
-                const errorMsg = validateForm(form);
-                if (errorMsg) return (error.innerHTML = errorMsg);
+          error.style.color = "red";
+          const errorMsg = validateForm(form);
+          if (errorMsg) return (error.innerHTML = errorMsg);
 
-                try {
-                  const res = await fetch("/admin/courses", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      title: document.getElementById("courseName").value,
-                      instructorId:
-                        document.getElementById("instructorName").options[
-                          document.getElementById("instructorName").selectedIndex
-                        ].dataset.instructorid,
-                    }),
-                  });
-                  const data = await res.json();
-                  if (data.msg) {
-                    error.style.color = "green";
-                    error.innerHTML = "Added";
-                    location.reload();
-                  } else if (data.err) location.assign("/error");
-                } catch (err) {
-                  location.assign("/error");
-                }
-              });
+          try {
+            const res = await fetch("/admin/courses", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                title: document.getElementById("courseName").value,
+                instructorId:
+                  document.getElementById("instructorName").options[
+                    document.getElementById("instructorName").selectedIndex
+                  ].dataset.instructorid,
+              }),
+            });
+            const data = await res.json();
+            if (data.msg) {
+              error.style.color = "green";
+              error.innerHTML = "Added";
+              location.reload();
+            } else if (data.err) location.assign("/error");
+          } catch (err) {
+            location.assign("/error");
+          }
+        });
         // << End >> form Validation
-            </script>
-            <%- include("../chatGPT.ejs") %>
+      </script>
+      <%- include("../chatGPT.ejs") %>
     </main>
-</body>
-
+    <!-- processing bar -->
+    <script>
+      document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          console.log(document.readyState);
+          document.getElementById("PreLoaderBar").style.display = "none";
+        }
+      };
+    </script>
+  </body>
 </html>
