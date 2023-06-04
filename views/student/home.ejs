@@ -175,9 +175,15 @@
                 accusantium necessitatibus. Sit accusantium nobis assumenda.</p>
             </div>
           </div>
-
         </div>
       </div>
+      <section class="jokes">
+        <p>Chuck Norris Jokes</p>
+        <div id="cnjokes">
+        </div>
+        <button id="generate">Generate</button>
+
+      </section>
     </main>
     <!-- footer  -->
 
@@ -224,6 +230,25 @@
         search.classList.toggle("active");
         input.focus();
       });
+    </script>
+    <!-- Jokes APi -->
+    <script>
+      const generateButton = document.getElementById("generate");
+      const jokesContainer = document.querySelector("#cnjokes");
+
+      function fetchJoke() {
+        fetch("https://api.chucknorris.io/jokes/random")
+          .then((response) => response.json())
+          .then((joke) => {
+            const jokeElement = `<p class="joke">${joke.value}</p>`;
+            jokesContainer.innerHTML = jokeElement;
+          })
+          .catch((error) => {
+            console.error("Error fetching joke:", error);
+          });
+      }
+
+      generateButton.addEventListener("click", fetchJoke);
     </script>
 </body>
 
