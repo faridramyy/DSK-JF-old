@@ -15,18 +15,27 @@ router.get("/:id", async (req, res) => {
 
 router.get("/:id/courses", async (req, res) => {
   let instructors = await userModel.find({ role: "Instructor" });
-  let course = await courseModel.find();
-
+  const page = req.query.p || 0;
+  const coursesPerPage = 8;
+  let coursess = await courseModel.find();
+  const coursesLength = coursess.length;
+  const course = await courseModel
+    .find()
+    .skip(page * coursesPerPage)
+    .limit(coursesPerPage);
   res.render("admin/courses", {
     user: await userModel.findById(req.params.id),
     dirname: __dirname,
     instructors,
     course,
+    coursesLength,
+    coursesPerPage,
   });
 });
 
 router.post("/courses", async (req, res) => {
   const { title, numberOfStudents, instructorId } = req.body;
+
   try {
     const newCourse = new courseModel({
       title,
@@ -42,7 +51,6 @@ router.post("/courses", async (req, res) => {
 });
 
 router.get("/:id/courses/:Cid", async (req, res) => {
-  console.log("HEre");
   const courseId = req.params.Cid;
   try {
     let course = await courseModel.findById(courseId);

@@ -38,7 +38,7 @@
             <label for="Course's Name">Course's Name : </label>
             <input id="courseName" type="text" name="courseName" />
           </div>
-          
+
           <div>
             <label for="username">Instructor's name :</label>
             <select id="instructorName" name="instructorName">
@@ -62,7 +62,7 @@
           <% course.forEach(c=> { %>
 
             <a id="anchor" href="/admin/<%= user._id %>/courses/<%= c._id %>">
-              <article>
+              <article class="card">
                 <div class="image">
                   <img src="<%= c.coverPic %>" alt="cover picture" />
                 </div>
@@ -81,7 +81,16 @@
             <p>no courses to show</p>
           </div>
           <% } %>
-
+            <div class="pagination">
+              <ul>
+                <% const number=Math.ceil(coursesLength / coursesPerPage) || 0 %>
+                  <%for(let i=0; i < number; i++) { %>
+                    <li><a value="<%=i+1 %>" href="?p=<%=i %>">
+                        <%=i+1 %>
+                      </a></li>
+                    <% } %>
+              </ul>
+            </div>
             <script type="module">
               const menu = document.getElementById("addNewCourse");
               const newCourseBtn = document.getElementById("newCourseBtn");
