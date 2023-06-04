@@ -13,8 +13,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    />
     <!-- style sheets  -->
     <link rel="stylesheet" href="/css/general.css" />
     <link rel="stylesheet" href="/css/admin/nav.css" />
@@ -22,11 +24,23 @@
     <title>Admin-Dashboard</title>
   </head>
   <body data-userid="<%= user._id %>">
+    <div class="progress" id="PreLoaderBar">
+      <div class="indeterminate"></div>
+    </div>
     <%- include("./nav.ejs") %>
     <main>
       <h1>Admin Dashboard</h1>
       <p>Welcome admin</p>
       <%- include("../chatGPT.ejs") %>
     </main>
+    <!-- processing bar -->
+    <script>
+      document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          console.log(document.readyState);
+          document.getElementById("PreLoaderBar").style.display = "none";
+        }
+      };
+    </script>
   </body>
 </html>

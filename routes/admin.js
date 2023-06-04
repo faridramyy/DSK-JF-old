@@ -1,17 +1,14 @@
-import express, { json } from "express";
+import express from "express";
 import userModel from "../models/user.js";
 import courseModel from "../models/course.js";
 import path from "path";
 import bcrypt from "bcrypt";
-import { createPublicKey } from "crypto";
-import { countReset } from "console";
 const __dirname = path.resolve();
 const router = express.Router();
-router.get("/:id", async (req, res) => {
-  res.render("admin/dashboard", {
-    user: await userModel.findById(req.params.id),
-  });
-});
+
+import dashboard from "../controllers/admin/dashboard.js";
+
+router.get("/:id", dashboard.dashboard_get);
 
 router.get("/:id/courses", async (req, res) => {
   let instructors = await userModel.find({ role: "Instructor" });
