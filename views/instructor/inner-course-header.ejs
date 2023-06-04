@@ -1,21 +1,53 @@
-<section>
-  <div class="title">
-    <div>
-      <input type="text" id="title" value="<%= course.title %>" oninput="adjustInputWidth()" readonly />
-      <i class="fa-solid fa-pencil pencil" onclick="editTitle()"></i>
-    </div>
-    <div class="menu-container">
-      <button class="btn add" id="add">+ Add / Edit</button>
-      <div class="menu" id="menu">
-        <ul>
-          <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addLink">Link</a></li>
-          <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addFile">File</a></li>
-          <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addSubmission">Submission</a></li>
-          <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addProject">Project</a></li>
-        </ul>
+<style>
+  .course-title input,
+  .course-title i {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    right: 45%;
+    margin-bottom: 10%;
+  }
+
+  .returnToHome {
+    display: inline-block;
+    text-decoration: none;
+    color: #630062;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    position: absolute;
+    bottom: 5%;
+  }
+
+  .returnToHome i {
+    margin-right: 5px;
+  }
+
+  .returnToHome:hover {
+    color: #0056b3;
+  }
+</style>
+<div class="container">
+  <section class="course-section">
+    <div class="title">
+      <div class="course-title">
+        <input type="text" id="title" value="<%= course.title %>" oninput="adjustInputWidth()" readonly />
+        <i class="fa-solid fa-pencil pencil" onclick="editTitle()"></i>
+      </div>
+      <div class="menu-container">
+        <button class="btn add" id="add">+ Add / Edit</button>
+        <div class="menu" id="menu">
+          <ul>
+            <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addLink">Link</a></li>
+            <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addFile">File</a></li>
+            <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addSubmission">Submission</a></li>
+            <li><a href="/instructor/<%= user._id %>/<%= course._id %>/addProject">Project</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <a class="returnToHome" href="/instructor/<%= user._id %>/"><i class="fa-solid fa-hand-point-left"></i> Return to home
-    page</a>
-</section>
+    <a class="returnToHome" href="/instructor/<%= user._id %>/"><i class="fa-solid fa-hand-point-left"></i> Return to
+      home
+      page</a>
+  </section>
+</div>

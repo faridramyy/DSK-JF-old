@@ -27,93 +27,98 @@
       <%- include("./inner-course-header.ejs") %>
         <section class="display">
           <!-- link -->
-          <div class="my-links">
-            <h2>Links</h2>
-            <% if (links) { %>
-              <% links.forEach(link=> { %>
-                <div>
-                  <!-- fix the path  -->
-                  <a href="<%=link.link %>" target="_blank">
-                    <%=link.name %>
-                  </a>
-                  <button class="deleteLink" data-linkid="<%=link._id %>">
-                    Delete Link
-                  </button>
-                </div>
-                <% }); %>
-                  <% } else{%>
-                    <p>no links</p>
-                    <% } %>
+          <div class="card">
+            <div class="my-links">
+              <h2>Links</h2>
+              <% if (links) { %>
+                <% links.forEach((link)=> { %>
+                  <div>
+                    <!-- fix the path  -->
+                    <a href="<%=link.link %>" target="_blank">
+                      <%=link.name %>
+                    </a>
+                    <button class="deleteLink" data-linkid="<%=link._id %>">
+                      Delete Link
+                    </button>
+                  </div>
+                  <% }); %>
+                    <% } else{ %>
+                      <p>no links</p>
+                      <% } %>
+            </div>
           </div>
+
 
           <!-- file -->
-          <div class="my-files">
-            <h2>Files:</h2>
-            <% if (files) { %>
-              <% files.forEach(file=> { %>
-                <div>
-                  <a href="<%= file.filePath %>" download>file</a>
-                  <button class="deleteFile" data-fileid="<%=file._id %>">
-                    Delete File
-                  </button>
-                </div>
-                <% }); %>
-                  <% } else{%>
-                    <p>no files</p>
-                    <% } %>
+          <div class="card">
+            <div class="my-files">
+              <h2>Files:</h2>
+              <% if (files) { %>
+                <% files.forEach(file=> { %>
+                  <div>
+                    <a href="<%= file.filePath %>" download>file</a>
+                    <button class="deleteFile" data-fileid="<%=file._id %>">
+                      Delete File
+                    </button>
+                  </div>
+                  <% }); %>
+                    <% } else{%>
+                      <p>no files</p>
+                      <% } %>
+            </div>
           </div>
-
           <!-- submissions -->
-          <div class="my-submissions">
-            <h2>Submissions:</h2>
-            <% if (submissions) { %>
-              <% submissions.forEach(submission=> { %>
-                <div>
-                  <h3>
-                    <%= submission.title %>
-                  </h3>
-                  <p>Description: <%= submission.description %>
-                  </p>
-                  <p>
-                    Deadline: <%= submission.deadline %>
-                      <button class="deleteSubmission" data-submissionid="<%=submission._id %>">
-                        Delete Submission
-                      </button>
-                  </p>
-                  <!-- Display other project properties here -->
-                </div>
-                <% }); %>
-                  <% } else{%>
-                    <p>no files</p>
-                    <% } %>
+          <div class="card">
+            <div class="my-submissions">
+              <h2>Submissions:</h2>
+              <% if (submissions) { %>
+                <% submissions.forEach(submission=> { %>
+                  <div>
+                    <h3>
+                      <%= submission.title %>
+                    </h3>
+                    <p>Description: <%= submission.description %>
+                    </p>
+                    <p>
+                      Deadline: <%= submission.deadline %>
+                        <button class="deleteSubmission" data-submissionid="<%=submission._id %>">
+                          Delete Submission
+                        </button>
+                    </p>
+                    <!-- Display other project properties here -->
+                  </div>
+                  <% }); %>
+                    <% } else{%>
+                      <p>no files</p>
+                      <% } %>
+            </div>
           </div>
-
           <!-- projects  -->
-          <div class="my-projects">
-            <h2>Projects</h2>
-            <% if (projects) { %>
-              <% projects.forEach(project=> { %>
-                <div>
-                  <h3>
-                    <%= project.title %>
-                  </h3>
-                  <p>Description: <%= project.description %>
-                  </p>
-                  <button class="deleteProject" data-projectid="<%=project._id %>">
-                    Delete Project
-                  </button>
-                </div>
-                <% }); %>
-                  <% } else{%>
-                    <p>no projects</p>
-                    <% } %>
+          <div class="card">
+            <div class="my-projects">
+              <h2>Projects</h2>
+              <% if (projects) { %>
+                <% projects.forEach(project=> { %>
+                  <div>
+                    <h3>
+                      <%= project.title %>
+                    </h3>
+                    <p>Description: <%= project.description %>
+                    </p>
+                    <button class="deleteProject" data-projectid="<%=project._id %>">
+                      Delete Project
+                    </button>
+                  </div>
+                  <% }); %>
+                    <% } else{%>
+                      <p>no projects</p>
+                      <% } %>
+            </div>
           </div>
         </section>
         <!-- view students in my course  -->
         <section class="view-students">
-          <% console.log('yyyyyyyyyxxxxxxxxxxxxxxxx'); %>
-          <% console.log( user._id ); %>
-           <a href="/instructor/<%= user._id %>/<%=course._id %>/viewall">View Students in my course</a>
+          <a href="/instructor/<%= user._id %>/<%=course._id %>/viewall">View Students in my course</a>
         </section>
     </main>
 
