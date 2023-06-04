@@ -35,6 +35,7 @@ app.use("/admin", adminAuth, adminRouter);
 app.use("/instructor", instructorRouter);
 app.use("/student", studentAuth, studnetRouter);
 
+//Handle banned users
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
     user: await UserModel.findById(req.params.id),
