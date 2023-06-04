@@ -98,7 +98,7 @@ router.get("/:id", async (req, res) => {
 // });
 router.get("/:id/courseInner/:cid", async (req, res) => {
   const userId = req.params.id;
-  const courseId = req.params.cid;
+  const courseId=req.params.cid;
 
   console.log(await courseModel.findById(req.params.cid));
   const user = await userModel.findById(userId).populate("courses");
@@ -109,20 +109,20 @@ router.get("/:id/courseInner/:cid", async (req, res) => {
   console.log(instructor.firstName);
 
   const courseProject = await courseModel
-    .findById(courseId)
-    .populate("projects");
-  const projects = courseProject.projects;
+      .findById(courseId)
+      .populate("projects");
+    const projects = courseProject.projects;
 
-  const courseLinks = await courseModel.findById(courseId).populate("links");
-  const links = courseLinks.links;
+    const courseLinks = await courseModel.findById(courseId).populate("links");
+    const links = courseLinks.links;
 
-  const courseSubmissions = await courseModel
-    .findById(courseId)
-    .populate("submissions");
-  const submissions = courseSubmissions.submissions;
+    const courseSubmissions = await courseModel
+      .findById(courseId)
+      .populate("submissions");
+    const submissions = courseSubmissions.submissions;
 
-  const courseFiles = await courseModel.findById(courseId).populate("files");
-  const files = courseFiles.files;
+    const courseFiles = await courseModel.findById(courseId).populate("files");
+    const files = courseFiles.files;
 
   let populatedCourses = [];
 
@@ -135,13 +135,7 @@ router.get("/:id/courseInner/:cid", async (req, res) => {
 
   res.render("student/courseInner", {
     user: await userModel.findById(req.params.id),
-    course: await courseModel.findById(req.params.cid),
-    courses: populatedCourses,
-    instructor,
-    links,
-    submissions,
-    files,
-    projects,
+    course,
   });
 });
 
