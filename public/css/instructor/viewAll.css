@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden;
+}
+
 .profile-table {
   width: 100%;
   border-collapse: collapse;
