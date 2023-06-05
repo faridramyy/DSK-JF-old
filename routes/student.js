@@ -145,19 +145,6 @@ router.get("/:id/courseInner/:cid", async (req, res) => {
   });
 });
 
-// router.get("/:id/courseInner", async (req, res) => {
-//   res.render("student/courseInner", {
-//     user: await userModel.findById(req.params.id),
-//   });
-// });
-
-router.get("/:id/settings", async (req, res) => {
-  res.render("student/settings", {
-    user: await userModel.findById(req.params.id),
-    dirname: __dirname,
-  });
-});
-
 router.post("/:id/settings/updatedata", async (req, res) => {
   const userid = req.params.id;
   const { firstName, lastName, email, phoneNumber, birthdayDate } = req.body;

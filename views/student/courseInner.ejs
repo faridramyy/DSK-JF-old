@@ -5,150 +5,235 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>student / CourseInner</title>
-  <!-- font-awesome -->
+  <title>Student / CourseInner</title>
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/student/innercourse.css" />
   <link rel="stylesheet" href="/css/student/home.css" />
+  <link rel="stylesheet" href="/css/student/teamForm.css" />
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
   <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Course Project section */
+    .course-project-card {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .course-project-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .course-project-card p {
+      margin-bottom: 10px;
+    }
+
+    .enroll-btn {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .enroll-btn a {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .enroll-btn a:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 
 <body>
   <header>
     <!-- Navigation -->
     <%- include("./nav.ejs") %>
-      <!-- Title section -->
-      <section id="about-home">
-        <h2>Enroll Our Popular Courses And Skill Up</h2>
-      </section>
   </header>
   <main>
     <section id="course-inner">
       <!-- Left section -->
-
       <div class="overview">
-        <img class="course-img" src="<%=course.coverPic %>" alt="" />
+        <img class="course-img" src="<%= course.coverPic %>" alt="" />
         <div class="course-head">
           <div class="c-name">
             <h2>
-              <%=course.title %>
+              <%= course.title %>
             </h2>
             <div class="star">
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
+              <i class="far fa-star"></i>
             </div>
             <p>
-              <%=course.description %>
+              <%= course.description %>
             </p>
           </div>
         </div>
-
         <!-- Instructor section -->
-        <section>
+        <section class="instructor-section">
           <h3>
-            <%=instructor.firstName %>
-              <%=instructor.lastName %>
+            <%= instructor.firstName %>
+              <%= instructor.lastName %>
           </h3>
           <div class="tutor">
             <!-- professor img  -->
-            <img src="<%=instructor.profilePic %>" alt="" />
+            <img src="<%= instructor.profilePic %>" alt="" />
           </div>
         </section>
-
-        <!-- Course detail section -->
-        <section>
+        <!-- Useful Links section -->
+        <section class="useful-links">
           <h3>Useful Links</h3>
           <div class="my-links">
             <% if (links) { %>
               <% links.forEach(link=> { %>
                 <div>
-                  <!-- fix the path  -->
-                  <a href="<%=link.link %>" target="_blank"><i class="fa-solid fa-link"></i>
-                    <%=link.name %>
+                  <a href="<%= link.link %>" target="_blank"><i class="fas fa-link"></i>
+                    <%= link.name %>
                   </a>
                 </div>
                 <% }); %>
-                  <% } else{%>
-                    <p>no links</p>
+                  <% } else { %>
+                    <p>No links</p>
                     <% } %>
           </div>
         </section>
         <hr />
-        <!-- What you'll Learn section -->
-        <section>
+        <!-- Course Files section -->
+        <section class="course-files">
           <h3>Course Files</h3>
           <div class="learn">
-            <%if(files){ %>
-              <% files.forEach(file=> {%>
+            <% if (files) { %>
+              <% files.forEach(file=> { %>
                 <div>
-                  <a href="<%= file.filePath %>" download><i class="fa-solid fa-file"></i> file</a>
+                  <a href="<%= file.filePath %>" download><i class="fas fa-file"></i>
+                    <%= file.name %>
+                  </a>
                 </div>
                 <% }); %>
-                  <% } %>
-
-                    <h3>Course Submission</h3>
-                    <div class="my-submissions">
-                      <% if (submissions) { %>
-                        <% submissions.forEach(submission=> {
-                          %>
-                          <div>
-                            <h3>
-                              <i class="fa-regular fa-pen-to-square"></i>
-                              <%= submission.title %>
-                            </h3>
-                            <p>Description: <%= submission.description %>
-                            </p>
-                            <p>Deadline: <%= submission.deadline %>
-                            </p>
-                          </div>
-                          <% }); %>
-                            <% } else{%>
-                              <p>no files</p>
-                              <% } %>
-                    </div>
+                  <% } else { %>
+                    <p>No files</p>
+                    <% } %>
           </div>
         </section>
-      </div>
-
-      <!-- Project section -->
-      <section>
-        <div class="enroll">
-          <h3><i class="fa-solid fa-list-check"></i> Course Project:</h3>
-          <div class="my-projects">
-            <% if (projects) { %>
-              <% projects.forEach(project=> { %>
+        <!-- Course Submission section -->
+        <section class="course-submission">
+          <h3>Course Submission</h3>
+          <div class="my-submissions">
+            <% if (submissions) { %>
+              <% submissions.forEach(submission=> { %>
                 <div>
                   <h3>
-                    <%= project.title %>
+                    <i class="far fa-pen-to-square"></i>
+                    <%= submission.title %>
                   </h3>
-                  <p>Description: <%= project.description %>
+                  <p>Description: <%= submission.description %>
+                  </p>
+                  <p>Deadline: <%= submission.deadline %>
                   </p>
                 </div>
                 <% }); %>
-                  <% } else{%>
-                    <p>no projects</p>
+                  <% } else { %>
+                    <p>No submissions</p>
                     <% } %>
           </div>
-          <div class="enroll-btn">
-            <a class="blue" href="#">Form a team</a>
-            <a class="blue" href="#">View details</a>
-          </div>
+        </section>
+      </div>
+      <!-- Course Project section -->
+      <div class="course-project-card">
+        <h3><i class="fas fa-list-check"></i> Course Project:</h3>
+        <div class="my-projects">
+          <% if (projects) { %>
+            <% projects.forEach(project=> { %>
+              <div>
+                <h3>
+                  <%= project.title %>
+                </h3>
+                <p>Description: <%= project.description %>
+                </p>
+              </div>
+              <div class="enroll-btn">
+                <button class="blue" href="#" onclick="toggleForm()">Form a team</button>
+                <a class="blue" href="#">View details</a>
+              </div>
+              <% }); %>
+                <% } else { %>
+                  <p>No projects</p>
+                  <% } %>
+                    <div class="add-project">
+                      <div class="add-project-form" id="project" style="display: none;">
+                        <form id="project-form">
+                          <fieldset>
+                            <legend><span class="number">1</span> Project Info</legend>
+
+                            <label for="title">Project title:</label>
+                            <input type="text" id="name" />
+
+                            <label for="teamLeader">Team Leader name:</label>
+                            <input type="text" id="teamLeader" name="teamLeader" />
+                          </fieldset>
+                          <fieldset>
+                            <legend><span class="number">2</span> Project details</legend>
+
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description"
+                              style="resize: none; height: 150px"></textarea>
+                            <div>
+                              <label for="teamMember">Team member 1:</label>
+                              <select name="teamMember" id="teamMember">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label for="teamMember">Team member 2:</label>
+                              <select name="teamMember" id="teamMember">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                              </select>
+                            </div>
+                          </fieldset>
+
+                          <button type="submit" id="submit">Submit</button>
+                          <button type="reset" id="clear">Clear</button>
+                        </form>
+                      </div>
+                    </div>
         </div>
-      </section>
+      </div>
     </section>
   </main>
-   
+  <!-- Display the team form -->
+  <script>
+    function toggleForm() {
+      const formSection = document.getElementById("project");
+      formSection.style.display = formSection.style.display === "none" ? "block" : "none";
+    }
+  </script>
 </body>
 
 </html>

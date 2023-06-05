@@ -378,12 +378,12 @@ router.post("/addProject", async (req, res) => {
   } = req.body;
 
   try {
-    if (await projectModel.findOne({ courseId }))
+    if (await courseProjectModel.findOne({ courseId }))
       return res
         .status(409)
         .json({ errMsg: "You can't add another project in this course" });
     //code 409 for conflict
-    const newProject = new projectModel({
+    const newProject = new courseProjectModel({
       title,
       deadline,
       courseId,
