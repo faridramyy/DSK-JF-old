@@ -42,6 +42,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
 router.get("/:id/settings", async (req, res) => {
   try {
     const instructorId = req.params.id;
@@ -538,5 +539,7 @@ router.get("/:id/:cid/viewall", async (req, res) => {
     console.log(err);
   }
 });
+
+
 
 export default router;

@@ -1,61 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <!-- font-awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- style sheets -->
+    <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/instructor/nav.css" />
+    <link rel="stylesheet" href="/css/instructor/home.css" />
+    <link rel="stylesheet" href="/css/chatGPT.css" />
+    <title>Home page</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-  <!-- font-awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <!-- toastify -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  <!-- style sheets -->
-  <link rel="stylesheet" href="/css/general.css" />
-  <link rel="stylesheet" href="/css/instructor/nav.css" />
-  <link rel="stylesheet" href="/css/instructor/home.css" />
-  <title>Home page</title>
-</head>
-
-<body data-userid="<%= user._id %>">
-  <%- include("./partials/nav.ejs") %>
+  <body data-userid="<%= user._id %>">
+    <%- include("./partials/nav.ejs") %>
     <main>
       <h1>My Courses</h1>
       <section>
         <% if(courses.length> 0){ %>
-          <div class="courses-container">
-            <% courses.forEach(course=> {%>
-              <div class="course-card">
-                <img src="<%=course.coverPic %>" alt="course 1" width="200px" />
-                <p class="name">
-                  <%=course.title %>
-                </p>
-                <p>Enrolled: <%=course.numberOfStudents%> student</p>
-                <p>
-                  Go to
-                  <a href="/Instructor/<%=user._id%>/<%=course.id %>">course</a>
-                </p>
-              </div>
-              <% });%>
+        <div class="courses-container">
+          <% courses.forEach(course=> {%>
+          <div class="course-card">
+            <img src="<%=course.coverPic %>" alt="course 1" width="200px" />
+            <p class="name"><%=course.title %></p>
+            <p>Enrolled: <%=course.numberOfStudents%> student</p>
+            <p>
+              Go to
+              <a href="/Instructor/<%=user._id%>/<%=course.id %>">course</a>
+            </p>
           </div>
-          <% } else {%>
-            <p class="no-data">No Available courses</p>
-            <% } %>
+          <% });%>
+        </div>
+        <% } else {%>
+        <p class="no-data">No Available courses</p>
+        <% } %>
       </section>
       <div class="pagination">
         <ul>
           <% const number=Math.ceil(coursesLength / coursesPerPage) || 0 %>
-          
-            <%for(let i=0; i < number; i++) { %>
-              <li><a value="<%=i+1 %>" href="?p=<%=i %>">
-                  <%=i+1 %>
-                </a></li>
-              <% } %>
+          <%for(let i=0; i < number; i++) { %>
+          <li><a value="<%=i+1 %>" href="?p=<%=i %>"> <%=i+1 %> </a></li>
+          <% } %>
         </ul>
       </div>
+      <%- include("../generalChat.ejs")%>
     </main>
-</body>
-
+  </body>
 </html>

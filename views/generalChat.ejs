@@ -1,0 +1,50 @@
+<section class="chatx">
+    <button class="chat-btnx">
+      <i class="material-icons"> comment </i>
+    </button>
+    <div class="chat-popupx">
+      <div class="chat-areax"></div>
+      <div class="input-areax">
+        <input type="text" />
+        <button class="submit"><i class="material-icons"> send</i></button>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    
+  
+    //start chat
+    const popup = document.querySelector(".chat-popupx");
+    const chatBtn = document.querySelector(".chat-btnx");
+    const submitBtn = document.querySelector(".submit");
+    const chatArea = document.querySelector(".chat-areax");
+    const inputElm = document.querySelector(".input-areax input");
+  
+    chatBtn.addEventListener("click", () => {
+      popup.classList.toggle("show");
+    });
+  
+    submitBtn.addEventListener("click", async () => {
+      let userInput = inputElm.value;
+  
+      let temp = `<div class="out-msgx">
+                  <span class="my-msgx">${userInput}</span>
+                  <img src="<%= user.profilePic %>" class="avatarx">
+                  </div>`;
+  
+      chatArea.insertAdjacentHTML("beforeend", temp);
+      inputElm.value = "";
+  
+      let chatGptMessage = await sendMessage(userInput);
+      let temp2 = `<div class="income-msgx">
+                  <img src="/img/default/chatgpt.jpg" class="avatarx">
+                  <span class="msgx">${chatGptMessage}</span>
+                  </div>`;
+  
+      chatArea.insertAdjacentHTML("beforeend", temp2);
+    });
+    //end chat
+  </script>
+  
+  
