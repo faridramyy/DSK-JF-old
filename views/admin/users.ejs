@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/css/admin/nav.css" />
   <link rel="stylesheet" href="/css/admin/users.css" />
   <link rel="stylesheet" href="/css/chatGPT.css" />
+  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
   <title>Admin-Users</title>
 </head>
 
@@ -60,22 +61,11 @@
                 <label for="student">Student</label>
               </div>
               <div>
-                <input
-                  checked
-                  type="radio"
-                  id="instructor"
-                  name="role"
-                  value="Instructor"
-                />
+                <input checked type="radio" id="instructor" name="role" value="Instructor" />
                 <label for="instructor">Instructor</label><br />
               </div>
               <div>
-                <input
-                  type="radio"
-                  id="teachingAssistant"
-                  name="role"
-                  value="Teaching Assistant"
-                />
+                <input type="radio" id="teachingAssistant" name="role" value="Teaching Assistant" />
                 <label for="teachingAssistant">Teaching Assistant</label>
               </div>
             </div>
@@ -87,106 +77,97 @@
       </header>
       <section>
         <% if (users.length) {%>
-        <table cellspacing="0">
-          <tr>
-            <th colspan="5">
-              <div class="search">
-                <i class="fas fa-search"></i>
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  placeholder="Search users ..."
-                />
-              </div>
-            </th>
-            <th>
-              <button class="filter">
-                <i class="fa-solid fa-filter"></i>
-              </button>
-              <div class="filter-options" style="display: none;">
-                <label><input type="checkbox" value="student">Students</label>
-                <label><input type="checkbox" value="instructor">Instructors</label>
-                <label><input type="checkbox" value="teachingAssistant">Teaching Assistants</label>
-              </div>
-            </th>
-          </tr>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
+          <table cellspacing="0">
+            <tr>
+              <th colspan="5">
+                <div class="search">
+                  <i class="fas fa-search"></i>
+                  <input type="text" name="search" id="search" placeholder="Search users ..." />
+                </div>
+              </th>
+              <th>
+                <button class="filter">
+                  <i class="fa-solid fa-filter"></i>
+                </button>
+                <div class="filter-options" style="display: none;">
+                  <label><input type="checkbox" value="student">Students</label>
+                  <label><input type="checkbox" value="instructor">Instructors</label>
+                  <label><input type="checkbox" value="teachingAssistant">Teaching Assistants</label>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
 
-          <% users.forEach(item=> { if(item.role !== "admin"){%>
-          <tr class="user" id="user">
-            <td>
-              <input type="checkbox" class="checkbox" />
-              <div class="right-and-wrong" style="display: none">
-                <i
-                  class="fa-solid fa-check"
-                  style="color: green; cursor: pointer"
-                ></i>
-                <i
-                  class="fa-solid fa-xmark"
-                  style="color: red; cursor: pointer"
-                ></i>
-              </div>
-            </td>
-            <td>
-              <div class="container">
-                <img src="<%= item.profilePic %>" alt="profile picture" />
-                <input type="text" value="<%= item.firstName +" "+ item.lastName
+            <% users.forEach(item=> { if(item.role !== "admin"){%>
+              <tr class="user" id="user">
+                <td>
+                  <input type="checkbox" class="checkbox" />
+                  <div class="right-and-wrong" style="display: none">
+                    <i class="fa-solid fa-check" style="color: green; cursor: pointer"></i>
+                    <i class="fa-solid fa-xmark" style="color: red; cursor: pointer"></i>
+                  </div>
+                </td>
+                <td>
+                  <div class="container">
+                    <img src="<%= item.profilePic %>" alt="profile picture" />
+                    <input type="text" value="<%= item.firstName +" "+ item.lastName
                 %>" readonly />
-              </div>
-            </td>
-            <td><input type="text" value="<%= item.role %>" readonly /></td>
-            <td>
-              <input type="text" name="email" value="<%= item.email || "-" %>"
-              readonly />
-            </td>
-            <td class="<%= item.isBanned ? `banned` : `active` %>">
-              <span><%- item.isBanned ? "Baned" : "Active" %></span>
-            </td>
-            <td style="position: relative">
-              <button class="dots btn">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-              </button>
-              <div class="options">
-                <ul data-userid="<%= item._id %>">
-                  <li>
-                    <button class="removebtn">
-                      <i class="fa-solid fa-trash delete"></i>
-                      Remove
-                    </button>
-                  </li>
-                  <li>
-                    <button class="banbtn">
-                      <i class="fa-solid fa-ban ban"></i>
-                      <span><%- item.isBanned ? "unban" : "Ban" %></span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <%}}); %>
-        </table>
+                  </div>
+                </td>
+                <td><input type="text" value="<%= item.role %>" readonly /></td>
+                <td>
+                  <input type="text" name="email" value="<%= item.email || " -" %>"
+                  readonly />
+                </td>
+                <td class="<%= item.isBanned ? `banned` : `active` %>">
+                  <span><%- item.isBanned ? "Baned" : "Active" %></span>
+                </td>
+                <td style="position: relative">
+                  <button class="dots btn">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                  <div class="options">
+                    <ul data-userid="<%= item._id %>">
+                      <li>
+                        <button class="removebtn">
+                          <i class="fa-solid fa-trash delete"></i>
+                          Remove
+                        </button>
+                      </li>
+                      <li>
+                        <button class="banbtn">
+                          <i class="fa-solid fa-ban ban"></i>
+                          <span><%- item.isBanned ? "unban" : "Ban" %></span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <%}}); %>
+          </table>
       </section>
       <% } else { %>
-      <p class="no-data">No data found!</p>
-      <% } %>
-      <div class="pagination">
-        <ul>
-          <% const number = Math.ceil(usersLength / usersPerPage) || 0 %>
-          <%for(let i=0; i < number; i++) { %>
-          <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
-          <% } %>
-        </ul>
-      </div>
-      <%- include("../chatGPT.ejs") %>
+        <p class="no-data">No data found!</p>
+        <% } %>
+          <div class="pagination">
+            <ul>
+              <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
+                <%for(let i=0; i < number; i++) { %>
+                  <li><a value="<%=i+1 %>" href="users?p=<%=i %>">
+                      <%=i+1 %>
+                    </a></li>
+                  <% } %>
+            </ul>
+          </div>
+          <%- include("../chatGPT.ejs") %>
     </main>
 
     <!-- add new user button  -->
@@ -213,7 +194,7 @@
     <!-- create new user  -->
     <script type="module">
       import { validateForm } from "/js/formValidation.js";
-      import sendCode from "./js/sendErrorEmail.js";
+      import sendCode from "/js/sendErrorEmail.js";
 
       const form = document.getElementById("form");
       const error = document.getElementById("error");
@@ -253,7 +234,7 @@
           sendCode(12);
         }
       });
-      </script>
+    </script>
     <!-- dots -->
     <script>
       const dots = document.getElementsByClassName("dots");
@@ -337,19 +318,19 @@
     </script>
     <script>
       // JavaScript code for search and filter functionality
-  
+
       // Function to filter users based on the selected checkboxes
       function filterUsers() {
         const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
         const selectedRoles = Array.from(checkboxes)
           .filter(checkbox => checkbox.checked)
           .map(checkbox => checkbox.value);
-  
+
         const users = document.querySelectorAll('.user');
-  
+
         users.forEach(user => {
           const role = user.querySelector('td:nth-child(3) input').value.toLowerCase();
-  
+
           if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
             user.style.display = 'table-row';
           } else {
@@ -357,29 +338,29 @@
           }
         });
       }
-  
+
       // Event listener for filter button click
       const filterButton = document.querySelector('.filter');
-      filterButton.addEventListener('click', function() {
+      filterButton.addEventListener('click', function () {
         const filterOptions = document.querySelector('.filter-options');
         filterOptions.style.display = filterOptions.style.display === 'none' ? 'block' : 'none';
       });
-  
+
       // Event listener for checkbox change
       const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
       checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', filterUsers);
       });
-  
+
       // Function to search users based on the input value
       function searchUsers() {
         const searchInput = document.getElementById('search');
         const searchValue = searchInput.value.toLowerCase();
         const users = document.querySelectorAll('.user');
-  
+
         users.forEach(user => {
           const name = user.querySelector('td:nth-child(2) input').value.toLowerCase();
-  
+
           if (name.includes(searchValue)) {
             user.style.display = 'table-row';
           } else {
@@ -387,7 +368,7 @@
           }
         });
       }
-  
+
       // Event listener for search input change
       const searchInput = document.getElementById('search');
       searchInput.addEventListener('input', searchUsers);

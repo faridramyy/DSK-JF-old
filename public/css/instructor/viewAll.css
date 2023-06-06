@@ -2,13 +2,10 @@ body {
   overflow-x: hidden;
 }
 
-table {
-  border: 1px solid red;
-}
 .profile-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid red;
+  border: 1px solid rgb(93, 93, 93);
   margin: 10px;
 }
 

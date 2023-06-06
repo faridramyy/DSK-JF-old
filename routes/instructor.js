@@ -519,20 +519,22 @@ router.get("/:id/notifications", async (req, res) => {
 router.get("/:id/:cid/viewall", async (req, res) => {
   const courseId = req.params.cid;
   const page = req.query.p || 0;
-  const studentsPerPage = 3;
+  const studentsPerPage = 5;
 
   try {
     const course = await courseModel.findById(courseId).populate("students");
-    const studentslength=course.students.length;
-    const students = course.students.slice(page * studentsPerPage, (page * studentsPerPage) + studentsPerPage);
+    const studentslength = course.students.length;
+    const students = course.students.slice(
+      page * studentsPerPage,
+      page * studentsPerPage + studentsPerPage
+    );
 
     res.render("instructor/viewAll", {
       user: await userModel.findById(req.params.id),
       course: await courseModel.findById(courseId),
       students,
       studentsPerPage,
-      studentslength
-      
+      studentslength,
     });
   } catch (err) {
     res.status(500).json({ error: true });
