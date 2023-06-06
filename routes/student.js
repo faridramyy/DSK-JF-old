@@ -7,11 +7,7 @@ import bcrypt from "bcrypt";
 import path from "path";
 const __dirname = path.resolve();
 
-router.get("/api", async (req, res) => {
-  const { id } = req.body;
-  if (await userModel.findById(id)) res.json({ found: true });
-  else res.json({ found: false });
-});
+
 
 router.get("/:id", async (req, res) => {
   const userId = req.params.id;
