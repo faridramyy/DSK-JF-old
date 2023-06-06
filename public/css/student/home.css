@@ -15,7 +15,8 @@ body::-webkit-scrollbar {
 /* Main Body */
 .main_body {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
   margin-top: 30px;
   padding-top: 20px;
 }
@@ -29,14 +30,15 @@ body::-webkit-scrollbar {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  max-width: 70%;
+  max-width: 55%;
+  margin-left: 4%;
   border-radius: 8px;
 }
 
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #101c32;
+  color: #000000;
 }
 
 .update-details {
@@ -47,9 +49,9 @@ h1 {
 }
 
 .update-type {
-  font-weight: bold;
   margin-bottom: 10px;
   font-size: 20px;
+  color: #000000b0;
 }
 
 .update-description {
@@ -66,11 +68,12 @@ h1 {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .btn1,
 .btn2 {
-  background-color: #007bff;
+  background-color: rgb(24, 24, 49);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -80,7 +83,7 @@ h1 {
 }
 
 .btn2 {
-  background-color: #28a745;
+  background-color: #efbf3c;
 }
 
 /* Jokes API section */
@@ -126,18 +129,23 @@ h1 {
 /* Sidebar Requests */
 .sidebar {
   position: absolute;
-  right: 6%;
-  flex: 0 0 300px;
+  right: 5%;
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: -10;
+  margin-left: 20px;
+  flex: 0 0 300px;
+  z-index: -9999;
 }
 
-h2 {
-  font-size: 18px;
+.sidebar h2 {
+  font-size: 20px;
   margin-bottom: 10px;
+}
+h2 {
+  color: #333;
+  font-size: 23px;
 }
 
 .row {
@@ -159,6 +167,9 @@ h2 {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+h3 {
+  font-size: 18px;
+}
 
 .details {
   margin-bottom: 10px;
@@ -166,7 +177,7 @@ h2 {
 
 .accept-btn,
 .reject-btn {
-  background-color: #007bff;
+  background-color: rgb(24, 24, 49);
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -200,4 +211,69 @@ h2 {
   margin-top: 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* Trivia API */
+.TriviaGame {
+  flex: 0 0 300px;
+  margin-left: 5%;
+}
+
+.game-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.game-card .header {
+  background-color: #8a63d2;
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+}
+
+.game-card .header h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin: 0;
+}
+
+.game-card p {
+  margin-bottom: 10px;
+}
+
+.game-card button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #e0e0e0;
+  color: #333333;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.game-card button:hover {
+  background-color: #cccccc;
+}
+
+.game-card #correct {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.game-card #wrong {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.section-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
 }
