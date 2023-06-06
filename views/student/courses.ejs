@@ -17,8 +17,10 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/student/home.css" />
+    <link rel="stylesheet" href="/css/student/nav.css" />
     <link rel="stylesheet" href="/css/student/course.css" />
+    <link rel="stylesheet" href="/css/student/footer.css" />
+
     <link rel="stylesheet" href="/css/chatGPT.css" />
     <title>All courses</title>
 </head>
@@ -27,52 +29,55 @@
     <div class="progress" id="PreLoaderBar">
         <div class="indeterminate"></div>
     </div>
-    <%- include("./nav.ejs") %>
-        <main>
+    <header>    
+        <%- include("./partials/nav.ejs") %>
+    </header>
+    <main>
+        <% if (allCourses.length> 0) { %>
+            <section class="courses">
+                <% allCourses.forEach(c=> { %>
 
-            <% if (allCourses.length> 0) { %>
-                <section class="courses">
-                    <% allCourses.forEach(c=> { %>
+                    <a id="anchor" href="/student/<%= user._id %>/courses/<%= c._id %>">
+                        <article class="card">
+                            <div class="image">
+                                <img src="<%= c.coverPic %>" alt="cover picture" />
+                            </div>
+                            <div class="article-body">
+                                <h2>
+                                    <%= c.title %>
+                                </h2>
+                            </div>
+                        </article>
+                    </a>
 
-                        <a id="anchor" href="/student/<%= user._id %>/courses/<%= c._id %>">
-                            <article class="card">
-                                <div class="image">
-                                    <img src="<%= c.coverPic %>" alt="cover picture" />
-                                </div>
-                                <div class="article-body">
-                                    <h2>
-                                        <%= c.title %>
-                                    </h2>
-                                </div>
-                            </article>
-                        </a>
-
-                        <% }); %>
-                </section>
-                <% } else { %>
-                    <div>
-                        <p>no courses to show</p>
+                    <% }); %>
+            </section>
+            <% } else { %>
+                <div>
+                    <p>no courses to show</p>
+                </div>
+                <% } %>
+                    <div class="pagination">
+                        <ul>
+                            <% const number=Math.ceil(coursesLength / coursesPerPage) || 0 %>
+                                <%for(let i=0; i < number; i++) { %>
+                                    <li><a value="<%=i+1 %>" href="?p=<%=i %>">
+                                            <%=i+1 %>
+                                        </a></li>
+                                    <% } %>
+                        </ul>
                     </div>
-                    <% } %>
-                        <div class="pagination">
-                            <ul>
-                                <% const number=Math.ceil(coursesLength / coursesPerPage) || 0 %>
-                                    <%for(let i=0; i < number; i++) { %>
-                                        <li><a value="<%=i+1 %>" href="?p=<%=i %>">
-                                                <%=i+1 %>
-                                            </a></li>
-                                        <% } %>
-                            </ul>
-                        </div>
-                        <!-- processing bar -->
-                        <script>
-                            document.onreadystatechange = function () {
-                                if (document.readyState === "complete") {
-                                    console.log(document.readyState);
-                                    document.getElementById("PreLoaderBar").style.display = "none";
-                                }
-                            };
-                        </script>
+    </main>
+    <%- include("./partials/footer.ejs") %>
+        <!-- processing bar -->
+        <script>
+            document.onreadystatechange = function () {
+                if (document.readyState === "complete") {
+                    console.log(document.readyState);
+                    document.getElementById("PreLoaderBar").style.display = "none";
+                }
+            };
+        </script>
 </body>
 
 </html>

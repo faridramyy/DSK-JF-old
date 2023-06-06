@@ -12,7 +12,8 @@
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/css/student/innercourse.css" />
-  <link rel="stylesheet" href="/css/student/home.css" />
+  <link rel="stylesheet" href="/css/student/nav.css" />
+  <link rel="stylesheet" href="/css/student/footer.css" />
   <link rel="stylesheet" href="/css/student/teamForm.css" />
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,15 +22,13 @@
 
   <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
 
-  <style>
-
-  </style>
+  <style></style>
 </head>
 
 <body>
   <header>
     <!-- Navigation -->
-    <%- include("./nav.ejs") %>
+    <%- include("./partials/nav.ejs") %>
   </header>
   <main>
     <section id="course-inner">
@@ -66,7 +65,8 @@
         </section>
         <!-- Useful Links section -->
         <section class="useful-links">
-          <h3>Useful Links</h3>
+
+          <h3><i class="fas fa-link"></i>Useful Links</h3>
           <div class="my-links">
             <% if (links) { %>
               <% links.forEach(link=> { %>
@@ -99,6 +99,7 @@
                     <% } %>
           </div>
         </section>
+        <hr>
         <!-- Course Submission section -->
         <section class="course-submission">
           <h3>Course Submission</h3>
@@ -106,13 +107,13 @@
             <% if (submissions) { %>
               <% submissions.forEach(submission=> { %>
                 <div>
-                  <h3>
+                  <h4>
                     <i class="far fa-pen-to-square"></i>
                     <%= submission.title %>
-                  </h3>
+                  </h4>
                   <p>Description: <%= submission.description %>
                   </p>
-                  <p>Deadline: <%= submission.deadline %>
+                  <p class="deadline">Deadline: <%= submission.deadline %>
                   </p>
                 </div>
                 <% }); %>
@@ -121,6 +122,7 @@
                     <% } %>
           </div>
         </section>
+        <hr>
       </div>
       <!-- Course Project section -->
       <div class="course-project-card">
@@ -129,74 +131,121 @@
           <% if (projects) { %>
             <% projects.forEach(project=> { %>
               <div>
-                <h3>
-                  Title: <%= project.title %>
+                <h3>Title: <%= project.title %>
                 </h3>
                 <p class="deadline">Deadline: <%= project.deadline %>
                 </p>
               </div>
               <div class="project-btn">
-                <button class="teamForm" href="#" onclick="toggleForm()">Form a team</button>
-                <a class="blue" href="#">View details</a>
+                <button class="teamForm" href="#" onclick="toggleForm()">
+                  Form a team
+                </button>
+                <button class="viewDetails" href="#" onclick="toggleDetails()">
+                  View Details
+                </button>
+              </div>
+              <div class="add-project">
+                <div class="add-project-form" id="project" style="display: none">
+                  <form id="project-form">
+                    <fieldset>
+                      <legend><span class="number">1</span> Project Info</legend>
+
+                      <label for="title">Project title:</label>
+                      <input type="text" id="name" />
+
+                      <label for="teamLeader">Team Leader name:</label>
+                      <input type="text" id="teamLeader" name="teamLeader" />
+                    </fieldset>
+                    <fieldset>
+                      <legend>
+                        <span class="number">2</span> Project details
+                      </legend>
+
+                      <label for="description">Description:</label>
+                      <textarea id="description" name="description" style="resize: none; height: 150px"></textarea>
+                      <div>
+                        <label for="teamMember">Team member 1:</label>
+                        <select name="teamMember" id="teamMember">
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label for="teamMember">Team member 2:</label>
+                        <select name="teamMember" id="teamMember">
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </fieldset>
+
+                    <button type="submit" id="submit">Submit</button>
+                    <button type="reset" id="clear">Clear</button>
+                  </form>
+                </div>
+              </div>
+              <div class="view-project">
+                <div class="view-project-form" id="detials" style="display: none">
+                  <h3 class="project-title">Title: <%= project.title %>
+                  </h3>
+                  <p class="project-description">Description: <%= project.description %>
+                  </p>
+                  <div class="project-details">
+
+                    <p class="detail">
+                      <strong>Students per Team:</strong>
+                      <%= project.numberOfStudentsPerTeam %>
+                    </p>
+                    <p class="detail">
+                      <strong>Number of Phases:</strong>
+                      <%= project.numberOfPhases %>
+                    </p>
+
+                    <p class="deadline">Deadline: <%= project.deadline %>
+
+                  </div>
+                </div>
               </div>
               <% }); %>
                 <% } else { %>
                   <p>No projects</p>
                   <% } %>
-                    <div class="add-project">
-                      <div class="add-project-form" id="project" style="display: none;">
-                        <form id="project-form">
-                          <fieldset>
-                            <legend><span class="number">1</span> Project Info</legend>
 
-                            <label for="title">Project title:</label>
-                            <input type="text" id="name" />
-
-                            <label for="teamLeader">Team Leader name:</label>
-                            <input type="text" id="teamLeader" name="teamLeader" />
-                          </fieldset>
-                          <fieldset>
-                            <legend><span class="number">2</span> Project details</legend>
-
-                            <label for="description">Description:</label>
-                            <textarea id="description" name="description"
-                              style="resize: none; height: 150px"></textarea>
-                            <div>
-                              <label for="teamMember">Team member 1:</label>
-                              <select name="teamMember" id="teamMember">
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </div>
-                            <div>
-                              <label for="teamMember">Team member 2:</label>
-                              <select name="teamMember" id="teamMember">
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </div>
-                          </fieldset>
-
-                          <button type="submit" id="submit">Submit</button>
-                          <button type="reset" id="clear">Clear</button>
-                        </form>
-                      </div>
-                    </div>
+                    <!--  -->
         </div>
       </div>
     </section>
   </main>
-  <!-- Display the team form -->
-  <script>
-    function toggleForm() {
-      const formSection = document.getElementById("project");
-      formSection.style.display = formSection.style.display === "none" ? "block" : "none";
-    }
-  </script>
+  <%- include("./partials/footer.ejs") %>
+
+    <!-- Display the team form -->
+    <script>
+      function toggleForm() {
+        const detailsSection = document.getElementById("detials");
+        detailsSection.style.display =
+          detailsSection.style.display === "block" ? "none" : "none";
+
+        const formSection = document.getElementById("project");
+        formSection.style.display =
+          formSection.style.display === "none" ? "block" : "none";
+      }
+    </script>
+    <!-- Display details of the project  -->
+    <script>
+      function toggleDetails() {
+        const formSection = document.getElementById("project");
+        formSection.style.display =
+          formSection.style.display === "none" ? "none" : "none";
+
+        const detailsSection = document.getElementById("detials");
+        detailsSection.style.display =
+          detailsSection.style.display === "none" ? "block" : "none";
+      }
+    </script>
 </body>
 
 </html>

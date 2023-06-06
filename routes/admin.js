@@ -18,6 +18,7 @@ router.get("/:id/courses", courses.courses_get);
 router.post("/courses", courses.course_post);
 router.get("/:id/courses/:Cid", courses.innerCourse_get);
 router.put("/:cid/addStudent/:sid", courses.addStudentToCourse_put);
+router.put("/courses/:Cid/changeppcourse" , courses.changePPcourse_put);
 
 router.get("/:id/settings", settings.setting_get);
 router.put("/:id/settings/updatedata", settings.updateData_put);
