@@ -165,7 +165,7 @@
           formData.append("file", fileToUpload);
 
           const res = await fetch("/admin/settings/changepp/<%= user._id %>", {
-            method: "POST",
+            method: "PUT",
             body: formData,
           });
 
@@ -201,7 +201,7 @@
           const res = await fetch(
             "/admin/<%= user._id %>/settings/updatedata",
             {
-              method: "POST",
+              method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
