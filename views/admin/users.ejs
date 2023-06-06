@@ -104,9 +104,13 @@
               <button class="filter">
                 <i class="fa-solid fa-filter"></i>
               </button>
+              <div class="filter-options" style="display: none;">
+                <label><input type="checkbox" value="student">Students</label>
+                <label><input type="checkbox" value="instructor">Instructors</label>
+                <label><input type="checkbox" value="teachingAssistant">Teaching Assistants</label>
+              </div>
             </th>
           </tr>
-
           <tr>
             <th></th>
             <th>Name</th>
@@ -249,7 +253,7 @@
           sendCode(12);
         }
       });
-    </script>
+      </script>
     <!-- dots -->
     <script>
       const dots = document.getElementsByClassName("dots");
@@ -330,6 +334,63 @@
           document.getElementById("PreLoaderBar").style.display = "none";
         }
       };
+    </script>
+    <script>
+      // JavaScript code for search and filter functionality
+  
+      // Function to filter users based on the selected checkboxes
+      function filterUsers() {
+        const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+        const selectedRoles = Array.from(checkboxes)
+          .filter(checkbox => checkbox.checked)
+          .map(checkbox => checkbox.value);
+  
+        const users = document.querySelectorAll('.user');
+  
+        users.forEach(user => {
+          const role = user.querySelector('td:nth-child(3) input').value.toLowerCase();
+  
+          if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
+            user.style.display = 'table-row';
+          } else {
+            user.style.display = 'none';
+          }
+        });
+      }
+  
+      // Event listener for filter button click
+      const filterButton = document.querySelector('.filter');
+      filterButton.addEventListener('click', function() {
+        const filterOptions = document.querySelector('.filter-options');
+        filterOptions.style.display = filterOptions.style.display === 'none' ? 'block' : 'none';
+      });
+  
+      // Event listener for checkbox change
+      const checkboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', filterUsers);
+      });
+  
+      // Function to search users based on the input value
+      function searchUsers() {
+        const searchInput = document.getElementById('search');
+        const searchValue = searchInput.value.toLowerCase();
+        const users = document.querySelectorAll('.user');
+  
+        users.forEach(user => {
+          const name = user.querySelector('td:nth-child(2) input').value.toLowerCase();
+  
+          if (name.includes(searchValue)) {
+            user.style.display = 'table-row';
+          } else {
+            user.style.display = 'none';
+          }
+        });
+      }
+  
+      // Event listener for search input change
+      const searchInput = document.getElementById('search');
+      searchInput.addEventListener('input', searchUsers);
     </script>
 </body>
 

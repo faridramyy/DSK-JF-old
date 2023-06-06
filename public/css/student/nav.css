@@ -51,7 +51,7 @@ nav .items i:hover {
 
 .profile img {
   cursor: pointer;
-  border-radius: 50%;
+  border-radius:50%;
   width: 55px;
   margin-right: 10px; /* Adjust the margin as needed */
 }
