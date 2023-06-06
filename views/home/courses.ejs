@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/home/courses.css" />
+    <link rel="stylesheet" href="css/home/nav.css" />
+    <link rel="stylesheet" href="css/home/footer.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/0b0cd0c012.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!--Navigation-->
+    <%- include('./components/nav.ejs')%>
+    <main>
+    <!-- Title section -->
+      <section id="about-home">
+        <h2>Courses</h2>
+      </section>
+      <!-- courses -->
+      <section id="course">
+        <h1>Our Popular Courses</h1>
+        <p>
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione,
+          laudantium!
+        </p>
+        <div onclick="window.location.href='course-inner'" class="course-box">
+          <div class="courses">
+            <img src="/img/courses/c1.jpg" alt="" />
+            <div class="details">
+              <span>Updated 21/8/21</span>
+              <h6>Course 1</h6>
+              <div class="star">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span>(239)</span>
+              </div>
+            </div>
+            <div class="cost">$49.99</div>
+          </div>
+          <div class="courses">
+            <img src="/img/courses/c2.jpeg" alt="" />
+            <div class="details">
+              <span>Updated 21/8/21</span>
+              <h6>Course 2</h6>
+              <div class="star">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span>(239)</span>
+              </div>
+            </div>
+            <div class="cost">$49.99</div>
+          </div>
+          <div class="courses">
+            <img src="/img/courses/c3.jpeg" alt="" />
+            <div class="details">
+              <span>Updated 21/8/21</span>
+              <h6>Course 3</h6>
+              <div class="star">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span>(239)</span>
+              </div>
+            </div>
+            <div class="cost">$49.99</div>
+          </div>
+          <div class="courses">
+            <img src="/img/courses/c4.jpeg" alt="" />
+            <div class="details">
+              <span>Updated 21/8/21</span>
+              <h6>Course 4</h6>
+              <div class="star">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span>(239)</span>
+              </div>
+            </div>
+            <div class="cost">$49.99</div>
+          </div>
+          <div class="courses">
+            <img src="/img/courses/c5.jpg" alt="" />
+            <div class="details">
+              <span>Updated 21/8/21</span>
+              <h6>Course 5</h6>
+              <div class="star">
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <span>(239)</span>
+              </div>
+            </div>
+            <div class="cost">$49.99</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <%- include('./components/footer.ejs') %>
+    <script src="js/home/nav.js"></script>
+  </body>
+</html>
