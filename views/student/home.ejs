@@ -131,9 +131,9 @@
                 return res.json();
               })
               .then((data) => {
-                console.log(data);
+                document.getElementById("code").innerHTML = data.code;
               });
-          } catch (err) {   
+          } catch (err) {
             console.log(err);
           }
         });
