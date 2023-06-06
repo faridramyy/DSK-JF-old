@@ -41,6 +41,12 @@ app.get("/gotbanned/:id", async (req, res) => {
     user: await UserModel.findById(req.params.id),
   });
 });
+//Handle home page
+app.get("/", async (req, res) => {
+  res.render("home", {
+    user: await UserModel.findById(req.params.id),
+  });
+});
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
