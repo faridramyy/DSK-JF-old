@@ -1,16 +1,26 @@
 header {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
+  background-color: #23232e;
+  border-radius: 8px;
+  margin-left: 1%;
+}
+
+h1 {
+  text-align: center;
+  flex-grow: 1;
+  color: #ffffff;
 }
 .new-user {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  background-color: rgb(32, 101, 209);
-  box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 38, 98, 0.24) 0px 8px 16px 0px;
+  color: #090042;
 }
 .add-new-user {
   top: 70px;
@@ -76,6 +86,7 @@ form div:last-child {
 }
 table {
   width: 100%;
+  margin-left: 3%;
 }
 th > div {
   width: 100%;
@@ -168,6 +179,7 @@ td input {
   padding: 4px 7px;
   border-radius: 30px;
 }
+/* Filter card */
 
 .dots {
   background: transparent;

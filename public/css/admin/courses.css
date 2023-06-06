@@ -3,11 +3,15 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  background-color: #23232e;
+  border-radius: 8px;
+  margin-left: 1%;
 }
 
 h1 {
   text-align: center;
   flex-grow: 1;
+  color: #ffffff;
 }
 
 .new-course {
@@ -16,15 +20,20 @@ h1 {
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  background-color: rgb(32, 101, 209);
+  background-color: rgb(255, 255, 255);
   box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
+  color: #090042;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .add-new-course {
   top: 70px;
   right: 80px;
   position: absolute;
-  background-color: #eee;
+  background-color: #ffffff;
   width: fit-content;
   padding: 6px 16px;
   box-shadow: rgba(83, 89, 100, 0.24) 0px 8px 16px 0px;
@@ -36,19 +45,24 @@ h1 {
   text-align: center;
   z-index: 999;
 }
+
 #error {
   margin: 10px;
+  color: red;
 }
+
 .add-new-course.activee {
   pointer-events: all;
   opacity: 1;
   transform: translateY(0);
 }
+
 .add-new-course div {
   margin: 3px;
   display: flex;
   justify-content: space-between;
 }
+
 .add-new-course div input,
 #instructorName {
   border: none;
@@ -58,13 +72,16 @@ h1 {
   border-radius: 5px 3px;
   transition: 0.1s;
 }
+
 .add-new-course div input:focus {
   outline: none;
   border-bottom: 3px solid rgb(76, 139, 240);
 }
+
 #instructorName {
   width: 173px;
 }
+
 #submit {
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
@@ -72,30 +89,45 @@ h1 {
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background-color: rgb(45, 182, 27);
   box-shadow: rgba(38, 209, 32, 0.24) 0px 8px 16px 0px;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
 }
+
 form div:last-child {
   display: flex;
   justify-content: flex-end;
   padding-top: 10px;
 }
+
 .courses {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10%;
+  margin: 4%;
+  border-bottom: #23232e79 1px solid;
 }
 
 .card {
-  width: 300px;
+  width: 200px;
   margin-bottom: 20px;
   margin-top: 25px;
-  border: 1px solid #ccc;
+  border: 3px solid #e5e5e5;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(22, 22, 22, 0.1);
   transition: transform 0.3s ease-in-out;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(100, 100, 126, 0.25) 0px 50px 100px -20px,
+    rgba(167, 167, 167, 0.3) 0px 30px 60px -30px;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.09);
 }
 
 .image img {
@@ -114,4 +146,5 @@ form div:last-child {
   font-weight: bold;
   margin: 0;
   text-align: center;
+  color: #333333;
 }

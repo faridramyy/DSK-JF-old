@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css"
-    />
-    <!-- toastify -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- style sheets -->
-    <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/admin/nav.css" />
-    <link rel="stylesheet" href="/css/admin/users.css" />
-    <link rel="stylesheet" href="/css/chatGPT.css" />
-    <title>Admin-Users</title>
-  </head>
 
-  <body>
-    <div class="progress" id="PreLoaderBar">
-      <div class="indeterminate"></div>
-    </div>
-    <%- include("./nav.ejs") %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+  <!-- toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <!-- style sheets -->
+  <link rel="stylesheet" href="/css/general.css" />
+  <link rel="stylesheet" href="/css/admin/nav.css" />
+  <link rel="stylesheet" href="/css/admin/users.css" />
+  <link rel="stylesheet" href="/css/chatGPT.css" />
+  <title>Admin-Users</title>
+</head>
+
+<body>
+  <div class="progress" id="PreLoaderBar">
+    <div class="indeterminate"></div>
+  </div>
+  <%- include("./nav.ejs") %>
     <main>
       <header>
         <h1>Users</h1>
@@ -84,108 +76,105 @@
       </header>
       <section>
         <% if (users.length) { %>
-        <table>
-          <tr>
-            <th colspan="6">
-              <div class="search">
-                <i class="fas fa-search"></i>
-                <input
-                  type="text"
-                  id="search"
-                  placeholder="Search by first name"
-                />
-              </div>
-            </th>
-            <th>
-              <button class="filter">
-                <i class="fa-solid fa-filter"></i>
-              </button>
-              <div class="filter-options" style="display: none">
-                <label><input type="checkbox" value="student" />Students</label>
-                <label
-                  ><input
-                    type="checkbox"
-                    value="instructor"
-                  />Instructors</label
-                >
-                <label
-                  ><input type="checkbox" value="teachingAssistant" />Teaching
-                  Assistants</label
-                >
-              </div>
-            </th>
-          </tr>
-          <% users.forEach(item => { if (item.role !== 'admin') { %>
-          <tr class="user">
-            <td>
-              <input type="checkbox" class="checkbox" />
-              <div class="right-and-wrong" style="display: none">
-                <i
-                  class="fa-solid fa-check"
-                  style="color: green; cursor: pointer"
-                ></i>
-                <i
-                  class="fa-solid fa-xmark"
-                  style="color: red; cursor: pointer"
-                ></i>
-              </div>
-            </td>
-            <td>
-              <div class="container">
-                <img src="<%= item.profilePic %>" alt="profile picture" />
-              </div>
-            </td>
-            <td><%= item.firstName %> <%= item.lastName %></td>
-            <td><%= item.role %></td>
-            <td><%= item.email %></td>
-            <td class="<%= item.isBanned ? 'banned' : 'active' %>">
-              <span><%- item.isBanned ? 'Banned' : 'Active' %></span>
-            </td>
-            <td style="position: relative">
-              <button class="dots btn">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-              </button>
-              <div class="options">
-                <ul data-userid="<%= item._id %>">
-                  <li>
-                    <button><i class="fa-solid fa-message"></i> Message</button>
-                  </li>
-                  <li>
-                    <button class="editbtn">
-                      <i class="fa-solid fa-pencil edit"></i> Edit
+          <table>
+            <thead>
+              <tr>
+                <th colspan="6">
+                  <div class="search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search" placeholder="Search by first name" />
+                  </div>
+                </th>
+                <th>
+                  <button class="filter">
+                    <i class="fa-solid fa-filter"></i>
+                  </button>
+                  <div class="filter-options" style="display: none">
+                    <label><input type="checkbox" value="student" />Students</label>
+                    <label><input type="checkbox" value="instructor" />Instructors</label>
+                    <label><input type="checkbox" value="teachingAssistant" />Teaching Assistants</label>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>Profile Picture</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th colspan="3">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach(item=> { if (item.role !== 'admin') { %>
+                <tr class="user">
+                  <td>
+                    <div class="container">
+                      <img src="<%= item.profilePic %>" alt="profile picture" />
+                    </div>
+                  </td>
+                  <td>
+                    <%= item.firstName %>
+                      <%= item.lastName %>
+                  </td>
+                  <td>
+                    <%= item.role %>
+                  </td>
+                  <td>
+                    <%= item.email %>
+                  </td>
+                  <td class="<%= item.isBanned ? 'banned' : 'active' %>">
+                    <span><%- item.isBanned ? 'Banned' : 'Active' %></span>
+                  </td>
+                  <td style="position: relative" colspan="3">
+                    <button class="dots btn">
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
-                  </li>
-                  <li>
-                    <button class="removebtn">
-                      <i class="fa-solid fa-trash delete"></i>
-                      Remove
-                    </button>
-                  </li>
-                  <li>
-                    <button class="banbtn">
-                      <i class="fa-solid fa-ban ban"></i>
-                      <span><%- item.isBanned ? 'Unban' : 'Ban' %></span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          <% } }); %>
-        </table>
+                    <div class="options">
+                      <ul data-userid="<%= item._id %>">
+                        <li>
+                          <button><i class="fa-solid fa-message"></i> Message</button>
+                        </li>
+                        <li>
+                          <button class="editbtn">
+                            <i class="fa-solid fa-pencil edit"></i> Edit
+                          </button>
+                        </li>
+                        <li>
+                          <button class="removebtn">
+                            <i class="fa-solid fa-trash delete"></i>
+                            Remove
+                          </button>
+                        </li>
+                        <li>
+                          <button class="banbtn">
+                            <i class="fa-solid fa-ban ban"></i>
+                            <span><%- item.isBanned ? 'Unban' : 'Ban' %></span>
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+                <% } }); %>
+            </tbody>
+
+          </table>
+
       </section>
       <% } else { %>
-      <p class="no-data">No data found!</p>
-      <% } %>
-      <div class="pagination">
-        <ul>
-          <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
-          <%for(let i=0; i < number; i++) { %>
-          <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
-          <% } %>
-        </ul>
-      </div>
-      <%- include("../chatGPT.ejs") %>
+        <p class="no-data">No data found!</p>
+        <% } %>
+          <div class="pagination">
+            <ul>
+              <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
+                <%for(let i=0; i < number; i++) { %>
+                  <li><a value="<%=i+1 %>" href="users?p=<%=i %>">
+                      <%=i+1 %>
+                    </a></li>
+                  <% } %>
+            </ul>
+          </div>
+          <%- include("../chatGPT.ejs") %>
     </main>
 
     <!-- add new user button  -->
@@ -216,21 +205,22 @@
       const filterOptions = document.querySelector(".filter-options");
 
       // Event listener for search input
-      searchInput.addEventListener("input", function () {
-        const searchQuery = this.value.toLowerCase();
+      // Event listener for filter options
+      filterOptions.addEventListener("change", function () {
+        const selectedRoles = Array.from(
+          this.querySelectorAll('input[type="checkbox"]:checked')
+        ).map((checkbox) => checkbox.value);
 
         for (let i = 0; i < userRows.length; i++) {
-          const firstName = userRows[i]
-            .getElementsByTagName("td")[2]
-            .textContent.toLowerCase();
-
-          if (firstName.includes(searchQuery)) {
+          const role = userRows[i].getElementsByTagName("td")[2].textContent.toLowerCase();
+          if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
             userRows[i].style.display = "";
           } else {
             userRows[i].style.display = "none";
           }
         }
       });
+
 
       // Event listener for filter button
       filterButton.addEventListener("click", function () {
@@ -248,7 +238,6 @@
           const role = userRows[i]
             .getElementsByTagName("td")[3]
             .textContent.toLowerCase();
-
           if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
             userRows[i].style.display = "";
           } else {
@@ -416,5 +405,6 @@
         }
       };
     </script>
-  </body>
+</body>
+
 </html>
