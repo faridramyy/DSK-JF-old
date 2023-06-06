@@ -8,6 +8,7 @@ import path from "path";
 const __dirname = path.resolve();
 
 router.get("/api", async (req, res) => {
+  console.log("wsl");
   const { id } = req.body;
   if (await userModel.findById(id)) res.json({ found: true });
   else res.json({ found: false });
