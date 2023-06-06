@@ -108,7 +108,8 @@ h1 {
   margin-bottom: 20px;
 }
 
-.jokes-card #generate {
+.jokes-card #generate,
+#generateCode {
   background-color: rgb(110, 0, 122);
   color: #fff;
   border: none;
@@ -117,7 +118,8 @@ h1 {
   cursor: pointer;
 }
 
-.jokes-card #generate:hover {
+.jokes-card #generate:hover,
+#generateCode:hover {
   background-color: #47005b;
 }
 
@@ -199,4 +201,3 @@ h2 {
   border-radius: 5px;
   cursor: pointer;
 }
-
