@@ -150,3 +150,20 @@ body::-webkit-scrollbar {
 .pagination ul li a:hover {
   background-color: #e2e2e2;
 }
+
+/* banned tsudent */
+
+.bannedcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.banneddiv {
+  text-align: center;
+  padding: 20px; /* Adjust the padding to create space around the content */
+  background-color: #f1f1f1; /* Optional: Add a background color to the content area */
+  width: 40%;
+  position: relative;
+  top: -100px;
+}
