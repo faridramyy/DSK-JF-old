@@ -17,7 +17,7 @@ main {
 
 .overview {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
@@ -27,13 +27,18 @@ main {
 }
 
 .course-img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
+  width: 90%;
+  max-width: 500px;
+  /* height: auto; */
   border-radius: 8px;
+  margin: 0 auto; /* Center the image horizontally /
+  display: block; / Ensures that margin: 0 auto works */
+  display:flex ;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
-  margin-left: 25%;
 }
+
 
 .course-head {
   text-align: center;
@@ -78,6 +83,7 @@ p {
 }
 
 .useful-links h3 {
+  color: #065ebb;
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -97,6 +103,8 @@ p {
 }
 
 .course-files h3 {
+  color: #0056b3;
+
   font-size: 20px;
   margin-bottom: 10px;
 }
@@ -116,12 +124,16 @@ p {
 }
 
 .course-submission h3 {
+  color: #0056b3;
   font-size: 20px;
   margin-bottom: 10px;
 }
 
 .course-submission div {
   margin-bottom: 15px;
+}
+.deadline{
+  color: red;
 }
 
 /* Course Project section */
@@ -149,7 +161,7 @@ p {
   margin-top: 10px;
 }
 
-.project-btn a {
+.project-btn .viewDetails  {
   display: inline-block;
   margin-left: 10px;
   padding: 10px 20px;
@@ -160,7 +172,7 @@ p {
   transition: background-color 0.3s ease;
 }
 
-.project-btn a:hover {
+.project-btn .viewDetails:hover {
   background-color: #0056b3;
   color: white;
 }
@@ -168,7 +180,7 @@ p {
   display: inline-block;
   margin-left: 10px;
   padding: 10px 20px;
-  background-color: #00a908;
+  background-color: #28a745;
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
@@ -177,7 +189,7 @@ p {
 }
 
 .project-btn button:hover {
-  background-color: #0b3a00;
+  background-color: #17662a;
   color: white;
 }
 
@@ -213,23 +225,47 @@ p {
   margin-bottom: 10px;
 }
 
-.project-btn {
-  display: flex;
-  justify-content: flex-end;
+
+
+
+
+
+/* view details  */
+.view-project {
+  margin: 10px;
+}
+
+.view-project-form {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.project-description {
   margin-top: 10px;
+  color: #555;
 }
 
-.project-btn a {
-  display: inline-block;
-  margin-left: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+.project-details {
+  margin-top: 20px;
 }
 
-.project-btn a:hover {
-  background-color: #0056b3;
+.detail {
+  margin-bottom: 8px;
+}
+
+.detail strong {
+  font-weight: bold;
+}
+
+.detail:last-child {
+  margin-bottom: 0;
 }
