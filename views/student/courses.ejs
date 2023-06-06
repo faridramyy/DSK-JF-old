@@ -30,9 +30,9 @@
     <%- include("./nav.ejs") %>
         <main>
 
-            <% if (courses.length> 0) { %>
+            <% if (allCourses.length> 0) { %>
                 <section class="courses">
-                    <% courses.forEach(c=> { %>
+                    <% allCourses.forEach(c=> { %>
 
                         <a id="anchor" href="/student/<%= user._id %>/courses/<%= c._id %>">
                             <article class="card">
