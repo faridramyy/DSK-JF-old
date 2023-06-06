@@ -42,17 +42,25 @@ router.get("/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await userModel.findById(userId).populate("courses");
-    console.log(user);
+    console.log(user.courses);
 
     if (user !== null && user.courses) {
       const courses = user.courses;
       const populatedCourses = await courseModel.populate(courses, {
         path: "students",
       });
-      console.log(populatedCourses);
+
+      const instructornames = await courseModel.populate(courses, {
+        path: "instructorId",
+      });
+      const instructorNames = instructornames.map(
+        (course) => course.instructorId
+      );
+      console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+      // instructorNamesof all my courses
+      console.log(instructorNames);
 
       const courseTitles = populatedCourses.map((course) => course.title);
-      console.log(courseTitles);
 
       res.render("student/home", {
         user: user,
@@ -68,34 +76,35 @@ router.get("/:id", async (req, res) => {
     console.log(err);
   }
 });
+//get all courses
+router.get("/:id/courses", async (req, res) => {
+  const userId = req.params.id;
+  
+  try {
+    const user = await userModel.findById(userId).populate("courses");
+    const myCourses = user.courses;
+    const populatedCourses = await courseModel.populate(myCourses, {
+      path: "students",
+    });
 
-// router.get("/:id/courseInner/:cid", async (req, res) => {
-//   const userId = req.params.id;
-//   const cid = req.params.cid;
-//   console.log(await courseModel.findById(req.params.cid));
-//   const user = await userModel.findById(userId).populate("courses");
+    const allCourses = await courseModel.find();
+    if (allCourses) {
+      res.render("student/courses", {
+        user: await userModel.findById(userId),
+        courses: populatedCourses,
+        allCourses,
+      });
+    } else {
+      console.log("User or courses not found.");
+      res.status(404).send("User or courses not found.");
+    }
+  } catch (err) {
+    res.status(500).json({ error: true });
+    console.log(err);
+  }
+});
 
-//   const course = await courseModel.findById(cid).populate('User');
-//   console.log(course.instructorId);
-//   // const instructorTitle = course.user.title;
-//   // console.log(instructorTitle);
 
-//   let populatedCourses = [];
-
-//   if (user !== null && user.courses) {
-//     const courses = user.courses;
-//     populatedCourses = await courseModel.populate(courses, {
-//       path: "students",
-//     });
-//   }
-
-//   res.render("student/courseInner", {
-//     user: await userModel.findById(req.params.id),
-//     course: await courseModel.findById(req.params.cid),
-//     courses: populatedCourses,
-//     // instructorTitle: instructorTitle,
-//   });
-// });
 router.get("/:id/courseInner/:cid", async (req, res) => {
   const userId = req.params.id;
   const courseId = req.params.cid;

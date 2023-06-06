@@ -15,18 +15,21 @@ router.get("/:id", async (req, res) => {
     const instructorId = req.params.id;
     const page = req.query.p || 0;
     const coursesPerPage = 3;
-    let coursess = await courseModel.find();
+    let coursess = await courseModel.find({
+      instructorId: instructorId,
+      availableForUsers: true,
+    });
+
     const coursesLength = coursess.length;
 
     const courses = await courseModel
       .find({
-        instructorId,
+        instructorId: instructorId,
         availableForUsers: true,
       })
       .skip(page * coursesPerPage)
       .limit(coursesPerPage);
-    console.log("XXXXXXsssssX");
-    console.log(courses);
+
     res.render("instructor/home", {
       user: await userModel.findById(instructorId),
       courses,
@@ -516,20 +519,20 @@ router.get("/:id/:cid/viewall", async (req, res) => {
   const courseId = req.params.cid;
   const page = req.query.p || 0;
   const studentsPerPage = 3;
-  let studentss = await courseModel.find();
-  const studentsLength = studentss.length;
+  let course = await courseModel.findById(courseId);
+  const studentsLength = course.students.length;
+  console.log(studentsLength);
 
   try {
-    const course = await courseModel
-      .findById(courseId)
-      .populate("students")
+    const course = await courseModel.findById(courseId).populate("students")
+    const coursee = await courseModel.findById(courseId)
       .skip(page * studentsPerPage)
       .limit(studentsPerPage);
     const students = course.students;
     console.log(students);
     res.render("instructor/viewAll", {
       user: await userModel.findById(req.params.id),
-      course: course,
+      course: coursee,
       students: students,
       studentsLength,
       studentsPerPage,

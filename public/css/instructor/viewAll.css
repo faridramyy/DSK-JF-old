@@ -1,6 +1,15 @@
+body {
+  overflow-x: hidden;
+}
+
+table {
+  border: 1px solid red;
+}
 .profile-table {
   width: 100%;
   border-collapse: collapse;
+  border: 1px solid red;
+  margin: 10px;
 }
 
 .profile-table th,

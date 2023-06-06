@@ -1,8 +1,13 @@
+body{
+  overflow-x: hidden;
+}
+
 .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+
 }
 
 .title input {
@@ -20,6 +25,8 @@
 .fa-pencil:hover {
   color: #000000;
 }
+
+/* add-menu */
 .add {
   background-color: rgb(32, 101, 209);
   box-shadow: rgba(32, 101, 209, 0.24) 0px 8px 16px 0px;
