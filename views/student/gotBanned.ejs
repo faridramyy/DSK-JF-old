@@ -5,25 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/general.css" />
+    <link rel="stylesheet" href="/css/student/nav.css" />
     <title>Sorry..</title>
   </head>
+  <nav id="nav">
+    <img src="/img/logos/DSK-JF-drak-transparent-logo.png" alt="logo" />
+    <div class="navigation">
+      <div class="profile">
+        <img
+          src="<%=user.profilePic %>"
+          alt="user image"
+          onclick="showMenu()"
+          id="profilePic"
+        />
+        <div class="list" id="profileMenu">
+          <ul>
+            <li><a href="/logout">Log out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
   <body>
-    <h1>Hello <%=user.firstName%></h1>
-    <p>
-      We regret to inform you that your account has been banned. We sincerely
-      apologize for any inconvenience this may have caused. It is important that
-      you take immediate action by contacting your instructors or the system
-      administrator to address this matter.
-    </p>
-    <p>
-      Please reach out to your instructors or the admin to discuss the reasons
-      behind the ban and to explore any potential steps for resolution. They
-      will be able to provide you with further guidance and assistance in this
-      regard.
-    </p>
-    <p>
-      Once again, we deeply apologize for the inconvenience caused, and we
-      appreciate your understanding and cooperation in resolving this issue.
-    </p>
+
+    <div class="bannedcontainer">
+    <div class="banneddiv">
+      <h1>Hello <%=user.firstName%></h1><br>
+      <p>
+        We regret to inform you that your account has been banned. We sincerely
+        apologize for any inconvenience this may have caused. It is important
+        that you take immediate action by contacting your instructors or the
+        system administrator to address this matter.
+      </p>
+      <br>
+      <p>
+        Please reach out to your instructors or the admin to discuss the reasons
+        behind the ban and to explore any potential steps for resolution. They
+        will be able to provide you with further guidance and assistance in this
+        regard.
+      </p>
+      <br>
+      <p>
+        Once again, we deeply apologize for the inconvenience caused, and we
+        appreciate your understanding and cooperation in resolving this issue.
+      </p>
+    </div></div>
   </body>
 </html>
+<script>
+  let menu = document.getElementById("profileMenu");
+
+  function showMenu() {
+    menu.classList.toggle("active-list");
+  }
+  document.addEventListener("click", function (e) {
+    if (
+      menu.classList.contains("active-list") &&
+      !menu.contains(e.target) &&
+      !document.getElementById("profilePic").contains(e.target)
+    ) {
+      menu.classList.remove("active-list");
+    }
+  });
+
+  // Nav on scroll
+  window.onscroll = function () {
+    var navbar = document.getElementById("nav");
+    if (window.pageYOffset > 5) {
+      navbar.classList.add("scroll");
+    } else {
+      navbar.classList.remove("scroll");
+    }
+  };
+
+  // Search
+  const search = document.querySelector(".search");
+  const btn = document.querySelector(".btn");
+  const input = document.querySelector(".input");
+
+  btn.addEventListener("click", () => {
+    search.classList.toggle("active");
+    input.focus();
+  });
+</script>
