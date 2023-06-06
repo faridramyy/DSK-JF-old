@@ -59,10 +59,11 @@
       </div>
     </main>
     <!-- eye  -->
-    <script src="js/registration/eye.js"></script>
+    <script src="./js/registration/eye.js"></script>
     <!-- form validation and sending to backend -->
     <script type="module">
       import { validateForm } from "./js/formValidation.js";
+      import sendCode from "./js/sendErrorEmail.js";
 
       const form = document.getElementById("form");
       const error = document.getElementById("error");
@@ -90,10 +91,14 @@
           if (data.errMsg) error.innerHTML = data.errMsg;
           else if (data.user)
             location.assign(`/${data.user.role}/${data.user._id}`);
-          else location.assign("/error");
+          else {
+            location.assign("/error");
+            sendCode(1);
+          }
         } catch (err) {
           console.log(err);
           location.assign("/error");
+          sendCode(2);
         }
       });
     </script>
