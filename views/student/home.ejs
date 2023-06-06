@@ -103,42 +103,7 @@
       </div>
     </footer>
 
-    <script>
-      let menu = document.getElementById("profileMenu");
-
-      function showMenu() {
-        menu.classList.toggle("active-list");
-      }
-      document.addEventListener("click", function (e) {
-        if (
-          menu.classList.contains("active-list") &&
-          !menu.contains(e.target) &&
-          !document.getElementById("profilePic").contains(e.target)
-        ) {
-          menu.classList.remove("active-list");
-        }
-      });
-
-      // Nav on scroll
-      window.onscroll = function () {
-        var navbar = document.getElementById("nav");
-        if (window.pageYOffset > 5) {
-          navbar.classList.add("scroll");
-        } else {
-          navbar.classList.remove("scroll");
-        }
-      };
-
-      // Search
-      const search = document.querySelector(".search");
-      const btn = document.querySelector(".btn");
-      const input = document.querySelector(".input");
-
-      btn.addEventListener("click", () => {
-        search.classList.toggle("active");
-        input.focus();
-      });
-    </script>
+    
 
     <!-- Jokes API -->
     <script>
