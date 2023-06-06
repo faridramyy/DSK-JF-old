@@ -28,7 +28,6 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- style sheets -->
     <link rel="stylesheet" href="/css/general.css" />
-    <link rel="stylesheet" href="/css/admin/nav.css" />
     <link rel="stylesheet" href="/css/admin/security.css" />
     <title>student Security</title>
   </head>
@@ -46,6 +45,10 @@
             <a class="nav-link" href="/student/<%= user._id %>/notifications"
               >Notifications</a
             >
+          </li>
+          <li>
+            <a class="nav-link" href="/student/<%= user._id %>"
+              >Home</a >
           </li>
         </nav>
 

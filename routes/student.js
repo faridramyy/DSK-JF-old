@@ -7,6 +7,8 @@ import bcrypt from "bcrypt";
 import path from "path";
 const __dirname = path.resolve();
 
+
+
 router.get("/:id", async (req, res) => {
   const userId = req.params.id;
   try {

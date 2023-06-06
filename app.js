@@ -35,9 +35,26 @@ app.use("/admin", adminAuth, adminRouter);
 app.use("/instructor", instructorRouter);
 app.use("/student", studentAuth, studnetRouter);
 
+app.post("/api", async (req, res) => {
+  console.log("wsl");
+  const { id } = req.body;
+  try {
+    if (await UserModel.findById(id)) res.json({ found: true });
+    else res.json({ found: false });
+  } catch (err) {
+    res.json({ found: false });
+  }
+});
+
 //Handle banned users
 app.get("/gotbanned/:id", async (req, res) => {
   res.render("student/gotBanned", {
+    user: await UserModel.findById(req.params.id),
+  });
+});
+//Handle home page
+app.get("/", async (req, res) => {
+  res.render("home", {
     user: await UserModel.findById(req.params.id),
   });
 });

@@ -53,6 +53,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: 0,
     },
+    code: {
+      type: String,
+    },
     courses: {
       type: [mongoose.Schema.Types.ObjectId],
       default: [],
