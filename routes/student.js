@@ -79,31 +79,28 @@ router.get("/:id", async (req, res) => {
 //get all courses
 router.get("/:id/courses", async (req, res) => {
   const userId = req.params.id;
-  
   try {
-    const user = await userModel.findById(userId).populate("courses");
-    const myCourses = user.courses;
-    const populatedCourses = await courseModel.populate(myCourses, {
-      path: "students",
+    let instructors = await userModel.find({ role: "Instructor" });
+    const page = req.query.p || 0;
+    const coursesPerPage = 8;
+    let coursess = await courseModel.find();
+    const coursesLength = coursess.length;
+    const courses = await courseModel
+      .find()
+      .skip(page * coursesPerPage)
+      .limit(coursesPerPage);
+    res.render("student/courses", {
+      user: await userModel.findById(req.params.id),
+      dirname: __dirname,
+      instructors,
+      courses,
+      coursesLength,
+      coursesPerPage,
     });
-
-    const allCourses = await courseModel.find();
-    if (allCourses) {
-      res.render("student/courses", {
-        user: await userModel.findById(userId),
-        courses: populatedCourses,
-        allCourses,
-      });
-    } else {
-      console.log("User or courses not found.");
-      res.status(404).send("User or courses not found.");
-    }
   } catch (err) {
-    res.status(500).json({ error: true });
     console.log(err);
   }
 });
-
 
 router.get("/:id/courseInner/:cid", async (req, res) => {
   const userId = req.params.id;
