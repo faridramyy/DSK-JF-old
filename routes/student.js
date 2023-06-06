@@ -42,7 +42,6 @@ router.get("/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await userModel.findById(userId).populate("courses");
-    console.log(user.courses);
 
     if (user !== null && user.courses) {
       const courses = user.courses;
@@ -86,7 +85,7 @@ router.get("/:id/courses", async (req, res) => {
     const coursesPerPage = 8;
     let coursess = await courseModel.find();
     const coursesLength = coursess.length;
-    
+
     const allCourses = await courseModel
       .find()
       .skip(page * coursesPerPage)
@@ -95,7 +94,7 @@ router.get("/:id/courses", async (req, res) => {
       user: await userModel.findById(userId),
       courses: populatedCourses,
       allCourses,
-      
+
       coursesLength,
       coursesPerPage,
     });
@@ -147,6 +146,31 @@ router.get("/:id/courseInner/:cid", async (req, res) => {
     submissions,
     files,
     projects,
+  });
+});
+
+router.get("/:id/courses/:cid", async (req, res) => {
+  const userId = req.params.id;
+  const courseId = req.params.cid;
+
+  const user = await userModel.findById(userId).populate("courses");
+
+  const course = await courseModel.findById(courseId);
+  const instructor = await userModel.findById(course.instructorId);
+  let populatedCourses = [];
+
+  if (user !== null && user.courses) {
+    const courses = user.courses;
+    populatedCourses = await courseModel.populate(courses, {
+      path: "students",
+    });
+  }
+  res.render("student/allCourses-inner", {
+    user: await userModel.findById(req.params.id),
+    course: await courseModel.findById(req.params.cid),
+    courses: populatedCourses,
+    instructor,
+    title: "Course inner",
   });
 });
 
