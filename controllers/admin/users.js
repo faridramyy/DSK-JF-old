@@ -1,27 +1,22 @@
 import userModel from "../../models/user.js";
 
 const users_get = async (req, res) => {
-  try {
-    const page = req.query.p || 0;
-    const usersPerPage = 10;
-    let userss = await userModel.find();
-    const usersLength = userss.length;
+  const page = req.query.p || 0;
+  const usersPerPage = 10;
+  let userss = await userModel.find();
+  const usersLength = userss.length;
 
-    let users = await userModel
-      .find()
-      .skip(page * usersPerPage)
-      .limit(usersPerPage);
+  let users = await userModel
+    .find()
+    .skip(page * usersPerPage)
+    .limit(usersPerPage);
 
-    res.render("admin/users", {
-      user: await userModel.findById(req.params.id),
-      users,
-      usersLength,
-      usersPerPage,
-    });
-  } catch (err) {
-    console.log(err);
-    res.render("error");
-  }
+  res.render("admin/users", {
+    user: await userModel.findById(req.params.id),
+    users,
+    usersLength,
+    usersPerPage,
+  });
 };
 
 const banUser_put = async (req, res) => {
