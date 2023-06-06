@@ -82,12 +82,12 @@ router.get("/:id/courses", async (req, res) => {
     const populatedCourses = await courseModel.populate(myCourses, {
       path: "students",
     });
-    let instructors = await userModel.find({ role: "Instructor" });
     const page = req.query.p || 0;
     const coursesPerPage = 8;
-    let allCourses = await courseModel.find();
+    let coursess = await courseModel.find();
     const coursesLength = coursess.length;
-    const courses = await courseModel
+    
+    const allCourses = await courseModel
       .find()
       .skip(page * coursesPerPage)
       .limit(coursesPerPage);
@@ -95,8 +95,7 @@ router.get("/:id/courses", async (req, res) => {
       user: await userModel.findById(userId),
       courses: populatedCourses,
       allCourses,
-      instructors,
-      courses,
+      
       coursesLength,
       coursesPerPage,
     });
