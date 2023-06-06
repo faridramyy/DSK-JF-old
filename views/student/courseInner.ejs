@@ -18,7 +18,8 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="/css/student/innercourse.css" />
-    <link rel="stylesheet" href="/css/student/home.css" />
+    <link rel="stylesheet" href="/css/student/nav.css" />
+    <link rel="stylesheet" href="/css/student/footer.css" />
     <link rel="stylesheet" href="/css/student/teamForm.css" />
 
     <link
@@ -43,7 +44,7 @@
   <body>
     <header>
       <!-- Navigation -->
-      <%- include("./nav.ejs") %>
+      <%- include("./partials/nav.ejs") %>
     </header>
     <main>
       <section id="course-inner">
@@ -104,24 +105,26 @@
               <% } %>
             </div>
           </section>
+          <hr>
           <!-- Course Submission section -->
           <section class="course-submission">
             <h3>Course Submission</h3>
             <div class="my-submissions">
               <% if (submissions) { %> <% submissions.forEach(submission=> { %>
               <div>
-                <h3>
+                <h4>
                   <i class="far fa-pen-to-square"></i>
                   <%= submission.title %>
-                </h3>
+                </h4>
                 <p>Description: <%= submission.description %></p>
-                <p>Deadline: <%= submission.deadline %></p>
+                <p class="deadline">Deadline: <%= submission.deadline %></p>
               </div>
               <% }); %> <% } else { %>
               <p>No submissions</p>
               <% } %>
             </div>
           </section>
+          <hr>
         </div>
         <!-- Course Project section -->
         <div class="course-project-card">
@@ -214,6 +217,8 @@
         </div>
       </section>
     </main>
+    <%- include("./partials/footer.ejs") %>
+
     <!-- Display the team form -->
     <script>
       function toggleForm() {

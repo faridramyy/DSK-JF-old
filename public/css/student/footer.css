@@ -1,0 +1,70 @@
+/* footer */
+footer {
+  margin-top: 10rem;
+  padding: 6vw;
+  background-color: #101c32;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+footer .copywrite {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+footer .copywrite .pro-links i {
+  background-color: #5f7185;
+  height: 20px;
+  width: 20px;
+  padding: 2px;
+  border-radius: 2px;
+  color: #fff;
+}
+
+footer .copywrite .pro-links .facebook:hover,
+footer .copywrite .pro-links .linkedin:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+footer .copywrite .pro-links .instagram:hover {
+  background: #d6249f;
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  color: white;
+}
+
+footer .copywrite .pro-links i:hover {
+  background-color: #fdc938;
+  color: #2c2c2c;
+}
+
+footer .copywrite p {
+  color: white;
+}
+
+@media (max-width: 769px) {
+  /* nav {
+      padding: 15px 20px;
+    }
+    nav img {
+      width: 130px;
+    }
+    .art
+    
+    footer .copyright .pro-links {
+      margin-top: 15px;
+    } */
+}
