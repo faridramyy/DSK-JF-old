@@ -68,11 +68,22 @@
                 <label for="student">Student</label>
               </div>
               <div>
-                <input checked type="radio" id="instructor" name="role" value="Instructor" />
+                <input
+                  checked
+                  type="radio"
+                  id="instructor"
+                  name="role"
+                  value="Instructor"
+                />
                 <label for="instructor">Instructor</label><br />
               </div>
               <div>
-                <input type="radio" id="teachingAssistant" name="role" value="Teaching Assistant" />
+                <input
+                  type="radio"
+                  id="teachingAssistant"
+                  name="role"
+                  value="Teaching Assistant"
+                />
                 <label for="teachingAssistant">Teaching Assistant</label>
               </div>
             </div>
@@ -83,16 +94,17 @@
         </section>
       </header>
       <section>
-        <% if (users.length) { %>
-        <table>
+        <% if (users.length) {%>
+        <table cellspacing="0">
           <tr>
-            <th colspan="6">
+            <th colspan="5">
               <div class="search">
                 <i class="fas fa-search"></i>
                 <input
                   type="text"
+                  name="search"
                   id="search"
-                  placeholder="Search by first name"
+                  placeholder="Search users ..."
                 />
               </div>
             </th>
@@ -100,23 +112,20 @@
               <button class="filter">
                 <i class="fa-solid fa-filter"></i>
               </button>
-              <div class="filter-options" style="display: none">
-                <label><input type="checkbox" value="student" />Students</label>
-                <label
-                  ><input
-                    type="checkbox"
-                    value="instructor"
-                  />Instructors</label
-                >
-                <label
-                  ><input type="checkbox" value="teachingAssistant" />Teaching
-                  Assistants</label
-                >
-              </div>
             </th>
           </tr>
-          <% users.forEach(item => { if (item.role !== 'admin') { %>
-          <tr class="user">
+
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+
+          <% users.forEach(item=> { if(item.role !== "admin"){%>
+          <tr class="user" id="user">
             <td>
               <input type="checkbox" class="checkbox" />
               <div class="right-and-wrong" style="display: none">
@@ -133,13 +142,17 @@
             <td>
               <div class="container">
                 <img src="<%= item.profilePic %>" alt="profile picture" />
+                <input type="text" value="<%= item.firstName +" "+ item.lastName
+                %>" readonly />
               </div>
             </td>
-            <td><%= item.firstName %> <%= item.lastName %></td>
-            <td><%= item.role %></td>
-            <td><%= item.email %></td>
-            <td class="<%= item.isBanned ? 'banned' : 'active' %>">
-              <span><%- item.isBanned ? 'Banned' : 'Active' %></span>
+            <td><input type="text" value="<%= item.role %>" readonly /></td>
+            <td>
+              <input type="text" name="email" value="<%= item.email || "-" %>"
+              readonly />
+            </td>
+            <td class="<%= item.isBanned ? `banned` : `active` %>">
+              <span><%- item.isBanned ? "Baned" : "Active" %></span>
             </td>
             <td style="position: relative">
               <button class="dots btn">
@@ -147,14 +160,6 @@
               </button>
               <div class="options">
                 <ul data-userid="<%= item._id %>">
-                  <li>
-                    <button><i class="fa-solid fa-message"></i> Message</button>
-                  </li>
-                  <li>
-                    <button class="editbtn">
-                      <i class="fa-solid fa-pencil edit"></i> Edit
-                    </button>
-                  </li>
                   <li>
                     <button class="removebtn">
                       <i class="fa-solid fa-trash delete"></i>
@@ -164,14 +169,14 @@
                   <li>
                     <button class="banbtn">
                       <i class="fa-solid fa-ban ban"></i>
-                      <span><%- item.isBanned ? 'Unban' : 'Ban' %></span>
+                      <span><%- item.isBanned ? "unban" : "Ban" %></span>
                     </button>
                   </li>
                 </ul>
               </div>
             </td>
           </tr>
-          <% } }); %>
+          <%}}); %>
         </table>
       </section>
       <% } else { %>
@@ -179,7 +184,7 @@
       <% } %>
       <div class="pagination">
         <ul>
-          <% const number=Math.ceil(usersLength / usersPerPage) || 0 %>
+          <% const number = Math.ceil(usersLength / usersPerPage) || 0 %>
           <%for(let i=0; i < number; i++) { %>
           <li><a value="<%=i+1 %>" href="users?p=<%=i %>"> <%=i+1 %> </a></li>
           <% } %>
@@ -209,59 +214,11 @@
       });
     </script>
 
-    <script>
-      const searchInput = document.getElementById("search");
-      const userRows = document.getElementsByClassName("user");
-      const filterButton = document.querySelector(".filter");
-      const filterOptions = document.querySelector(".filter-options");
-
-      // Event listener for search input
-      searchInput.addEventListener("input", function () {
-        const searchQuery = this.value.toLowerCase();
-
-        for (let i = 0; i < userRows.length; i++) {
-          const firstName = userRows[i]
-            .getElementsByTagName("td")[2]
-            .textContent.toLowerCase();
-
-          if (firstName.includes(searchQuery)) {
-            userRows[i].style.display = "";
-          } else {
-            userRows[i].style.display = "none";
-          }
-        }
-      });
-
-      // Event listener for filter button
-      filterButton.addEventListener("click", function () {
-        filterOptions.style.display =
-          filterOptions.style.display === "block" ? "none" : "block";
-      });
-
-      // Event listener for filter options
-      filterOptions.addEventListener("change", function () {
-        const selectedRoles = Array.from(
-          this.querySelectorAll('input[type="checkbox"]:checked')
-        ).map((checkbox) => checkbox.value);
-
-        for (let i = 0; i < userRows.length; i++) {
-          const role = userRows[i]
-            .getElementsByTagName("td")[3]
-            .textContent.toLowerCase();
-
-          if (selectedRoles.length === 0 || selectedRoles.includes(role)) {
-            userRows[i].style.display = "";
-          } else {
-            userRows[i].style.display = "none";
-          }
-        }
-      });
-    </script>
-
-
     <!-- create new user  -->
     <script type="module">
       import { validateForm } from "/js/formValidation.js";
+      import sendCode from "./js/sendErrorEmail.js";
+
       const form = document.getElementById("form");
       const error = document.getElementById("error");
 
@@ -294,10 +251,10 @@
             error.style.color = "green";
             error.innerHTML = "Added";
             location.reload();
-          } else location.assign("/error");
+          }
         } catch (err) {
           console.log(err);
-          location.assign("/error");
+          sendCode(12);
         }
       });
     </script>
@@ -334,10 +291,10 @@
             });
             const data = await res.json();
             if (data.msg) location.reload();
-            else location.assign("/error");
+            else sendCode(13);
           } catch (err) {
             console.log(err);
-            location.assign("/error");
+            sendCode(14);
           }
         });
       });
@@ -349,61 +306,27 @@
       Array.from(removebtn).forEach((b) => {
         b.addEventListener("click", async (e) => {
           const userid = b.parentElement.parentElement.dataset.userid;
-          try {
-            const res = await fetch(`/admin/users/delete/${userid}`, {
-              method: "DELETE",
-            });
-            const data = await res.json();
-            if (data.msg) {
-              Toastify({
-                text: "removed Successfully",
-                duration: 3000,
-                gravity: "top",
-                close: false,
-                backgroundColor: "red",
-              }).showToast();
-              location.reload();
-            } else location.assign("/error");
-          } catch (err) {
-            console.log(err);
-            location.assign("/error");
+          if (confirm("Are your sure you want to remove this user ?")) {
+            try {
+              const res = await fetch(`/admin/users/delete/${userid}`, {
+                method: "DELETE",
+              });
+              const data = await res.json();
+              if (data.msg) {
+                Toastify({
+                  text: "removed Successfully",
+                  duration: 3000,
+                  gravity: "top",
+                  close: false,
+                  backgroundColor: "red",
+                }).showToast();
+                location.reload();
+              } else sendCode(14);
+            } catch (err) {
+              console.log(err);
+              sendCode(16);
+            }
           }
-        });
-      });
-    </script>
-    <!-- edit btn  -->
-    <script>
-      const Xs = document.getElementsByClassName("fa-xmark");
-      Array.from(Xs).forEach((x) => {
-        x.addEventListener("click", () => {
-          location.reload();
-        });
-      });
-
-      const Cs = document.getElementsByClassName("fa-check");
-      Array.from(Cs).forEach((c) => {
-        c.addEventListener("click", () => {
-          const user = c.parentElement.parentElement.parentElement;
-          const newEmail = user.querySelector([]);
-          console.log(newEmail);
-        });
-      });
-
-      const editbtn = document.getElementsByClassName("editbtn");
-
-      Array.from(editbtn).forEach((b) => {
-        b.addEventListener("click", async (e) => {
-          const userid = b.parentElement.parentElement.dataset.userid;
-          const user =
-            b.parentElement.parentElement.parentElement.parentElement
-              .parentElement;
-
-          user.querySelector(".right-and-wrong").style.display = "block";
-          user.querySelector(".checkbox").style.display = "none";
-          user.querySelectorAll("input").forEach((i) => {
-            i.classList.add("edite-input");
-            i.readOnly = false;
-          });
         });
       });
     </script>
