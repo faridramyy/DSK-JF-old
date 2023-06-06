@@ -73,7 +73,7 @@
                     </td>
                     <td>
                       <a href="#">
-                        <%= student.github %>
+                        <i class="fa-brands fa-github"></i>
                       </a>
                     </td>
                   </tr>
@@ -87,8 +87,7 @@
 
         <div class="pagination">
           <ul>
-            <% const number=Math.ceil(studentsLength / studentsPerPage) || 0 %>
-           
+            <% const number=Math.ceil(studentslength / studentsPerPage) || 0 %>
               <%for(let i=0; i < number; i++) { %>
                 <li><a value="<%=i+1 %>" href="?p=<%=i %>">
                     <%=i+1 %>
