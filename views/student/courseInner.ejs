@@ -22,44 +22,7 @@
   <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
 
   <style>
-    /* Course Project section */
-    .course-project-card {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-    }
 
-    .course-project-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .course-project-card p {
-      margin-bottom: 10px;
-    }
-
-    .enroll-btn {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 10px;
-    }
-
-    .enroll-btn a {
-      display: inline-block;
-      margin-left: 10px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-
-    .enroll-btn a:hover {
-      background-color: #0056b3;
-    }
   </style>
 </head>
 
@@ -167,13 +130,13 @@
             <% projects.forEach(project=> { %>
               <div>
                 <h3>
-                  <%= project.title %>
+                  Title: <%= project.title %>
                 </h3>
-                <p>Description: <%= project.description %>
+                <p class="deadline">Deadline: <%= project.deadline %>
                 </p>
               </div>
-              <div class="enroll-btn">
-                <button class="blue" href="#" onclick="toggleForm()">Form a team</button>
+              <div class="project-btn">
+                <button class="teamForm" href="#" onclick="toggleForm()">Form a team</button>
                 <a class="blue" href="#">View details</a>
               </div>
               <% }); %>

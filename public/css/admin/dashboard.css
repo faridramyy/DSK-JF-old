@@ -1,0 +1,18 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #23232e;
+  border-radius: 8px;
+  margin-left: 1%;
+}
+
+h1 {
+  text-align: center;
+  flex-grow: 1;
+  color: #ffffff;
+}
+p {
+  color: #ffffff;
+}
