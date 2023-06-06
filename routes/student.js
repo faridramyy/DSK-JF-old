@@ -56,9 +56,6 @@ router.get("/:id", async (req, res) => {
       const instructorNames = instructornames.map(
         (course) => course.instructorId
       );
-      console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-      // instructorNamesof all my courses
-      console.log(instructorNames);
 
       const courseTitles = populatedCourses.map((course) => course.title);
 
@@ -79,43 +76,43 @@ router.get("/:id", async (req, res) => {
 //get all courses
 router.get("/:id/courses", async (req, res) => {
   const userId = req.params.id;
-  
   try {
     const user = await userModel.findById(userId).populate("courses");
     const myCourses = user.courses;
     const populatedCourses = await courseModel.populate(myCourses, {
       path: "students",
     });
-
-    const allCourses = await courseModel.find();
-    if (allCourses) {
-      res.render("student/courses", {
-        user: await userModel.findById(userId),
-        courses: populatedCourses,
-        allCourses,
-      });
-    } else {
-      console.log("User or courses not found.");
-      res.status(404).send("User or courses not found.");
-    }
+    let instructors = await userModel.find({ role: "Instructor" });
+    const page = req.query.p || 0;
+    const coursesPerPage = 8;
+    let allCourses = await courseModel.find();
+    const coursesLength = coursess.length;
+    const courses = await courseModel
+      .find()
+      .skip(page * coursesPerPage)
+      .limit(coursesPerPage);
+    res.render("student/courses", {
+      user: await userModel.findById(userId),
+      courses: populatedCourses,
+      allCourses,
+      instructors,
+      courses,
+      coursesLength,
+      coursesPerPage,
+    });
   } catch (err) {
-    res.status(500).json({ error: true });
     console.log(err);
   }
 });
-
 
 router.get("/:id/courseInner/:cid", async (req, res) => {
   const userId = req.params.id;
   const courseId = req.params.cid;
 
-  console.log(await courseModel.findById(req.params.cid));
   const user = await userModel.findById(userId).populate("courses");
 
   const course = await courseModel.findById(courseId);
-  console.log(course.instructorId); // Assuming 'name' is the field that holds the instructor's name
   const instructor = await userModel.findById(course.instructorId);
-  console.log(instructor.firstName);
 
   const courseProject = await courseModel
     .findById(courseId)
@@ -194,7 +191,6 @@ router.post("/settings/changepp/:id", async (req, res) => {
       } else {
         try {
           const id = req.params.id;
-          console.log(id);
           await userModel.findByIdAndUpdate(id, {
             profilePic: `/upload/images/${filename}`,
           });
