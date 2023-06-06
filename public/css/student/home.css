@@ -30,14 +30,15 @@ body::-webkit-scrollbar {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  max-width: 70%;
+  max-width: 55%;
+  margin-left: 4%;
   border-radius: 8px;
 }
 
 h1 {
   font-size: 24px;
   margin-bottom: 20px;
-  color: #efbf3c;
+  color: #000000;
 }
 
 .update-details {
@@ -48,9 +49,9 @@ h1 {
 }
 
 .update-type {
-  font-weight: bold;
   margin-bottom: 10px;
   font-size: 20px;
+  color: #000000b0;
 }
 
 .update-description {
@@ -67,11 +68,12 @@ h1 {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .btn1,
 .btn2 {
-  background-color: #007bff;
+  background-color: rgb(24, 24, 49);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -135,9 +137,13 @@ h1 {
   z-index: -9999;
 }
 
-h2 {
-  font-size: 18px;
+.sidebar h2 {
+  font-size: 20px;
   margin-bottom: 10px;
+}
+h2 {
+  color: #333;
+  font-size: 23px;
 }
 
 .row {
@@ -159,6 +165,9 @@ h2 {
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+h3 {
+  font-size: 18px;
+}
 
 .details {
   margin-bottom: 10px;
@@ -166,7 +175,7 @@ h2 {
 
 .accept-btn,
 .reject-btn {
-  background-color: #007bff;
+  background-color: rgb(24, 24, 49);
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -205,6 +214,7 @@ h2 {
 /* Trivia API */
 .TriviaGame {
   flex: 0 0 300px;
+  margin-left: 5%;
 }
 
 .game-card {
