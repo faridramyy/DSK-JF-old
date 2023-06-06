@@ -38,7 +38,7 @@ app.use("/student", studentAuth, studnetRouter);
 app.post("/api", async (req, res) => {
   console.log("wsl");
   const { id } = req.body;
-  if (await userModel.findById(id)) res.json({ found: true });
+  if (await UserModel.findById(id)) res.json({ found: true });
   else res.json({ found: false });
 });
 
