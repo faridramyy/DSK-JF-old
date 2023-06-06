@@ -1,28 +1,10 @@
-/* Global Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-/* Header */
-header {
-  background-color: #f5f5f5;
-  padding: 20px;
-}
-
-h2 {
-  font-size: 24px;
-  text-align: center;
-}
-
 /* Main */
-/* main {
+main {
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-} */
+}
 
 /* Course Inner Section */
 #course-inner {
@@ -158,14 +140,16 @@ p {
 .course-project div {
   margin-bottom: 15px;
 }
-
-.enroll-btn {
+.deadline {
+  color: red;
+}
+.project-btn {
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
 }
 
-.enroll-btn a {
+.project-btn a {
   display: inline-block;
   margin-left: 10px;
   padding: 10px 20px;
@@ -176,8 +160,25 @@ p {
   transition: background-color 0.3s ease;
 }
 
-.enroll-btn a:hover {
+.project-btn a:hover {
   background-color: #0056b3;
+  color: white;
+}
+.project-btn button {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #00a908;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.project-btn button:hover {
+  background-color: #0b3a00;
+  color: white;
 }
 
 @media (max-width: 768px) {
@@ -185,12 +186,50 @@ p {
     max-width: 100%;
   }
 
-  .enroll-btn {
+  .project-btn {
     justify-content: center;
   }
 
-  .enroll-btn a {
+  .project-btn a {
     margin-left: 0;
     margin-top: 10px;
   }
+}
+/* Course Project section */
+.course-project-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.course-project-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.course-project-card p {
+  margin-bottom: 10px;
+}
+
+.project-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.project-btn a {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.project-btn a:hover {
+  background-color: #0056b3;
 }
