@@ -108,3 +108,20 @@ a:focus {
   font-size: 18px;
   font-weight: 600;
 }
+
+/*   ____________________     */
+.progress {
+  height: 3px !important;
+}
+.progress-bar-danger {
+  background-color: #e90f10;
+}
+.progress-bar-warning{
+  background-color: #ffad00;
+}
+.progress-bar-success{
+  background-color: #02b502;
+}
+.list-unstyled{
+display: none;
+}
