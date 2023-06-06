@@ -146,6 +146,12 @@ th {
 tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+.removebtn {
+  color: red;
+}
+.ban {
+  color: rgb(28, 0, 92);
+}
 .container {
   display: flex;
   align-items: center;
