@@ -9,6 +9,7 @@ import registrationRouter from "./routes/registration.js";
 import adminRouter from "./routes/admin.js";
 import instructorRouter from "./routes/instructor.js";
 import studnetRouter from "./routes/student.js";
+import homeRouter from "./routes/static.js";
 //Schema
 import UserModel from "./models/user.js";
 //Middlewares
@@ -34,6 +35,7 @@ app.use(registrationRouter);
 app.use("/admin", adminAuth, adminRouter);
 app.use("/instructor", instructorRouter);
 app.use("/student", studentAuth, studnetRouter);
+app.use(homeRouter);
 
 app.post("/api", async (req, res) => {
   console.log("wsl");
