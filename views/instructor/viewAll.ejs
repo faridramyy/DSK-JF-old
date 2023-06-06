@@ -88,11 +88,7 @@
         <div class="pagination">
           <ul>
             <% const number=Math.ceil(studentsLength / studentsPerPage) || 0 %>
-            <% console.log('nnnnnnnnnnnnnnnnnnnnnnn'); %>
-            <% console.log(number); %>
-            <% console.log(studentsLength); %>
-            <% console.log(studentsPerPage); %>
-
+           
               <%for(let i=0; i < number; i++) { %>
                 <li><a value="<%=i+1 %>" href="?p=<%=i %>">
                     <%=i+1 %>

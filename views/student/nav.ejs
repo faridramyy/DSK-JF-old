@@ -1,18 +1,18 @@
 <header>
   <!--Navigation-->
   <nav id="nav">
-    <img src="/img/DSK-JF-light-logo.png" alt="" />
+    <img src="/img/logos/DSK-JF-light-logo.png" alt="" />
     <div class="navigation">
       <div class="secondary-nav">
         <ul>
-          <li><a href="/student">Home</a></li>
-          <li><a href="/student/courses">Courses</a></li>
+          <li><a href="/student/<%= user._id %>">Home</a></li>
+          <li><a href="/student/<%= user._id %>/courses">Courses</a></li>
           <li class="dropdown">
             <a href="#" class="dropbtn">My Courses <i class="fas fa-caret-down"></i></a>
             <div class="dropdown-content">
               <% if (courses.length> 0) { %>
                 <% courses.forEach((course)=> { %>
-                  <a href="/<%= user._id %>/courseInner/<%= course._id %>">
+                  <a href="/student/<%= user._id %>/courseInner/<%= course._id %>">
                     <%= course.title %>
                   </a>
                   <% }); %>
@@ -30,7 +30,7 @@
         <!-- Replace with your notifications icon -->
       </div>
       <div class="profile">
-        <img src="/img/defaultPP.png" alt="user image" onclick="showMenu()" id="profilePic" />
+        <img src="/img/default/defaultPP.png" alt="user image" onclick="showMenu()" id="profilePic" />
         <div class="list" id="profileMenu">
           <ul>
             <li><a href="/student/settings">Manage your account</a></li>

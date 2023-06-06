@@ -17,17 +17,14 @@
 
 <body>
     <%- include("./nav.ejs") %>
-        <section>
-            <% if (courses.length) {%>
-                <% courses.forEach(course=> { %>
+        <section class="parent">
+            <% if (allCourses.length) {%>
+                <% allCourses.forEach(course=> { %>
                     <section class="services-card">
                         <span class="container">
                             <h3>
                                 <%=course.title%>
-                            </h3>
-                            <p>
-                                <%=course.Instructor %>
-                            </p>
+                            </h3>                         
                             <img src="<%=course.coverPic%>" width="10%" />
                             <p>Enrolled studens:<%=course.numberOfStudents %>
                             </p>
