@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <script
+      src="https://kit.fontawesome.com/0b0cd0c012.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/student/home.css" />
+    <link rel="stylesheet" href="/css/student/nav.css" />
+    <link rel="stylesheet" href="/css/student/footer.css" />
+    <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
+    <title>Student Page</title>
+  </head>
 
-  <script src="https://kit.fontawesome.com/0b0cd0c012.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/student/home.css" />
-  <link rel="stylesheet" href="/css/student/nav.css" />
-  <link rel="stylesheet" href="/css/student/footer.css" />
-  <link rel="icon" type="image/x-icon" href="/img/logos/DSK-JF-logo.png" />
-  <title>Student Page</title>
-</head>
-
-<body data-userId="<%= user._id%>">
-  <%- include("./partials/nav.ejs") %>
+  <body data-userId="<%= user._id%>">
+    <%- include("./partials/nav.ejs") %>
     <main>
       <!-- Main Body Section -->
       <div class="main_body">
@@ -112,7 +117,7 @@
       <section class="jokes">
         <div class="jokes-card">
           <p>Generate code form Aussie 10 % OFF</p>
-          <div id="code"></div>
+          <div id="code"><%=user.code %></div>
           <button id="generateCode">Generate</button>
         </div>
       </section>
@@ -121,106 +126,112 @@
     <!-- footer  -->
     <%- include("./partials/footer.ejs") %>
 
-      <!-- Aussie  -->
-      <script type="module">
-        // import userModel from "../../models/user.js";
+    <!-- Aussie  -->
+    <script type="module">
 
-        const generateCode = document
-          .getElementById("generateCode")
-          .addEventListener("click", async () => {
-            const userId = "<%= user._id%>";
+      const generateCode = document
+        .getElementById("generateCode")
+        .addEventListener("click", async () => {
+          const userId = "<%= user._id%>";  
 
-            try {
-              await fetch("https://aussiefood.store/api/dskjf/newuser", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  userId,
-                }),
-              })
-                .then((res) => {
-                  return res.json();
-                })
-                .then((data) => {
-                  document.getElementById("code").innerHTML = data.code;
-                });
-            } catch (err) {
-              console.log(err);
-            }
-          });
-      </script>
-
-      <!-- Jokes API -->
-      <script>
-        const generateButton = document.getElementById("generate");
-        const jokesContainer = document.querySelector("#cnjokes");
-
-        function fetchJoke() {
-          fetch("https://api.chucknorris.io/jokes/random")
-            .then((response) => response.json())
-            .then((joke) => {
-              const jokeElement = `<p class="joke">${joke.value}</p>`;
-              jokesContainer.innerHTML = jokeElement;
+          try {
+            await fetch("https://aussiefood.store/api/dskjf/newuser", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId,
+              }),
             })
-            .catch((error) => {
-              console.error("Error fetching joke:", error);
-            });
-        }
-
-        generateButton.addEventListener("click", fetchJoke);
-      </script>
-      <!-- Trivia Game -->
-      <script>
-        window.onload = sendApiRequest;
-
-        async function sendApiRequest() {
-          let response = await fetch(
-            `https://opentdb.com/api.php?amount=1&category=18&difficulty=easy&type=multiple`
-          );
-          console.log(response);
-          let data = await response.json();
-          console.log(data);
-          useApiData(data);
-        }
-
-        function useApiData(data) {
-          document.querySelector(
-            "#category"
-          ).innerHTML = `category: ${data.results[0].category}`;
-          document.querySelector(
-            "#difficulty"
-          ).innerHTML = `difficulty: ${data.results[0].difficulty}`;
-          document.querySelector(
-            "#question"
-          ).innerHTML = `question: ${data.results[0].question}`;
-          document.querySelector("#answer1").innerHTML =
-            data.results[0].incorrect_answers[1];
-          document.querySelector("#answer2").innerHTML =
-            data.results[0].incorrect_answers[0];
-          document.querySelector("#answer3").innerHTML = data.results[0].correct_answer;
-          document.querySelector("#answer4").innerHTML =
-            data.results[0].incorrect_answers[2];
-        }
-
-        let correctButton = document.querySelector("#answer3");
-        correctButton.addEventListener("click", () => {
-          document.getElementById("correct").innerHTML = "Correct! You are so smart!";
-          document.getElementById("correct").style.display = "block";
-          document.getElementById("wrong").innerHTML = "";
-          sendApiRequest();
+              .then((res) => {
+                console.log(res)
+                return res.json();
+              })
+              .then((data) => {
+                console.log(data)
+                document.getElementById("code").innerHTML = data.code;
+              });
+          } catch (err) {
+            console.log(err);
+          }
         });
-        let wrongAnswers = [document.querySelector("#answer1"), document.querySelector("#answer2"), document.querySelector("#answer4")]
-        wrongAnswers.forEach(answer => {
-          answer.addEventListener("click", () => {
-            document.getElementById("wrong").innerHTML = "Wrong answer! Try again";
-            document.getElementById("wrong").style.display = "block";
-            document.getElementById("correct").innerHTML = "";
+    </script>
+
+    <!-- Jokes API -->
+    <script>
+      const generateButton = document.getElementById("generate");
+      const jokesContainer = document.querySelector("#cnjokes");
+
+      function fetchJoke() {
+        fetch("https://api.chucknorris.io/jokes/random")
+          .then((response) => response.json())
+          .then((joke) => {
+            const jokeElement = `<p class="joke">${joke.value}</p>`;
+            jokesContainer.innerHTML = jokeElement;
           })
-        })
+          .catch((error) => {
+            console.error("Error fetching joke:", error);
+          });
+      }
 
-      </script>
-</body>
+      generateButton.addEventListener("click", fetchJoke);
+    </script>
+    <!-- Trivia Game -->
+    <script>
+      window.onload = sendApiRequest;
 
+      async function sendApiRequest() {
+        let response = await fetch(
+          `https://opentdb.com/api.php?amount=1&category=18&difficulty=easy&type=multiple`
+        );
+        console.log(response);
+        let data = await response.json();
+        console.log(data);
+        useApiData(data);
+      }
+
+      function useApiData(data) {
+        document.querySelector(
+          "#category"
+        ).innerHTML = `category: ${data.results[0].category}`;
+        document.querySelector(
+          "#difficulty"
+        ).innerHTML = `difficulty: ${data.results[0].difficulty}`;
+        document.querySelector(
+          "#question"
+        ).innerHTML = `question: ${data.results[0].question}`;
+        document.querySelector("#answer1").innerHTML =
+          data.results[0].incorrect_answers[1];
+        document.querySelector("#answer2").innerHTML =
+          data.results[0].incorrect_answers[0];
+        document.querySelector("#answer3").innerHTML =
+          data.results[0].correct_answer;
+        document.querySelector("#answer4").innerHTML =
+          data.results[0].incorrect_answers[2];
+      }
+
+      let correctButton = document.querySelector("#answer3");
+      correctButton.addEventListener("click", () => {
+        document.getElementById("correct").innerHTML =
+          "Correct! You are so smart!";
+        document.getElementById("correct").style.display = "block";
+        document.getElementById("wrong").innerHTML = "";
+        sendApiRequest();
+      });
+      let wrongAnswers = [
+        document.querySelector("#answer1"),
+        document.querySelector("#answer2"),
+        document.querySelector("#answer4"),
+      ];
+      wrongAnswers.forEach((answer) => {
+        answer.addEventListener("click", () => {
+          document.getElementById("wrong").innerHTML =
+            "Wrong answer! Try again";
+          document.getElementById("wrong").style.display = "block";
+          document.getElementById("correct").innerHTML = "";
+        });
+      });
+    </script>
+  </body>
 </html>
