@@ -58,7 +58,8 @@ app.get("/gotbanned/:id", async (req, res) => {
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
-  res.status(404).send("404");
+  // res.status(404).send("404");
+  res.render("404");;
 });
 
 app.listen(port, () => {
