@@ -179,3 +179,39 @@ body::-webkit-scrollbar {
 #facebook {
   color: #4267b2;
 }
+.card {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.card h1 {
+  color: #333;
+  font-size: 24px;
+}
+
+.card p {
+  color: #555;
+  font-size: 16px;
+}
+.container404{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card404{
+  position: relative;
+  background-color: #919191;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px; /* Adjust the padding to create space around the content */
+  background-color: #f1f1f1;
+}
