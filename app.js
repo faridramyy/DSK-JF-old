@@ -55,11 +55,15 @@ app.get("/gotbanned/:id", async (req, res) => {
     user: await UserModel.findById(req.params.id),
   });
 });
+//Handle banned users
+app.get("/error", async (req, res) => {
+  res.render("error");
+});
 
 // Handle 404 (Not Found)
 app.use((req, res) => {
   // res.status(404).send("404");
-  res.render("404");;
+  res.render("404");
 });
 
 app.listen(port, () => {
