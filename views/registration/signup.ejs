@@ -223,7 +223,7 @@
         e.preventDefault();
 
         const errorMsg = validateForm(form);
-        if (errorMsg) return (error.innerHTML = errorMsg);
+        if (errorMsg) return error.innerHTML = errorMsg;
 
         try {
           const res = await fetch("/signup", {

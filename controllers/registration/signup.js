@@ -13,10 +13,11 @@ const signup_post = async (req, res) => {
     email,
     password,
     gpa,
-    createdByAdmin = 0,
+    createdByAdmin = false, // <---
   } = req.body;
 
   try {
+
     if (await userModel.findOne({ email }))
       return res.status(409).json({ errMsg: "Email is Taken" });
 

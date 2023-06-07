@@ -103,39 +103,20 @@
           <% if (students.length) {%>
           <table>
             <tr>
-              <th></th>
               <th>Name</th>
               <th>Add</th>
             </tr>
 
             <% students.forEach(item=> { %>
             <tr class="user" id="user">
+              <td><%= item.firstName %></td>
               <td>
-                <input type="checkbox" class="checkbox" />
-                <div class="right-and-wrong" style="display: none">
-                  <i
-                    class="fa-solid fa-check"
-                    style="color: green; cursor: pointer"
-                  ></i>
-                  <i
-                    class="fa-solid fa-xmark"
-                    style="color: red; cursor: pointer"
-                  ></i>
-                </div>
-              </td>
-              <td>
-                <div class="container">
-                  <input
-                    type="text"
-                    value="<%= item.firstName + ' ' + item.lastName %>"
-                    readonly
-                  />
-                </div>
-              </td>
-              <td>
-                <a href="/admin/<%= course._id %>/addStudent/<%= item._id %>"
-                  >Add</a
+                <button
+                  class="<%= Arrayofstudents.includes(item._id) ? `remove` : `add`%> button"
+                  id="<%=item._id %>"
                 >
+                  <%= Arrayofstudents.includes(item) ? "remove" : "add"%>
+                </button>
               </td>
             </tr>
             <% }); %>
@@ -145,26 +126,10 @@
       </section>
     </main>
     <script type="module">
-      const menu = document.getElementById("addNewCourse");
-      const newCourseBtn = document.getElementById("newCourseBtn");
-
-      newCourseBtn.addEventListener("click", () => {
-        menu.classList.toggle("activee");
-      });
-
-      document.addEventListener("dblclick", function (e) {
-        if (
-          menu.classList.contains("activee") &&
-          !menu.contains(e.target) &&
-          !newCourseBtn.contains(e.target)
-        ) {
-          menu.classList.remove("activee");
-          document.getElementById("form").reset();
-        }
-      });
-
       // << Start >> form Validation
       import { validateForm } from "/js/formValidation.js";
+      import sendCode from "/js/sendErrorEmail.js";
+
       const form = document.getElementById("form");
       const error = document.getElementById("error");
       const addStudentButton = document.getElementsByClassName("addStudent");
@@ -177,33 +142,8 @@
           const errorMsg = validateForm(form);
           console.log(studentId);
           if (errorMsg) return (error.innerHTML = errorMsg);
-          // start Add Student
-          try {
-            const res = await fetch(
-              "/courses/<%= course.id%>/addstudent/" + studentId,
-              {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  courseId: "<%= course._id %>",
-                  studnetId: studentId,
-                }),
-              }
-            );
-            const data = await res.json();
-            if (data.msg) {
-              error.style.color = "green";
-              error.innerHTML = "Added";
-              location.reload();
-            } else if (data.err) location.assign("/error");
-          } catch (err) {
-            console.log(err);
-            location.assign("/error");
-          }
         });
       });
-
-      // << End >> form Validation
     </script>
 
     <!-- change course picture  -->
@@ -217,7 +157,6 @@
           const fileToUpload = document.getElementById("fileToUpload").files[0];
           const formData = new FormData();
           formData.append("file", fileToUpload);
-          console.log("wahed");
           const res = await fetch(
             "/admin/courses/<%= course._id %>/changeppcourse",
             {
@@ -243,6 +182,28 @@
           document.getElementById("PreLoaderBar").style.display = "none";
         }
       };
+    </script>
+
+    <script>
+      const btn = document.getElementsByClassName("button");
+
+      Array.from(btn).forEach((b) => {
+        b.addEventListener("click", async (e) => {
+          const userid = b.id;
+          const courseid = "<%=course._id %>";
+          console.log(userid, courseid);
+
+          try {
+            const res = await fetch(`/admin/${courseid}/addStudent/${userid}`, {
+              method: "PUT",
+            });
+            const data = await res.json();
+            if (data.msg) location.reload();
+          } catch (err) {
+            console.log(err);
+          }
+        });
+      });
     </script>
   </body>
 </html>

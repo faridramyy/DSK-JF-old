@@ -8,12 +8,13 @@ const courses_get = async (req, res) => {
     let instructors = await userModel.find({ role: "Instructor" });
     const page = req.query.p || 0;
     const coursesPerPage = 8;
-    let coursess = await courseModel.find();
-    const coursesLength = coursess.length;
+    const coursesLength = await courseModel.count();
+
     const course = await courseModel
       .find()
       .skip(page * coursesPerPage)
       .limit(coursesPerPage);
+
     res.render("admin/courses", {
       user: await userModel.findById(req.params.id),
       dirname: __dirname,
@@ -48,8 +49,10 @@ const course_post = async (req, res) => {
 const innerCourse_get = async (req, res) => {
   const courseId = req.params.Cid;
   try {
-    const course = await courseModel.findById(courseId);
+    const course = await courseModel.findById(courseId).populate()  ;
+
     const Arrayofstudents = course.students;
+
     const instructor = await userModel.findById(course.instructorId);
     const students = await userModel.find({ role: "student" });
     res.render("admin/courseInner", {
@@ -73,22 +76,16 @@ const addStudentToCourse_put = async (req, res) => {
 
   try {
     const course = await courseModel.findById(courseId);
-    if (course) {
-      let availableStudent = course.students.includes(studentId);
-      if (!availableStudent) {
-        course.students.push(studentId);
-        course.numberOfStudents++; // Increment the number of students
-        course.save();
 
-        // Save the course in the user's courses array
-        const user = await userModel.findById(studentId);
-        user.courses.push(courseId);
-        user.save();
-        res.json({ msg: "done" });
-      } else {
-        res.json({ errMsg: "Student already exists." });
-      }
-    }
+    course.students.push(studentId);
+    course.numberOfStudents++;
+    course.save();
+
+    // Save the course in the user's courses array
+    const user = await userModel.findById(studentId);
+    user.courses.push(courseId);
+    user.save();
+    res.json({ msg: "done" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: true });
@@ -126,7 +123,6 @@ const changePPcourse_put = async (req, res) => {
     res.status(400).json({ err: true });
   }
 };
-
 
 export default {
   courses_get,

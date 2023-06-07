@@ -3,8 +3,7 @@ import userModel from "../../models/user.js";
 const users_get = async (req, res) => {
   const page = req.query.p || 0;
   const usersPerPage = 10;
-  let userss = await userModel.find();
-  const usersLength = userss.length;
+  let usersLength = await userModel.count();
 
   let users = await userModel
     .find()

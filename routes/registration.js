@@ -18,9 +18,11 @@ router.post("/forgetpassword/sendcode", forgetpassword.resendCode_post);
 router.post("/forgetpassword/checkcode", forgetpassword.checkCode_post);
 router.put("/forgetpassword/update", forgetpassword.updatePassword_put);
 
-router.get("/logout", function (req, res) {
+router.get("/logout", (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/login");
 });
 
 export default router;
+
+
